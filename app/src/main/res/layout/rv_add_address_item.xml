@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/StvColor"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_address"
+        android:paddingTop="20dp"
+        android:paddingLeft="15dp"
+        android:textColor="@color/tvNormalColor"
+        android:textSize="@dimen/tv_minor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_detail_address"
+        android:paddingTop="4dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="15dp"
+        android:textColor="@color/tvNormalColor"
+        android:textSize="@dimen/tv_minor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <View style="@style/LineLongStyle"/>
+    <LinearLayout
+        android:paddingLeft="15dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_default"
+            android:background="@null"
+            android:text="@string/edit_ship_address_default"
+            android:drawableLeft="@mipmap/not_select_s"
+            android:textColor="@color/tvNormalColor"
+            android:textSize="@dimen/tv_m_min"
+            android:drawablePadding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp" />
+        <View
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <TextView
+            android:background="@null"
+            android:text="@string/edit"
+            android:padding="14dp"
+            android:textColor="@color/tvNormalColor"
+            android:textSize="@dimen/tv_m_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_edit" />
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:background="@null"
+            android:text="@string/delete"
+            android:padding="14dp"
+            android:textColor="@color/tvNormalColor"
+            android:textSize="@dimen/tv_m_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:background="@mipmap/address_line"
+        android:layout_height="wrap_content" />
+    <View style="@style/SpaceSecondStyle"/>
+</LinearLayout>

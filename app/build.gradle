@@ -1,0 +1,77 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+apply plugin: 'org.greenrobot.greendao'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdk
+    buildToolsVersion rootProject.ext.buildTools
+    defaultConfig {
+        applicationId "com.hc360.koiambuyer"
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+    compile "com.android.support:appcompat-v7:${rootProject.ext.support}"
+    compile "com.android.support:design:${rootProject.ext.support}"
+    compile "com.android.support:recyclerview-v7:${rootProject.ext.support}"
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    //rxjava
+    compile 'io.reactivex:rxjava:1.1.9'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    compile 'com.trello:rxlifecycle:1.0'
+    compile 'com.trello:rxlifecycle-components:1.0'
+    // retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    // okhttp3
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okio:okio:1.9.0'
+    // logger
+    compile 'com.orhanobut:logger:1.15'
+    //SpinKit
+    compile 'com.github.ybq:Android-SpinKit:1.0.1'
+    //greendao
+    compile 'org.greenrobot:greendao:3.2.0'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.8.5'
+    compile "com.android.support:cardview-v7:${rootProject.ext.support}"
+    //easypermissions
+    compile 'pub.devrel:easypermissions:0.4.2'
+    compile 'jp.wasabeef:glide-transformations:2.0.1'
+    compile 'com.jcodecraeer:xrecyclerview:1.5.9'
+    compile 'com.github.chrisbanes:PhotoView:1.2.6'
+    //地址选择
+    compile 'com.contrarywind:Android-PickerView:3.0.9'
+
+    compile 'com.alibaba:fastjson:1.2.39'
+    //流式布局
+    compile 'com.hyman:flowlayout-lib:1.1.2'
+
+}

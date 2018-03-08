@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/head"
+    android:background="@color/StvColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_toolbar"/>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/LineColor"
+        android:layout_height="1px"/>
+    <include layout="@layout/layout_xrecyclerview"/>
+    <android.support.v7.widget.CardView
+        app:cardElevation="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.hc360.koiambuyer.widget.SingleTextView
+            android:id="@+id/stv_add_address"
+            android:text="@string/ship_address_add"
+            style="@style/STVLongStyle" />
+    </android.support.v7.widget.CardView>
+</LinearLayout>

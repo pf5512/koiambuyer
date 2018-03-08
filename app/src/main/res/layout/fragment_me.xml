@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:overScrollMode="never"
+    android:scrollbars="none"
+    android:layout_height="wrap_content"
+    android:background="@color/StvColor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:background="@mipmap/me_bg_buyer"
+            android:layout_width="match_parent"
+            android:layout_height="145dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="45dp">
+                <TextView
+                    android:id="@+id/tv_code"
+                    android:text="@string/me_qr_code"
+                    android:padding="10dp"
+                    android:textColor="@color/StvColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="40dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:id="@+id/rl_person"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLength="8"
+                            android:maxLines="1"
+                            android:textColor="@color/StvColor"
+                            android:textSize="24dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_name"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="6dp"
+                            android:drawablePadding="6dp"
+                            android:drawableRight="@mipmap/in_w"
+                            android:text="@string/me_edit_info"
+                            android:textColor="@color/StvColor"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+                    <FrameLayout
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp">
+                        <android.support.v7.widget.CardView
+                            app:cardCornerRadius="28.5dp"
+                            app:cardElevation="0dp"
+                            android:layout_width="57dp"
+                            android:layout_height="57dp">
+                            <ImageView
+                                android:id="@+id/iv_head"
+                                android:src="@mipmap/buyer_head"
+                                android:scaleType="centerCrop"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </android.support.v7.widget.CardView>
+                        <ImageView
+                            android:id="@+id/iv_prove_flag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|right" />
+                    </FrameLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View style="@style/LineLongStyle" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="22dp"/>
+
+        <TextView
+            style="@style/MeTvStyle"
+            android:text="@string/me_enquiry"
+            android:id="@+id/tv_enquiry"/>
+
+        <View style="@style/LineLongStyle" />
+        <TextView
+            android:text="@string/me_ship_address"
+            android:id="@+id/tv_ship_address"
+            style="@style/MeTvStyle" />
+        <View style="@style/LineLongStyle" />
+        <TextView
+            android:id="@+id/tv_messages"
+            style="@style/MeSettingTvStyle"
+            android:text="@string/me_msg" />
+
+        <View
+            style="@style/LineLongStyle" />
+        <TextView
+            android:id="@+id/tv_suggestion"
+            style="@style/MeSettingTvStyle"
+            android:text="@string/me_suggestion" />
+        <View style="@style/LineLongStyle" />
+        <TextView
+            android:id="@+id/tv_setting"
+            style="@style/MeSettingTvStyle"
+            android:text="@string/me_setting" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
+
+

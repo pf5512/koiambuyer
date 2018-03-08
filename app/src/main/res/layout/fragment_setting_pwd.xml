@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/StvColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        style="@style/LLWithPaddingStyle">
+        <TextView
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            style="@style/TvLeftWapStyle"
+            android:text="@string/set_pwd"/>
+        <EditText
+            android:id="@+id/et_set"
+            android:layout_weight="1"
+            style="@style/EtMidStyle"
+            android:textColorHint="@color/HintColor"
+            android:inputType="textPassword"
+            android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ"
+            android:paddingLeft="14dp"
+            android:layout_marginLeft="10dp"
+            android:hint="@string/set_pwd_hint" />
+    </LinearLayout>
+    <View
+        style="@style/LineLongStyle"/>
+    <LinearLayout
+        style="@style/LLWithPaddingStyle">
+        <TextView
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            style="@style/TvLeftWapStyle"
+            android:text="@string/set_confirm_pwd"/>
+        <EditText
+            android:id="@+id/et_confirm"
+            android:layout_weight="1"
+            style="@style/EtMidStyle"
+            android:textColorHint="@color/HintColor"
+            android:layout_marginLeft="10dp"
+            android:inputType="textPassword"
+            android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ"
+            android:paddingLeft="14dp"
+            android:hint="@string/set_confirm_pwd_hint" />
+    </LinearLayout>
+    <include layout="@layout/layout_stv"/>
+
+</LinearLayout>

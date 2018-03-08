@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/StvColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/ll_address"
+        style="@style/LLWithPaddingStyle">
+        <TextView
+          style="@style/TvLeftWapStyle"
+          android:text="@string/edit_ship_address_local"/>
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_weight="1"
+            style="@style/EtMidStyle"
+            android:paddingLeft="14dp"
+            android:textColorHint="@color/minorColor"
+            android:hint="@string/edit_ship_address_local_hint" />
+        <ImageView
+            android:src="@mipmap/in"
+            android:layout_gravity="center_vertical"
+            android:layout_width="12dp"
+            android:layout_height="12dp" />
+    </LinearLayout>
+    <View style="@style/LineLongStyle"/>
+    <LinearLayout
+        style="@style/LLWithPaddingStyle">
+        <TextView
+            style="@style/TvLeftWapStyle"
+            android:text="@string/edit_ship_address_detail"/>
+        <EditText
+            android:id="@+id/et_address_detail"
+            android:layout_weight="1"
+            style="@style/EtMidStyle"
+            android:textColorHint="@color/minorColor"
+            android:paddingLeft="14dp"
+            android:hint="@string/edit_ship_address_detail_hint" />
+    </LinearLayout>
+    <View style="@style/LineLongStyle"/>
+    <FrameLayout
+        android:id="@+id/fl_default"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_default"
+            android:layout_marginLeft="15dp"
+            android:drawableLeft="@mipmap/not_select_s"
+            android:drawablePadding="4dp"
+            android:text="@string/edit_ship_address_default"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+    <include layout="@layout/layout_stv"/>
+</LinearLayout>

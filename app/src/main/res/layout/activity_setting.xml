@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/head"
+    android:background="@color/StvColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_toolbar"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/LineColor"
+        android:layout_height="1px"/>
+
+    <TextView
+        android:id="@+id/tv_change_phone"
+        android:text="@string/setting_edit_phone"
+        style="@style/SettingTvStyle" />
+
+    <View style="@style/LineLongStyle" />
+    <TextView
+        android:id="@+id/tv_change_pwd"
+        android:text="@string/setting_edit_pwd"
+        style="@style/SettingTvStyle" />
+    <View style="@style/SpaceStyle" />
+
+
+    <TextView
+        android:id="@+id/tv_about_us"
+        android:text="@string/setting_about_us"
+        style="@style/SettingTvStyle" />
+    <View style="@style/LineLongStyle" />
+    <LinearLayout
+        android:id="@+id/ll_update_version"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/setting_version"
+            style="@style/TvLeftStyle" />
+        <TextView
+            android:id="@+id/tv_version"
+            style="@style/TvRightIconStyle" />
+    </LinearLayout>
+    <View
+        android:layout_height="30dp"
+        style="@style/SpaceStyle"/>
+    <TextView
+        android:id="@+id/tv_login_out"
+        android:text="@string/setting_login_out"
+        android:gravity="center"
+        android:textSize="@dimen/tv_mid_size"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <View
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        style="@style/SpaceStyle"/>
+
+</LinearLayout>

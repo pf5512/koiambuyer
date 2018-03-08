@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="EmptyLayout">
+        <attr name="background_color" format="color"/>
+    </declare-styleable>
+    <declare-styleable name="SingleTextView">
+        <attr name="bg_normal_color" format="color"/>
+        <attr name="bg_press_color" format="color"/>
+        <attr name="radius" format="dimension"/>
+        <attr name="selectable" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="PopBottomTextView">
+        <attr name="bg_normal" format="reference"/>
+        <attr name="bg_press" format="reference"/>
+        <attr name="tv_normal_color" format="color"/>
+        <attr name="tv_press_color" format="color"/>
+    </declare-styleable>
+
+    <attr name="borderRadius" format="dimension" />
+    <attr name="type">
+        <enum name="circle" value="0" />
+        <enum name="round" value="1" />
+    </attr>
+
+
+    <declare-styleable name="RoundImageView">
+        <attr name="borderRadius" />
+        <attr name="type" />
+    </declare-styleable>
+
+</resources>

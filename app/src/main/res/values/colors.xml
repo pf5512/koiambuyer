@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFAB100</color>
+    <color name="colorPrimaryDark">#FFFAB100</color>
+    <color name="colorAccent">#FFFAB100</color>
+
+    <color name="colorBuyPrimary">#FFFAB100</color>
+    <color name="colorBuyPrimaryDark">#FFFAB100</color>
+    <color name="colorBuyAccent">#FFFAB100</color>
+
+    <color name="colorSellerPrimary">#FFFAB100</color>
+    <color name="colorSellerPrimaryDark">#FFFAB100</color>
+    <color name="colorSellerAccent">#FFFAB100</color>
+
+    <color name="mainColor">#FFFAB100</color>
+
+    <color name="sellerColor">#FF02C2A2</color>
+    <color name="sellerSelectColor">#FFD4FDF7</color>
+    <color name="mainDarkColor">#bb019B8C</color>
+
+    <color name="mainStatusBarColor">#FF019B8C</color>
+    <color name="mainSelectColor">#FF019B8C</color>
+    <color name="mainPressColor">#3302C2A2</color>
+    <color name="minorColor">#9B9B9B</color>
+    <color name="minorSecondColor">#FF5D5D5D</color>
+    <color name="pressColor">#FCCC</color>
+    <color name="tvNormalColor">#FF2E2E30</color>
+    <color name="LineColor">#E2E2E2</color>
+    <color name="HintColor">#BDBDBD</color>
+    <color name="KeepColor">#D2D2D2</color>
+    <color name="StvColor">#FFFFFFFF</color>
+    <color name="StvSColor">#88FFFFFF</color>
+    <color name="StvPressColor">#FCCC</color>
+    <color name="TitleColor">#FF2E2E30</color>
+    <color name="BgColor">#F5F5F5</color>
+    <color name="msgNumColor">#FFFF8800</color>
+    <color name="refuseColor">#FFFAB100</color>
+
+    <color name="buyerColor">#FFFAB100</color>
+    <color name="buyerSelectColor">#33FAB100</color>
+    <color name="refuseDarkColor">#e09e00</color>
+    <color name="buyerDarkColor">#EDA700</color>
+
+    <color name="refuseStatusBarColor">#FFFF8800</color>
+    <color name="refusePressColor">#e09e00</color>
+    <color name="refuseSelectColor">#FFC88D00</color>
+    <color name="transparentColor">#00000000</color>
+    <color name="priceColor">#FF5D5D5D</color>
+    <color name="proveColoring">#99FFFFFF</color>
+    <color name="picColor">#3000</color>
+    <color name="moneyColor">#FFFF3A2E</color>
+    <color name="searchColor">#FFEFEFEF</color>
+    <color name="chatItemColorBg">#F9F9F9</color>
+    <color name="unableClick">#d2d2d2</color>
+    <color name="FinishColor">#BB2E2E30</color>
+    <color name="PopBg">#33000000</color>
+    <color name="cusStatusBarColor">#FF2E2E30</color>
+
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_tfl"
+    android:layout_marginTop="8dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="9dp"
+    android:paddingBottom="9dp"
+
+    android:layout_marginBottom="8dp"
+    android:textColor="@color/tvNormalColor"
+    android:background="@drawable/selector_flowlayout_tv_bg"
+    android:textSize="14sp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />

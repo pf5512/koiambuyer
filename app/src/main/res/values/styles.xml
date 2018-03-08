@@ -1,0 +1,432 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/MyTextViewStyle</item>
+    </style>
+    <style name="MyTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/minorColor</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <style name="AppTheme.FullScreen" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="myToolbarNavigationButtonStyle" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="android:minWidth">0dp</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
+    <style name="MyToolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="contentInsetStart">1dp</item>
+    </style>
+
+    <!--AccountActivity中的线的默认样式-->
+    <style name="BaseLineStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/account_line_height</item>
+        <item name="android:background">@color/LineColor</item>
+    </style>
+
+    <style name="LineStyle" parent="BaseLineStyle">
+        <item name="android:layout_marginLeft">@dimen/content_padding</item>
+        <item name="android:layout_marginRight">@dimen/content_padding</item>
+    </style>
+
+    <!--AccountActivity中的长线的默认样式-->
+    <style name="LineLongStyle" parent="BaseLineStyle">
+        <item name="android:layout_marginLeft">@dimen/content_padding_short</item>
+        <item name="android:layout_marginRight">@dimen/content_padding_short</item>
+    </style>
+
+    <!--间隔的默认样式-->
+    <style name="SpaceStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/space_height</item>
+        <item name="android:background">@color/BgColor</item>
+    </style>
+
+    <!--间隔的默认样式-->
+    <style name="SpaceSecondStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/space_height</item>
+        <item name="android:background">@color/chatItemColorBg</item>
+    </style>
+
+    <!--间隔的默认样式-->
+    <style name="BgStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/BgColor</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <!--设置的默认样式-->
+    <style name="SettingTvStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/content_padding_short</item>
+        <item name="android:layout_marginRight">@dimen/content_padding_short</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:drawableRight">@mipmap/in</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/TitleColor</item>
+    </style>
+
+    <!--首页底部导航栏-->
+    <style name="HomeBottomTvStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:drawablePadding">6dp</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <!--设置的LinearLayout默认样式-->
+    <style name="LLStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <!--设置的LinearLayout带padding样式-->
+    <style name="LLWithPaddingStyle" parent="LLStyle">
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+    </style>
+
+    <style name="LLPriceUpStyle" parent="LLStyle">
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+    </style>
+
+    <!--设置的LinearLayout带padding样式-->
+    <style name="LLPriceStyle" parent="LLStyle">
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+    </style>
+
+    <!--设置的默认样式left-->
+    <style name="TvLeftStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/content_padding_short</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:textSize">14.5sp</item>
+        <item name="android:textColor">@color/TitleColor</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <!--设置的默认样式left-->
+    <style name="TvLeftWStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/content_padding_short</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:textSize">14.5sp</item>
+        <item name="android:textColor">@color/TitleColor</item>
+    </style>
+
+    <!--设置的默认样式left-->
+    <style name="TvLeftSecondStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/content_padding_short</item>
+        <item name="android:paddingTop">19dp</item>
+        <item name="android:paddingBottom">19dp</item>
+        <item name="android:textSize">14.5sp</item>
+        <item name="android:textColor">@color/TitleColor</item>
+    </style>
+
+    <!--新增地址的默认样式left-->
+    <style name="TvLeftWapTopStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14.5sp</item>
+        <item name="android:textColor">@color/TitleColor</item>
+    </style>
+
+    <style name="TvLeftWapStyle" parent="TvLeftWapTopStyle">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:drawablePadding">5dp</item>
+    </style>
+
+    <!--新增地址的EditText默认样式中间-->
+    <style name="EtMidStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/TitleColor</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@null</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <!--设置的默认样式right不带图标-->
+    <style name="TvRightStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/content_padding_short</item>
+        <item name="android:textSize">14.5sp</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/minorColor</item>
+    </style>
+
+    <!--设置的默认样式right不带图标-->
+    <style name="BtnRightStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14.5sp</item>
+        <item name="android:textColor">@color/minorColor</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <!--设置的默认样式right带图标-->
+    <style name="TvRightIconStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/content_padding_short</item>
+        <item name="android:textSize">14.5sp</item>
+        <item name="android:textColor">@color/mainColor</item>
+        <item name="android:textColorHint">@color/HintColor</item>
+        <item name="android:drawableRight">@mipmap/in</item>
+        <item name="android:drawablePadding">8dp</item>
+    </style>
+
+    <!--起批价格-->
+    <style name="TvPriceStyle">
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:text">购买数量</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/priceColor</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="etPriceStyle">
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:textColorHint">@color/HintColor</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:hint">起批量</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@color/BgColor</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
+    <!--AccountActivity中的EditText的默认样式-->
+    <style name="EtStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/content_padding</item>
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:layout_marginLeft">@dimen/content_padding</item>
+        <item name="android:paddingBottom">13dp</item>
+        <item name="android:textColorHint">@color/HintColor</item>
+        <item name="android:textColor">@color/mainColor</item>
+        <item name="android:textSize">@dimen/et_hint</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <!--SingleTextView的默认样式-->
+    <style name="STVStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/content_padding</item>
+        <item name="android:layout_marginRight">@dimen/content_padding</item>
+        <item name="android:paddingTop">@dimen/single_tv_padding</item>
+        <item name="android:paddingBottom">@dimen/single_tv_padding</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/StvColor</item>
+        <item name="android:textSize">@dimen/single_tv_size</item>
+    </style>
+    <!--SingleTextView的默认样式-->
+    <style name="STVLongStyle">
+        <item name="android:layout_marginBottom">7.5dp</item>
+        <item name="android:layout_marginTop">7.5dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:paddingTop">@dimen/single_tv_padding</item>
+        <item name="android:paddingBottom">@dimen/single_tv_padding</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/StvColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!--AccountActivity中的tab的默认样式-->
+    <style name="TabLlStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/account_tab_margin</item>
+        <item name="android:layout_marginRight">@dimen/account_tab_margin</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:weightSum">2</item>
+    </style>
+
+    <style name="TabTvStyle" >
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">top|center_horizontal</item>
+        <item name="android:paddingTop">18dp</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="TabTvLeftStyle" parent="TabTvStyle">
+        <item name="android:drawablePadding">7dp</item>
+        <item name="android:textColor">@color/mainColor</item>
+        <item name="android:drawableBottom">@drawable/shape_account_tab_line</item>
+    </style>
+
+    <style name="TabTvRightStyle" parent="TabTvStyle">
+        <item name="android:textColor">@color/tvNormalColor</item>
+    </style>
+
+    <!--ChildrenAccountActivity中底部按钮style-->
+    <style name="BaseBottomTvStyle" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="BottomTvStyle" parent="BaseBottomTvStyle">
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="BottomSingleTvStyle" parent="BaseBottomTvStyle">
+        <item name="android:layout_height">50dp</item>
+    </style>
+
+    <!--认证头部tv的样式-->
+    <style name="ProveTvStyle">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/StvColor</item>
+        <item name="android:textSize">@dimen/tv_min</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- 采购商/供应商  首页LinearLayout样式 -->
+    <style name="LlInfoStyle">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- 采购商/供应商  首页上面TextView样式 -->
+    <style name="TvInfoUpStyle">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/tvNormalColor</item>
+    </style>
+
+    <!-- 采购商/供应商  首页下面TextView样式 -->
+    <style name="TvInfoDownStyle">
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">#FF5D5D5D</item>
+    </style>
+
+    <!-- 聊天  发名片TextView样式 -->
+    <style name="TvChatStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#FF5D5D5D</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+    <!-- 协议内容的样式-->
+    <style name="PopTVContentStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:lineSpacingMultiplier">1.5</item>
+        <item name="android:textColor">#FF5D5D5D</item>
+        <item name="android:layout_marginTop">7.5dp</item>
+    </style>
+
+    <!-- 协议标题的样式-->
+    <style name="PopTVTitleStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#FF000000</item>
+        <item name="android:layout_marginTop">22dp</item>
+    </style>
+
+    <!--设置的默认样式-->
+    <style name="MeTvStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/content_padding_short</item>
+        <item name="android:layout_marginRight">@dimen/content_padding_short</item>
+        <item name="android:paddingTop">13dp</item>
+        <item name="android:paddingBottom">13dp</item>
+        <item name="android:drawableRight">@mipmap/in</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/TitleColor</item>
+        <item name="android:lineSpacingMultiplier">1.4</item>
+    </style>
+    <!--设置的默认样式-->
+    <style name="MeSettingTvStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/content_padding_short</item>
+        <item name="android:layout_marginRight">@dimen/content_padding_short</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/TitleColor</item>
+    </style>
+
+    <!-- 自定义Dialog主题 -->
+    <style name="BottomDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowAnimationStyle">@style/BottomDialogAnimation</item>
+    </style>
+    <!-- 自定义Dialog动画 -->
+    <style name="BottomDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/input_method_enter</item>
+        <item name="android:windowExitAnimation">@anim/input_method_exit</item>
+    </style>
+    <style name="TabText" parent="TextAppearance.AppCompat">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+</resources>

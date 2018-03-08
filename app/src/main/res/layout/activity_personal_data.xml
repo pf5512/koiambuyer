@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/StvColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_toolbar"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/LineColor" />
+    <LinearLayout style="@style/LLStyle">
+        <TextView
+            android:text="@string/personal_data_head"
+            style="@style/TvLeftStyle" />
+        <android.support.v7.widget.CardView
+            android:layout_gravity="center_vertical"
+            app:cardElevation="0dp"
+            android:layout_marginRight="15dp"
+            app:cardCornerRadius="22.5dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp">
+            <ImageView
+                android:id="@+id/iv_head"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+    <View style="@style/LineLongStyle" />
+
+    <LinearLayout
+        android:id="@+id/ll_name"
+        style="@style/LLStyle">
+        <TextView
+            android:text="@string/personal_data_name"
+            style="@style/TvLeftWStyle" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <EditText
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:paddingLeft="15dp"
+                android:background="@null"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:gravity="right|center_vertical"
+                android:id="@+id/tv_name"
+                android:textColor="@color/mainColor"
+                style="@style/TvRightStyle" />
+            <TextView
+                android:id="@+id/tv_et_hint"
+                android:layout_marginRight="16dp"
+                android:textColor="@color/HintColor"
+                android:text="@string/personal_data_name_hint"
+                android:gravity="right|center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <View style="@style/LineLongStyle" />
+    <LinearLayout
+        android:id="@+id/ll_phone"
+        style="@style/LLStyle">
+        <TextView
+            android:text="@string/personal_data_phone"
+            style="@style/TvLeftStyle" />
+        <TextView
+            android:id="@+id/tv_phone"
+            style="@style/TvRightStyle"
+            android:textColor="@color/mainColor"
+            android:text="" />
+    </LinearLayout>
+    <View style="@style/SpaceStyle" />
+    <LinearLayout
+        android:id="@+id/ll_email"
+        style="@style/LLStyle">
+        <TextView
+            android:text="@string/personal_data_email"
+            style="@style/TvLeftStyle" />
+        <TextView
+            android:id="@+id/tv_email"
+            style="@style/TvRightStyle"
+            android:textColor="@color/mainColor"
+            android:textColorHint="@color/HintColor" />
+    </LinearLayout>
+    <View
+        android:id="@+id/last_line"
+        style="@style/LineLongStyle"/>
+    <LinearLayout
+        android:id="@+id/ll_code"
+        style="@style/LLStyle">
+        <TextView
+            android:text="@string/personal_data_qr_code"
+            android:layout_width="match_parent"
+            style="@style/TvLeftWStyle" />
+    </LinearLayout>
+    <View style="@style/BgStyle"/>
+</LinearLayout>

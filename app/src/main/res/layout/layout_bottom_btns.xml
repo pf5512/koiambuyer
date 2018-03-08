@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_btn"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="7.5dp"
+    android:layout_marginBottom="7.5dp"
+    android:layout_width="match_parent"
+    android:weightSum="2"
+    android:layout_height="55dp">
+    <TextView
+        android:id="@+id/tv_left"
+        style="@style/BottomTvStyle"
+        android:textColor="@color/StvColor"
+        android:text="@string/delete"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/selector_y_tv"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/tv_right"
+        android:layout_marginLeft="5dp"
+        style="@style/BottomTvStyle"
+        android:text="@string/change"
+        android:background="@drawable/selector_main_tv"
+        android:layout_weight="1" />
+</LinearLayout>

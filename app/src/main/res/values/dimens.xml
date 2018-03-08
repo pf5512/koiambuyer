@@ -1,0 +1,32 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="content_padding">25dp</dimen>
+    <dimen name="content_padding_short">15dp</dimen>
+    <dimen name="tv_title">18sp</dimen>
+    <dimen name="et_hint">16sp</dimen>
+    <dimen name="tv_minor">14sp</dimen>
+    <dimen name="tv_min">13sp</dimen>
+    <dimen name="tv_m_min">12sp</dimen>
+    <dimen name="space_height">10dp</dimen>
+    <dimen name="tv_mid_size">15sp</dimen>
+
+    <!--SingleTextView-->
+    <dimen name="single_tv_padding">12dp</dimen>
+    <dimen name="single_tv_size">17sp</dimen>
+
+    <!--account-->
+    <dimen name="account_tab_margin">64dp</dimen>
+    <dimen name="account_tab_line_padding">9dp</dimen>
+    <dimen name="account_tab_padding_top">18dp</dimen>
+    <dimen name="account_logo_height">120dp</dimen>
+    <dimen name="account_line_height">1px</dimen>
+    <dimen name="account_et_padding_top">28dp</dimen>
+    <dimen name="account_et_padding_bottom">15dp</dimen>
+    <dimen name="account_tv_padding_et">15dp</dimen>
+    <dimen name="account_bottom_margin">57dp</dimen>
+    <dimen name="account_footer_padding">15dp</dimen>
+    <dimen name="account_footer_margin_top">30dp</dimen>
+</resources>

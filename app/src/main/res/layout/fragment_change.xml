@@ -1,0 +1,80 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/StvColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_phone"
+        android:background="@color/BgColor"
+        android:gravity="center"
+        android:paddingTop="20dp"
+        android:paddingBottom="12dp"
+        android:textSize="@dimen/et_hint"
+        android:textColor="@color/tvNormalColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_prompt"
+        android:background="@color/BgColor"
+        android:gravity="center"
+        android:textColor="@color/minorColor"
+        android:textSize="@dimen/tv_min"
+        android:text="@string/change_phone_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_height="15dp"
+        style="@style/SpaceStyle"/>
+    <LinearLayout
+        android:id="@+id/ll_phone"
+        style="@style/LLStyle"
+        android:paddingTop="3dp">
+        <TextView
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/et_hint"
+            android:textColor="@color/tvNormalColor"
+            android:paddingLeft="@dimen/content_padding"
+            android:text="+86"/>
+        <EditText
+            android:id="@+id/et_phone"
+            android:background="@null"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="24dp"
+            android:layout_marginRight="25dp"
+            android:hint="@string/input_phone"
+            android:textColorHint="@color/HintColor"
+            android:textSize="@dimen/et_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        style="@style/LineStyle" />
+    <LinearLayout
+        style="@style/LLStyle"
+        android:paddingTop="3dp">
+
+        <EditText
+            android:id="@+id/et_identify"
+            android:layout_weight="1"
+            android:hint="@string/input_identify"
+            android:textColorHint="@color/HintColor"
+            android:textColor="@color/tvNormalColor"
+            android:paddingTop="21.5dp"
+            android:paddingBottom="21.5dp"
+            style="@style/EtStyle" />
+        <Button
+            android:id="@+id/btn_get_identify"
+            style="@style/BtnRightStyle"
+            android:textSize="15sp"
+            android:textColor="@color/mainColor"
+            android:layout_marginRight="@dimen/content_padding"
+            android:text="@string/get_identify"/>
+    </LinearLayout>
+    <include layout="@layout/layout_stv"/>
+</LinearLayout>
