@@ -1,12 +1,12 @@
 package com.hc360.koiambuyer.adapter;
 
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hc360.koiambuyer.R;
@@ -33,20 +33,20 @@ public class FindAdapter extends BaseQuickAdapter<SearchInfo.ListBean> {
 
     @Override
     protected void convert(final BaseViewHolder holder, final SearchInfo.ListBean bean) {
-        Glide.with(mContext).load(bean.loopImg001).asBitmap().placeholder(R.mipmap.good_default).error(R.mipmap.good_default).into(new SimpleTarget<Bitmap>() {
+        Glide.with(mContext).load(bean.loopImg001).into(new SimpleTarget<Drawable>() {
             @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                holder.setImageBitmap(R.id.iv_goods,resource);
+            public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
+                holder.setImageDrawable(R.id.iv_goods,resource);
             }
         });
         holder.setImageResource(R.id.iv_head,R.mipmap.buyer_head);
-        Glide.with(mContext).load(bean.userHeadImg).asBitmap().into(new SimpleTarget<Bitmap>() {
+        Glide.with(mContext).load(bean.userHeadImg).into(new SimpleTarget<Drawable>() {
             @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                holder.setImageBitmap(R.id.iv_head,resource);
+            public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
+                holder.setImageDrawable(R.id.iv_head,resource);
             }
         });
-        holder.setText(R.id.tv_name,bean.userName);
+        holder.setText(R.id.tv_name,bean.korCoreUserVo.userName);
         String compName = bean.compName;
         if (TextUtils.isEmpty(bean.compName)){
             compName = getStr(R.string.personal_account);

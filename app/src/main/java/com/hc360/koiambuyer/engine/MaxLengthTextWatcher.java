@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.hc360.koiambuyer.R;
 import com.hc360.koiambuyer.utils.ToastUtil;
 
 
@@ -47,7 +48,7 @@ public class MaxLengthTextWatcher implements TextWatcher {
 
         if (len > maxNum) {
             if (TextUtils.isEmpty(msg)){
-                ToastUtil.showShort(et.getContext(),"不可输入超过"+maxNum+"个的字数");
+                ToastUtil.showShort(et.getContext(),et.getContext().getResources().getString(R.string.max_text_length)+maxNum+et.getContext().getResources().getString(R.string.max_text_length_second));
             }else{
                 ToastUtil.showShort(et.getContext(),msg);
             }

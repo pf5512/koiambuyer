@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.hc360.koiambuyer.R;
 import com.hc360.koiambuyer.model.Constant;
-import com.hc360.koiambuyer.model.Msg;
 import com.hc360.koiambuyer.model.SmsStautsEnum;
 import com.hc360.koiambuyer.myinterface.DialogPositiveClickListener;
 import com.hc360.koiambuyer.myinterface.ipresenter.IChangePresenter;
@@ -197,11 +196,17 @@ public class ChangeFragment extends BaseFragment<IChangePresenter> implements IC
             getActivity().finish();
         } else if (mMode.equals(Constant.FORGET_PWD)) {
             //忘记密码
-            Intent openSetPassword = new Intent(mContext, ContainerFooterActivity.class);
-            openSetPassword.putExtra(Constant.TYPE,Constant.SET_PASSWORD_FORGET);
-            openSetPassword.putExtra(Msg.PHONE,mPhone);
-            startActivity(openSetPassword);
+//            Intent openSetPassword = new Intent(mContext, ContainerFooterActivity.class);
+//            openSetPassword.putExtra(Constant.TYPE,Constant.SET_PASSWORD_FORGET);
+//            openSetPassword.putExtra(Msg.PHONE,mPhone);
+//            startActivity(openSetPassword);
+//            getActivity().finish();
+
+            Intent changePwd = new Intent(mContext, ContainerFooterActivity.class);
+            changePwd.putExtra(Constant.TYPE, Constant.CHANGE_PWD_FIRST);
+            startActivity(changePwd);
             getActivity().finish();
+
         }
     }
 

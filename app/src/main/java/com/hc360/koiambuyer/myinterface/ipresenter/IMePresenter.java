@@ -14,5 +14,5 @@ import com.hc360.koiambuyer.view.base.IBasePresenter;
  */
 
 public interface IMePresenter extends IBasePresenter {
-    void getMeInfo(int userId, String loginType);
+    void getMeInfo();
 }

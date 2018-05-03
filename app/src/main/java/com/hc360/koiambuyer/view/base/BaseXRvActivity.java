@@ -32,17 +32,28 @@ public abstract class BaseXRvActivity<T extends IBasePresenter,M extends BaseAda
 
     public int mPager = 1;
     M mAdapter;
-
+    public boolean isResumeData = true;
+    private XRecyclerView customXRv;
 
     @Override
     protected void onResume() {
         super.onResume();
-        getData();
-        mXRv.setPullRefreshEnabled(true);
-        mXRv.setLoadingMoreEnabled(true);
-        mXRv.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        mXRv.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
-        mXRv.setLoadingListener(new XRecyclerView.LoadingListener() {
+        if (isResumeData){
+            getData();
+        }
+        initXRv(mXRv);
+        setCustomXRv(mXRv);
+    }
+    public void setResumeData(boolean resumeData){
+        isResumeData = resumeData;
+    }
+
+    public void initXRv(XRecyclerView xRv) {
+        xRv.setPullRefreshEnabled(true);
+        xRv.setLoadingMoreEnabled(true);
+        xRv.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        xRv.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
+        xRv.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 mPager = 1;
@@ -57,7 +68,6 @@ public abstract class BaseXRvActivity<T extends IBasePresenter,M extends BaseAda
             }
         });
     }
-
 
     @Override
     public void setAdapter(I i) {
@@ -79,6 +89,7 @@ public abstract class BaseXRvActivity<T extends IBasePresenter,M extends BaseAda
                 initAdapter(i);
                 showEmpty();
             } else {
+
                 hideLoading();
                 ToastUtil.showShort(MyApp.getAppContext(),getStr(R.string.no_more_data));
             }
@@ -110,5 +121,16 @@ public abstract class BaseXRvActivity<T extends IBasePresenter,M extends BaseAda
 
     public XRecyclerView getXRv(){
         return mXRv;
+    }
+
+    @Override
+    public void showLoading() {
+        if (mEmptyLayout != null&& mPager == 1&&(!isRefresh)) {
+            mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);
+        }
+    }
+
+    public void setCustomXRv(XRecyclerView xRv) {
+
     }
 }

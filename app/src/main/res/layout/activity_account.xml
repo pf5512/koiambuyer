@@ -31,13 +31,27 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <EditText
-            android:layout_marginTop="15dp"
-            android:maxLines="1"
-            android:id="@+id/et_phone"
-            style="@style/EtStyle"
-            android:textColor="@color/tvNormalColor"
-            android:hint="@string/account_hint_phone" />
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="+82"
+                android:textSize="17sp"
+                android:textColor="@color/tvNormalColor"
+                android:layout_marginLeft="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:maxLines="1"
+                android:id="@+id/et_phone"
+                style="@style/EtStyle"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/tvNormalColor"
+                android:hint="@string/account_hint_phone" />
+        </LinearLayout>
+
         <ImageView
             android:layout_marginTop="15dp"
             android:layout_marginRight="10dp"

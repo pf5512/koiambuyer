@@ -11,25 +11,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@mipmap/show_line"
+        android:layout_height="4dp"/>
     <LinearLayout
-        android:weightSum="3"
+        android:weightSum="4"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <TextView
             android:id="@+id/tv_home"
-            android:drawableTop="@mipmap/ic_back"
             style="@style/HomeBottomTvStyle"
             android:text="@string/home_home" />
-        <ImageView
-            android:id="@+id/iv_publish"
-            android:layout_marginTop="5dp"
-            android:layout_weight="1"
-            android:src="@mipmap/publish_buyer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
         <TextView
-            android:drawableTop="@mipmap/ic_back"
+            android:id="@+id/tv_publish"
+            style="@style/HomeBottomTvStyle"
+            android:text="@string/home_publish" />
+        <TextView
+            android:id="@+id/tv_chat"
+            style="@style/HomeBottomTvStyle"
+            android:text="@string/home_chat" />
+        <TextView
             android:id="@+id/tv_me"
             style="@style/HomeBottomTvStyle"
             android:text="@string/home_me" />

@@ -12,18 +12,49 @@ package com.hc360.koiambuyer.api.bean;
 
 public class MeInfo {
 
+    /**
+     * content : {"pendingDeliveryCount":9,"deliverGoodsCount":0,"phone":"18611874490","cancelCount":2,"matchmakingCount":1,"recordProCount":3,"followProCount":0,"followUserCount":1,"followProdCount":0,"productSuccessCount":2,"headImg":"http://img06.iambuyer.com/imgup/upload/images/2018/03/27/kDiaG2pBI8obOwIBsTS6hrcRbcb8qSqhh3AJJTmjNTOgahcjjc2FfZDCwmhGIc7BrRDfhy.jpg","userName":"我希","successCount":1,"shopCount":2,"publishedCount":22}
+     * ret : 200
+     * msg : success
+     */
+
     public ContentBean content;
     public String ret;
     public String msg;
 
     public static class ContentBean {
+        /**
+         * pendingDeliveryCount : 9
+         * deliverGoodsCount : 0
+         * phone : 18611874490
+         * cancelCount : 2
+         * matchmakingCount : 1
+         * recordProCount : 3
+         * followProCount : 0
+         * followUserCount : 1
+         * followProdCount : 0
+         * productSuccessCount : 2
+         * headImg : http://img06.iambuyer.com/imgup/upload/images/2018/03/27/kDiaG2pBI8obOwIBsTS6hrcRbcb8qSqhh3AJJTmjNTOgahcjjc2FfZDCwmhGIc7BrRDfhy.jpg
+         * userName : 我希
+         * successCount : 1
+         * shopCount : 2
+         * publishedCount : 22
+         */
+
+        public int pendingDeliveryCount;
+        public int deliverGoodsCount;
+        public String phone;
+        public int cancelCount;
+        public int matchmakingCount;
+        public int recordProCount;
+        public int followProCount;
+        public int followUserCount;
+        public int followProdCount;
+        public int productSuccessCount;
+        public String headImg;
         public String userName;
-        public int proCount;
-        public int chatCount;
-        public int collCount;
-        public int compCount;
-        public String compName;
-        public String checkState;
-        public String userHeadImg;
+        public int successCount;
+        public int shopCount;
+        public int publishedCount;
     }
 }

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="20dp"
+    android:background="@color/StvColor"
+    android:paddingBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.CardView
+            android:id="@+id/card"
+            android:layout_marginRight="8dp"
+            app:cardCornerRadius="20.5dp"
+            app:cardElevation="0dp"
+            android:layout_width="41dp"
+            android:layout_height="41dp">
+            <ImageView
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v7.widget.CardView>
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_toRightOf="@id/card"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/tvNormalColor"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_toRightOf="@id/card"
+            android:textColor="@color/HintColor"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/reply"
+            android:textColor="@color/StvColor"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:background="@drawable/shape_my_enquiry_reply_bg"
+            android:layout_width="50dp"
+            android:layout_height="23dp" />
+    </RelativeLayout>
+    <TextView
+        android:layout_marginTop="13.5dp"
+        android:layout_marginBottom="7dp"
+        android:textColor="@color/BlackColor"
+        android:textSize="14sp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/shape_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_pic"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="4dp"
+            android:layout_width="110dp"
+            android:layout_height="61dp">
+            <ImageView
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_toRightOf="@id/card_pic"
+            android:textColor="@color/minorColor"
+            android:layout_marginTop="2dp"
+            android:textSize="12sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_toRightOf="@id/card_pic"
+            android:textColor="@color/minorSecondColor"
+            android:layout_marginTop="2dp"
+            android:textSize="14sp"
+            android:layout_alignBottom="@id/card_pic"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

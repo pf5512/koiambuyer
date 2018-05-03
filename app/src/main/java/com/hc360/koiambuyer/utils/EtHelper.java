@@ -8,8 +8,6 @@ import android.widget.TextView;
 
 import com.hc360.koiambuyer.R;
 import com.hc360.koiambuyer.engine.CustomTextWatcher;
-import com.hc360.koiambuyer.model.Constant;
-import com.hc360.koiambuyer.view.MyApp;
 
 
 /**
@@ -52,7 +50,7 @@ public class EtHelper {
                     int length = s.toString().trim().length();
                     String sLength = String.valueOf(length);
                     SpannableStringBuilder style = new SpannableStringBuilder(sLength + "/" + number);
-                    style.setSpan(new ForegroundColorSpan(tv.getResources().getColor(MyApp.sLoginType.equals(Constant.BUYER)? R.color.buyerColor:R.color.sellerColor)), 0, sLength.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    style.setSpan(new ForegroundColorSpan(tv.getResources().getColor( R.color.buyerColor)), 0, sLength.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     tv.setText(style);
                 }
             }

@@ -29,6 +29,7 @@
     <color name="HintColor">#BDBDBD</color>
     <color name="KeepColor">#D2D2D2</color>
     <color name="StvColor">#FFFFFFFF</color>
+    <color name="BlackColor">#FF000000</color>
     <color name="StvSColor">#88FFFFFF</color>
     <color name="StvPressColor">#FCCC</color>
     <color name="TitleColor">#FF2E2E30</color>
@@ -49,6 +50,7 @@
     <color name="proveColoring">#99FFFFFF</color>
     <color name="picColor">#3000</color>
     <color name="moneyColor">#FFFF3A2E</color>
+    <color name="errorColor">#FFFF4D6A</color>
     <color name="searchColor">#FFEFEFEF</color>
     <color name="chatItemColorBg">#F9F9F9</color>
     <color name="unableClick">#d2d2d2</color>
@@ -59,4 +61,11 @@
     <color name="result_view">#b0000000</color>
     <color name="viewfinder_mask">#60000000</color>
     <color name="possible_result_points">#c0ffff00</color>
+
+    <color name="underline_default_color">#CCCCCC</color>
+    <color name="underline_selected_color">#000</color>
+    <color name="hintColor">#CCCCCC</color>
+    <color name="textColor">#000</color>
+    <color name="msg_num">#FFFF4D6A</color>
+    <color name="grayColor">#1000</color>
 </resources>

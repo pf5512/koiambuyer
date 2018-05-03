@@ -17,6 +17,7 @@ import com.hc360.koiambuyer.view.MyApp;
 import com.hc360.koiambuyer.view.base.BaseAdapter;
 import com.hc360.koiambuyer.view.base.BaseXRvActivity;
 import com.hc360.koiambuyer.widget.SingleTextView;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
@@ -33,10 +34,14 @@ public class ShipAddressActivity extends BaseXRvActivity<IShipAddressPresenter,S
     Toolbar mToolbar;
     @BindView(R.id.stv_add_address)
     SingleTextView mStvAddAddress;
+    private boolean isSelect;
 
     @Override
     protected void initView() {
         initToolBar(mToolbar, null, true, getStr(R.string.ship_address));
+        setNoDataIcon(R.mipmap.ic_no_address);
+        setEmptyMsg(getStr(R.string.address_empty_msg));
+        isSelect = getIntent().getBooleanExtra(Msg.SELECT, false);
     }
 
     @Override
@@ -57,7 +62,7 @@ public class ShipAddressActivity extends BaseXRvActivity<IShipAddressPresenter,S
     @OnClick(R.id.stv_add_address)
     public void onClick() {
         Intent openEditAddress = new Intent(ShipAddressActivity.this, ContainerFooterActivity.class);
-        //新建地址，非编辑
+        //新建地址
         openEditAddress.putExtra(Constant.TYPE, Constant.NEW_SHIP_ADDRESS);
         startActivityForResult(openEditAddress, Constant.OPEN_EDIT_ADDRESS);
     }
@@ -78,8 +83,8 @@ public class ShipAddressActivity extends BaseXRvActivity<IShipAddressPresenter,S
     }
 
     @Override
-    public void setDefaultAddress(int id, int comId, String useState) {
-        mPresenter.setDefaultAddress(id, comId, useState);
+    public void setDefaultAddress(int id, String useState) {
+        mPresenter.setDefaultAddress(id, useState);
     }
 
     /**
@@ -99,17 +104,23 @@ public class ShipAddressActivity extends BaseXRvActivity<IShipAddressPresenter,S
     }
 
     @Override
-    public void selectAddress(String addStr, int deliverId) {
+    public void selectAddress(String userStr, String addStr, int deliverId) {
         //发布商品，选择发货地址
-        boolean fromPublishGoods = getIntent().getBooleanExtra(Msg.FROM_PUBLISH_GOODS, false);
-        if (fromPublishGoods) {
+        if (isSelect) {
             Intent intent = new Intent();
+            intent.putExtra(Msg.USER_TELE, userStr);
             intent.putExtra(Msg.ADDSTR, addStr);
             intent.putExtra(Msg.DELIVERID, deliverId);
             setResult(RESULT_OK, intent);
             finish();
         }
     }
+
+    @Override
+    public boolean getSelectState() {
+        return isSelect;
+    }
+
 
     @Override
     public void getData() {
@@ -124,5 +135,11 @@ public class ShipAddressActivity extends BaseXRvActivity<IShipAddressPresenter,S
     @Override
     public List getList(ShipAddressInfo shipAddressInfo) {
         return shipAddressInfo.list;
+    }
+
+    @Override
+    public void initXRv(XRecyclerView xRv) {
+        xRv.setPullRefreshEnabled(false);
+        xRv.setLoadingMoreEnabled(false);
     }
 }

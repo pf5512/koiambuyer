@@ -43,8 +43,8 @@ public class SuggestionPresenter implements ISuggestionPresenter {
     }
 
     @Override
-    public void submit(String userId, String context, List<String> imgs) {
-        RetrofitService.submitSuggestion(userId,context,imgs)
+    public void submit(String userId, String context, String phone, String feedType, List<String> imgs) {
+        RetrofitService.submitSuggestion(userId,context,phone,feedType,imgs)
                 .subscribe(new MyObserver<ResponseInfo>() {
                     @Override
                     public void onNext(ResponseInfo responseInfo) {

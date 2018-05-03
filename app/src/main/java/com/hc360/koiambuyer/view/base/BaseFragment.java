@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hc360.koiambuyer.R;
+import com.hc360.koiambuyer.api.RetrofitService;
 import com.hc360.koiambuyer.utils.HeightTool;
 import com.hc360.koiambuyer.utils.SwipeRefreshHelper;
+import com.hc360.koiambuyer.view.MyApp;
 import com.hc360.koiambuyer.widget.EmptyLayout;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.components.support.RxFragment;
@@ -54,6 +58,13 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
     @BindView(R.id.toolbar_right)
     TextView mTvRight;
 
+    @Nullable
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
+    @Nullable
+    @BindView(R.id.toolbar_title)
+    TextView mTvTitle;
     protected T mPresenter;
 
     protected Context mContext;
@@ -92,6 +103,9 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
+        if (RetrofitService.isDebug){
+            MyApp.sUserId = "365";
+        }
     }
 
     @Nullable
@@ -231,6 +245,9 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
     public void setRightByRes(Context context, int resId, TextView tv){
         tv.setCompoundDrawables(null, null, getTvDrawable(context,resId), null);
     }
+    public void setLeftByRes(Context context, int resId, TextView tv){
+        tv.setCompoundDrawables(getTvDrawable(context,resId), null, null , null);
+    }
     public Drawable getTvDrawable(Context context, int resId){
         Drawable nav=context.getResources().getDrawable(resId);
         nav.setBounds(0, 0, nav.getMinimumWidth()/2, nav.getMinimumHeight()/2);
@@ -248,5 +265,58 @@ public abstract class BaseFragment<T extends IBasePresenter> extends RxFragment 
     public String getStr(int resId){
         return getResources().getString(resId);
     }
+    public String getAppStr(int resId){
+        return MyApp.getAppContext().getResources().getString(resId);
+    }
 
+
+    public void initToolBar(String title,String content){
+        if (mTvTitle != null){
+            mTvTitle.setText(title);
+        }
+        if (mTvRight != null){
+            mTvRight.setText(content);
+            mTvRight.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onTvRightClick();
+                }
+            });
+        }
+        onNavigationClick();
+    }
+    public void initToolBar(String title){
+        if (mTvTitle != null){
+            mTvTitle.setText(title);
+        }
+        onNavigationClick();
+    }
+    private void onNavigationClick() {
+        if (mToolbar != null){
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().finish();
+                }
+            });
+        }
+    }
+
+    public void onTvRightClick(){
+
+    }
+
+    public void setRightText(String text){
+        if (mTvRight != null){
+            mTvRight.setText(text);
+        }
+    }
+
+    public void initRv(RecyclerView rv, LinearLayoutManager manager){
+        manager.setSmoothScrollbarEnabled(true);
+        manager.setAutoMeasureEnabled(true);
+        rv.setLayoutManager(manager);
+        rv.setHasFixedSize(true);
+        rv.setNestedScrollingEnabled(false);
+    }
 }

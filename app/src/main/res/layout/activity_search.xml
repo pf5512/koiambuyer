@@ -24,6 +24,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -59,11 +60,12 @@
                     android:text="@string/search_companies" />
             </LinearLayout>
             <View
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:background="@color/LineColor"
                 android:layout_height="1px"/>
 
-            <include layout="@layout/layout_swipe_recyclerview_list" />
+            <include layout="@layout/layout_xrecyclerview" />
         </LinearLayout>
 
         <LinearLayout
@@ -71,6 +73,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <FrameLayout
+                android:id="@+id/fl_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/search_hot_companies"
+                    android:textSize="14sp" />
+                <ImageView
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginRight="15dp"
+                    android:id="@+id/iv_clear"
+                    android:src="@mipmap/ic_search_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp" />
+            </FrameLayout>
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/tfl_hot_company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="5dp"
+                app:max_select="1"></com.zhy.view.flowlayout.TagFlowLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -88,24 +118,6 @@
                 android:paddingRight="15dp"
                 android:paddingTop="5dp"
                 app:max_select="1"></com.zhy.view.flowlayout.TagFlowLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="@string/search_hot_companies"
-                android:textSize="14sp" />
-
-            <com.zhy.view.flowlayout.TagFlowLayout
-                android:id="@+id/tfl_hot_company"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="5dp"
-                app:max_select="1"></com.zhy.view.flowlayout.TagFlowLayout>
         </LinearLayout>
     </FrameLayout>
-
 </LinearLayout>

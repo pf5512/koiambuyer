@@ -25,7 +25,7 @@
     <application
         android:name=".view.MyApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -39,9 +39,49 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
+        <!-- 百度地图配置 -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="6G5CqQq6R9CCRXNMHmd9WfQzrdFmuUgD" />
+
+        <!-- 环信配置 -->
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="1179170828115662#iambuyer" />
+        <!-- 声明SDK所需的service SDK核心功能 -->
+        <service
+            android:name="com.hyphenate.chat.EMChatService"
+            android:exported="true" />
+        <!-- 声明SDK所需的receiver -->
+        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+            <!-- 可选filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        <!-- easeui中的activity -->
+        <activity android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity" />
+        <activity android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity" />
+        <activity android:name="com.hyphenate.easeui.ui.EaseShowNormalFileActivity" />
+        <activity android:name="com.hyphenate.easeui.ui.EaseShowVideoActivity" />
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
         <activity android:name="com.duoyi.provider.qrscan.activity.CaptureActivity" />
         <activity android:name="com.duoyi.provider.qrscan.activity.ResultActivity" />
-        <activity android:name=".view.MainActivity" />
+        <activity android:name=".view.MainActivity" >
+
+        </activity>
         <activity
             android:name=".view.AccountActivity"
             android:launchMode="singleTask"
@@ -49,10 +89,12 @@
         <activity
             android:name=".view.home.HomeActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity android:name=".view.ContainerFooterActivity" />
         <activity android:name=".view.ContainerMainFooterActivity" />
-        <activity android:name=".view.SplashActivity">
+        <activity android:name=".view.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,7 +105,15 @@
         <activity android:name=".view.me.ShipAddressActivity" />
         <activity android:name=".view.me.SettingActivity" />
         <activity android:name=".view.find.SearchActivity" />
-        <activity android:name=".view.CityManagerActivity"></activity>
+        <activity android:name=".view.CityManagerActivity" />
+        <activity android:name=".view.good.GoodsDetailActivity" />
+        <activity android:name=".view.ContainerActivity" />
+        <activity android:name=".view.good.StockActivity" />
+        <activity android:name=".view.home.PublishActivity"
+            android:windowSoftInputMode = "stateAlwaysHidden"/>
+        <activity android:name=".view.purchase.PurchaseDetailActivity" />
+        <activity android:name=".view.ChatActivity" />
+        <activity android:name=".view.order.OrderDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -70,7 +70,6 @@ public class ChangePresenter implements IChangePresenter {
                         mView.submit();
                     }
                 });
-
     }
 
     @Override

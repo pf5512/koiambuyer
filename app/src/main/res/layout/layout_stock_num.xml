@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="15dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:text="@string/sample_num"
+        android:textColor="@color/tvNormalColor"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/ll_sample"
+        android:layout_width="170dp"
+        android:layout_height="30dp"
+        android:background="@mipmap/ic_stock_bg"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/fl_sample_minus"
+            android:layout_width="40dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_sample_minus"
+                android:layout_width="12dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_reduce" />
+        </FrameLayout>
+
+        <EditText
+            android:id="@+id/et_sample"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:digits="0123456789"
+            android:gravity="center"
+            android:inputType="number"
+            android:text="0"
+            android:textColor="@color/tvNormalColor"
+            android:textSize="16sp" />
+
+        <FrameLayout
+            android:id="@+id/fl_sample_add"
+            android:layout_width="40dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_sample_add"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_add" />
+        </FrameLayout>
+
+    </LinearLayout>
+</LinearLayout>

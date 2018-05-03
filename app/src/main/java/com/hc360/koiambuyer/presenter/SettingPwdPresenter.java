@@ -2,19 +2,23 @@ package com.hc360.koiambuyer.presenter;
 
 import android.text.TextUtils;
 
+import com.hc360.koiambuyer.R;
 import com.hc360.koiambuyer.api.MyObserver;
 import com.hc360.koiambuyer.api.RetrofitService;
 import com.hc360.koiambuyer.api.bean.InitInfo;
 import com.hc360.koiambuyer.api.bean.LoginInfo;
+import com.hc360.koiambuyer.api.bean.MyEMCallBack;
 import com.hc360.koiambuyer.api.bean.ResponseInfo;
 import com.hc360.koiambuyer.model.Constant;
-import com.hc360.koiambuyer.model.States;
 import com.hc360.koiambuyer.myinterface.ipresenter.ISettingPwdPresenter;
 import com.hc360.koiambuyer.myinterface.iview.ISettingPwdView;
 import com.hc360.koiambuyer.utils.FormTool;
 import com.hc360.koiambuyer.utils.SPUtils;
+import com.hc360.koiambuyer.utils.ThreadUtil;
 import com.hc360.koiambuyer.utils.ToastUtil;
 import com.hc360.koiambuyer.view.MyApp;
+import com.hyphenate.chat.EMClient;
+import com.orhanobut.logger.Logger;
 
 import rx.Observable;
 import rx.Observer;
@@ -41,7 +45,7 @@ public class SettingPwdPresenter implements ISettingPwdPresenter {
     @Override
     public void settingPwd(final String phone, final String setText, String confirmText) {
         if (TextUtils.isEmpty(setText) || TextUtils.isEmpty(confirmText)) {
-            ToastUtil.showShort(MyApp.getAppContext(), "输入不能为空");
+            ToastUtil.showShort(MyApp.getAppContext(),getStr(R.string.pwd_empty));
             return;
         }
         if (setText.equals(confirmText)) {
@@ -81,24 +85,24 @@ public class SettingPwdPresenter implements ISettingPwdPresenter {
                                 @Override
                                 public void onNext(InitInfo info) {
                                     save(info);
-                                    mView.updateSuccess(info.content.initType);
+                                    mView.updateSuccess(String.valueOf(info.content.user.referUserid));
                                 }
                             });
                 } else {
-                    ToastUtil.showShort(MyApp.getAppContext(), "密码须是数字和字母的组合");
+                    ToastUtil.showShort(MyApp.getAppContext(),  getStr(R.string.pwd_form));
                 }
             } else {
-                ToastUtil.showShort(MyApp.getAppContext(), "请输入6~18位密码");
+                ToastUtil.showShort(MyApp.getAppContext(),  getStr(R.string.pwd_six));
             }
         } else {
-            ToastUtil.showShort(MyApp.getAppContext(), "两次密码不一样");
+            ToastUtil.showShort(MyApp.getAppContext(), getStr(R.string.pwd_twin_error));
         }
     }
 
     @Override
     public void updatePwd(final String id, String pwd, String secondPwd) {
         if (TextUtils.isEmpty(pwd) || TextUtils.isEmpty(secondPwd)) {
-            ToastUtil.showShort(MyApp.getAppContext(), "输入不能为空");
+            ToastUtil.showShort(MyApp.getAppContext(), getStr(R.string.pwd_empty));
             return;
         }
         if (pwd.equals(secondPwd)) {
@@ -131,24 +135,23 @@ public class SettingPwdPresenter implements ISettingPwdPresenter {
                                 @Override
                                 public void onNext(InitInfo info) {
                                     save(info);
-                                    mView.updateSuccess(info.content.initType);
+                                    mView.updateSuccess(String.valueOf(info.content.user.referUserid));
                                 }
                             });
                 } else {
-                    ToastUtil.showShort(MyApp.getAppContext(), "密码须是数字和字母的组合");
+                    ToastUtil.showShort(MyApp.getAppContext(), getStr(R.string.pwd_form));
                 }
 
             } else {
-                ToastUtil.showShort(MyApp.getAppContext(), "请输入6~18位密码");
+                ToastUtil.showShort(MyApp.getAppContext(), getStr(R.string.pwd_six));
             }
         } else {
-            ToastUtil.showShort(MyApp.getAppContext(), "两次密码不一样");
+            ToastUtil.showShort(MyApp.getAppContext(), getStr(R.string.pwd_twin_error));
         }
     }
 
     /**
      * 验证码登录返回200，需要更新密码
-     *
      * @param id
      * @param password
      */
@@ -164,25 +167,19 @@ public class SettingPwdPresenter implements ISettingPwdPresenter {
                 .subscribe(new MyObserver<InitInfo>() {
                     @Override
                     public void onNext(InitInfo initInfo) {
-                        save(initInfo);
-                        mView.updateSuccess(initInfo.content.initType);
+
+                        login(""+initInfo.content.user.userId,initInfo);
+//                        mView.updateSuccess(String.valueOf(initInfo.content.user.referUserid));
                     }
                 });
     }
 
-
-
     private void save(InitInfo info) {
-        int compId = info.content.compId;
-        String userPhone = info.content.userPhone;
-        String userName = info.content.userName;
-        String userHeadImg = info.content.userHeadImg;
-        String checkState = info.content.checkState;
-        String isBoss = info.content.isBoss + "";
-        SPUtils.saveString(MyApp.getAppContext(), Constant._ID, info.content.userId + "");
-        MyApp.sUserId = info.content.userId + "";
-
-        SPUtils.saveString(MyApp.getAppContext(), Constant._COM_ID, compId + "");
+        String userPhone = info.content.user.phone;
+        String userName = info.content.user.userName;
+        String userHeadImg = info.content.user.headImg;
+        SPUtils.saveString(MyApp.getAppContext(), Constant._ID, info.content.user.ssoUserId + "");
+        MyApp.sUserId = info.content.user.ssoUserId + "";
 
         if (!TextUtils.isEmpty(userPhone)) {
             SPUtils.saveString(MyApp.getAppContext(), Constant._PHONE, userPhone);
@@ -200,15 +197,61 @@ public class SettingPwdPresenter implements ISettingPwdPresenter {
         if (!TextUtils.isEmpty(userHeadImg)) {
             SPUtils.saveString(MyApp.getAppContext(), Constant.USER_IMG, userHeadImg);
         }
-        if (!TextUtils.isEmpty(checkState)) {
-            SPUtils.saveString(MyApp.getAppContext(), Constant.CHECK_STATE, checkState);
-        }else{
-            SPUtils.saveString(MyApp.getAppContext(),Constant.CHECK_STATE, States.NO_CHECK_STATE);
+        SPUtils.saveBoolean(MyApp.getAppContext(),Constant._IS_BOSS,true);
+        if (info.content.user.referUserid>0){
+            SPUtils.saveInt(MyApp.getAppContext(),Constant.REFERUSERID,info.content.user.referUserid);
         }
-        if (!TextUtils.isEmpty(isBoss)) {
-            SPUtils.saveBoolean(MyApp.getAppContext(), Constant._IS_BOSS, isBoss.equals("0"));
-        }else{
-            SPUtils.saveBoolean(MyApp.getAppContext(),Constant._IS_BOSS,false);
+        if (!TextUtils.isEmpty(info.content.user.referPhone)){
+            SPUtils.saveString(MyApp.getAppContext(),Constant.REFER_PHONE,info.content.user.referPhone);
+        }else {
+            SPUtils.saveString(MyApp.getAppContext(),Constant.REFER_PHONE,"");
         }
+    }
+
+    public String getStr(int strRes){
+        return MyApp.getAppContext().getResources().getString(strRes);
+    }
+
+    private void login(final String imId, final InitInfo info) {
+        // TODO Auto-generated method stub
+        ThreadUtil.toToOnSubThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    EMClient.getInstance().login(imId, Constant.IM_PWD, new MyEMCallBack() {
+                        @Override
+                        public void onSuccess() {
+                            //环信登录成功
+                            ThreadUtil.toToOnMainThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Logger.e("登录成功");
+                                    mView.updateSuccess(String.valueOf(info.content.user.referUserid));
+                                    save(info);
+                                }
+                            });
+                        }
+                        @Override
+                        public void onError(int code, final String message) {
+                            ThreadUtil.toToOnMainThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (message.equals("User is already login")){
+                                        Logger.e("重复登录");
+                                        mView.updateSuccess(String.valueOf(info.content.user.referUserid));
+                                        save(info);
+                                    }else{
+                                        ToastUtil.showShort(MyApp.getAppContext(),message);
+                                    }
+                                }
+                            });
+                        }
+                    });
+
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
     }
 }

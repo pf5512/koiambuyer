@@ -19,8 +19,9 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hc360.koiambuyer.R;
 import com.hc360.koiambuyer.model.Constant;
@@ -293,13 +294,19 @@ public class ImageUtil {
     public static int getToHead(){
         return MyApp.sLoginType.equals(Constant.BUYER)? R.mipmap.seller_head:R.mipmap.buyer_head;
     }
+    public static int getGoodDefault(){
+        return R.mipmap.good_default;
+    }
 
 
     public static void setHeadByHolder(Context context, String picUrl, final BaseViewHolder holder, final int ivId){
-        Glide.with(context).load(picUrl).asBitmap().placeholder(ImageUtil.getHead()).error(ImageUtil.getHead()).into(new SimpleTarget<Bitmap>() {
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(ImageUtil.getHead());
+        requestOptions.error(ImageUtil.getHead());
+        Glide.with(context).setDefaultRequestOptions(requestOptions).load(picUrl).into(new SimpleTarget<Drawable>() {
             @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                holder.setImageBitmap(ivId,resource);
+            public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
+                holder.setImageDrawable(ivId,resource);
             }
         });
     }

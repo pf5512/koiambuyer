@@ -14,8 +14,16 @@
         android:layout_height="1px"/>
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_change_phone"
         android:text="@string/setting_edit_phone"
+        style="@style/SettingTvStyle" />
+    <View
+        android:visibility="gone"
+        style="@style/LineLongStyle" />
+    <TextView
+        android:id="@+id/tv_change_email"
+        android:text="@string/setting_edit_email"
         style="@style/SettingTvStyle" />
 
     <View style="@style/LineLongStyle" />
@@ -26,11 +34,23 @@
     <View style="@style/SpaceStyle" />
 
 
-    <TextView
-        android:id="@+id/tv_about_us"
-        android:text="@string/setting_about_us"
-        style="@style/SettingTvStyle" />
-    <View style="@style/LineLongStyle" />
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_cache"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/setting_cache"
+            style="@style/TvLeftStyle" />
+        <TextView
+            android:id="@+id/tv_cache"
+            style="@style/TvRightIconStyle" />
+    </LinearLayout>
+
+    <View
+        android:visibility="gone"
+        style="@style/LineLongStyle" />
     <LinearLayout
         android:id="@+id/ll_update_version"
         android:layout_width="match_parent"
@@ -50,6 +70,7 @@
         android:id="@+id/tv_login_out"
         android:text="@string/setting_login_out"
         android:gravity="center"
+        android:textColor="@color/mainColor"
         android:textSize="@dimen/tv_mid_size"
         android:layout_width="match_parent"
         android:layout_height="50dp" />

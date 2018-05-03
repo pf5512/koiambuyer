@@ -13,4 +13,6 @@ import com.hc360.koiambuyer.view.base.IBasePresenter;
  */
 
 public interface ICityManagerPresenter extends IBasePresenter {
+    void getCityManagers(String userName,int pager);
+    void selectCityManager(int managerId);
 }

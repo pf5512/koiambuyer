@@ -9,4 +9,15 @@
         android:id="@+id/pv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_save"
+        android:textColor="@color/StvColor"
+        android:textSize="16sp"
+        android:text="@string/save"
+        android:padding="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

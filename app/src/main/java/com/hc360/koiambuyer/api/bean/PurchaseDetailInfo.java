@@ -1,6 +1,7 @@
 package com.hc360.koiambuyer.api.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -15,131 +16,83 @@ import java.util.List;
 
 public class PurchaseDetailInfo implements Serializable{
 
-
     /**
-     * content : {"recommendList":[{"createTime":1504254582000,"compId":1,"userHeadImg":"http://img03.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1510046873000,"unit":"个","addStr":"北京 北京市 东城区","productNum":122,"userId":51,"userName":"姜家成1","productListTitle":"公司采购2017年年会奖品","productName":"名称3","productListId":1},{"createTime":1504254582000,"compId":1,"userHeadImg":"http://img02.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1510046873000,"unit":"个","addStr":"北京 北京市 东城区","productNum":111,"userId":51,"userName":"姜家成1","productListTitle":"公司采购2017年年会奖品","productName":"名称2","productListId":1},{"createTime":1504254582000,"compId":1,"userHeadImg":"http://img03.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1510046873000,"unit":"个","addStr":"北京 北京市 东城区","productNum":100,"userId":51,"userName":"姜家成1","productListTitle":"公司采购2017年年会奖品","productName":"名称1","productListId":1},{"compId":1,"createTime":1509353681000,"userHeadImg":"http://img07.iambuyer.com/imgup/upload/images/2017/10/12/hcjjc2FiYnHjiQG5aNDdWxWQQzdMShcjjc2F1QPARHw68Wlq0DWiNblgLUzWdxhcjjc2Bq0BH0nojUwxm1.jpg","sysIndustryName":"家电配件","addStr":"北京 北京市 东城区","compName":"企业名称","userId":55,"userName":"www","endTime":1509580800000,"productListTitle":"标题1","productListId":8},{"createTime":1508328613000,"compId":1,"userHeadImg":"http://img01.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1510046873000,"unit":"个","addStr":"北京 北京市 东城区","productNum":100,"userId":51,"userName":"姜家成1","productListTitle":"标题","productName":"名称1","productListId":7},{"createTime":1508328613000,"compId":1,"userHeadImg":"http://img05.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1510046873000,"unit":"个","addStr":"北京 北京市 东城区","productNum":133,"userId":51,"userName":"姜家成1","productListTitle":"标题","productName":"名称4","productListId":7},{"createTime":1510048269000,"compId":1,"userHeadImg":"http://img06.iambuyer.com/imgup/upload/images/2017/10/12/hcjjc2FiYnHjiQG5aNDdWxWQQzdMShcjjc2F1QPARHw68Wlq0DWiNblgLUzWdxhcjjc2Bq0BH0nojUwxm1.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1511913600000,"unit":"进口","addStr":"北京 北京市 东城区","productNum":12,"userId":55,"userName":"www","productListTitle":"好开心","productName":"行吗","productListId":20},{"createTime":1510048269000,"compId":1,"userHeadImg":"http://img03.iambuyer.com/imgup/upload/images/2017/10/12/hcjjc2FiYnHjiQG5aNDdWxWQQzdMShcjjc2F1QPARHw68Wlq0DWiNblgLUzWdxhcjjc2Bq0BH0nojUwxm1.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1511913600000,"unit":"很OK哦咯","addStr":"北京 北京市 东城区","productNum":12,"userId":55,"userName":"www","productListTitle":"好开心","productName":"howl","productListId":20},{"compId":1,"createTime":1509522121000,"userHeadImg":"http://img06.iambuyer.com/imgup/upload/images/2017/10/12/hcjjc2FiYnHjiQG5aNDdWxWQQzdMShcjjc2F1QPARHw68Wlq0DWiNblgLUzWdxhcjjc2Bq0BH0nojUwxm1.jpg","sysIndustryName":"家电配件","addStr":"北京 北京市 东城区","compName":"企业名称","userId":55,"userName":"www","endTime":1509408000000,"productListTitle":"ww","productListId":19},{"createTime":1508328613000,"compId":1,"userHeadImg":"http://img06.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1510046873000,"unit":"个","addStr":"北京 北京市 东城区","productNum":122,"userId":51,"userName":"姜家成1","productListTitle":"标题","productName":"名称3","productListId":7},{"compId":1,"createTime":1509502312000,"userHeadImg":"http://img02.iambuyer.com/imgup/upload/images/2017/10/12/hcjjc2FiYnHjiQG5aNDdWxWQQzdMShcjjc2F1QPARHw68Wlq0DWiNblgLUzWdxhcjjc2Bq0BH0nojUwxm1.jpg","sysIndustryName":"家电配件","addStr":"北京 北京市 东城区","compName":"企业名称","userId":55,"userName":"www","endTime":1509408000000,"productListTitle":"22","productListId":17},{"createTime":1508328613000,"compId":1,"userHeadImg":"http://img02.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1510046873000,"unit":"个","addStr":"北京 北京市 东城区","productNum":111,"userId":51,"userName":"姜家成1","productListTitle":"标题","productName":"名称2","productListId":7}],"stProduct_list":{"compId":1,"productListId":1,"userId":51,"listState":"0","endTime":1510046873000,"createTime":1504254582000,"updateTime":1506760217000,"shareCount":0,"recordCount":1,"productListTitle":"公司采购2017年年会奖品","productListDetail":"内容","states":"0","createMan":"admin","updateMan":"admin","lookCount":2,"soldCause":null},"userHeadImg":"http://img01.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","sysIndustryName":"家电配件","compName":"企业名称","addStr":"北京 北京市 东城区","userName":"姜家成1","followComp":1,"stProducts":[{"productName":"名称1","productListId":1,"productId":1,"unit":"个","productNum":100,"states":"0"},{"productName":"名称2","productListId":1,"productId":12,"unit":"个","productNum":111,"states":"0"},{"productName":"名称3","productListId":1,"productId":13,"unit":"个","productNum":122,"states":"0"}]}
-     * ret : 200
-     * msg : success
+     * id : 743
+     * prodNumber : 100
+     * prodPrice : 100.21
+     * prodImage2 : null
+     * prodImage3 : null
+     * prodName : jjc测试1111
+     * prodTime : 2018-03-21 10:17:35
+     * prodImage : http://img01.iambuyer.com/imgup/upload/images/2018/03/21/qDzVFQyw61nyS9qFbszJQLczhcjjc2BYXen6Jahcjjc2FQVE3Lihcjjc2FCwuf0DIiXJ7Ohcjjc2FGzIjP4UShZo.jpeg
+     * productState : 0
+     * proType : 测试---20180321
+     * productUnit : 单位
+     * productStateStr :  게시 됨
+     * stProductParas : [{"paramName":"canshu","paramValue":"124"},{"paramName":"cab","paramValue":"455"}]
+     * prodIntro : 挺好的
+     * prodOfferCnt : 2
+     * offerProdList : [{"id":263,"offerTime":"2018-03-09 16:16:02","offerProdImage":"http://img08.iambuyer.com/imgup/upload/images/2018/03/21/TNEkCJacsQBDNdWXdTI3AGLhbohcjjc2FwTctQ2YzV9mLqJY8Khcjjc2FXeu40q1QCrEVC4Uij6K.jpeg","offerProdName":"45","offerProdPrice":"0","offerProdStore":"10","offerPhone":"12341567489","offerContent":"111111111111111"},{"id":262,"offerTime":"2018-03-09 16:16:01","offerProdImage":"http://img01.iambuyer.com/imgup/upload/images/2018/03/09/ybm7TqxXRdPhcjjc2BxwRFJmkghcjjc2FPXy3dRWLUSIF1jnQF9rNy5LivvU1Jo7U6PwMjVtzjAn.jpeg","offerProdName":"34","offerProdPrice":"0","offerProdStore":"10","offerPhone":"12341567489","offerContent":"11"}]
+     * productPriceMax : 200.12
+     * productSampleCount : 11222
      */
 
-    public ContentBean content;
-    public String ret;
-    public String msg;
+    public int id;
+    public String prodNumber;
+    public BigDecimal prodPrice;
+    public String prodImage2;
+    public String prodImage3;
+    public String prodName;
+    public String prodTime;
+    public String successTime;
+    public String prodImage;
+    public String productState;
+    public String proType;
+    public String productUnit;
+    public String productStateStr;
+    public String prodIntro;
+    public int prodOfferCnt;
+    public BigDecimal productPriceMax;
+    public int productSampleCount;
+    public List<StProductParasBean> stProductParas;
+    public List<String> imgs;
+    public List<OfferProdListBean> offerProdList;
 
-    public static class ContentBean {
+    public static class StProductParasBean {
         /**
-         * recommendList : [{"createTime":1504254582000,"compId":1,"userHeadImg":"http://img03.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1510046873000,"unit":"个","addStr":"北京 北京市 东城区","productNum":122,"userId":51,"userName":"姜家成1","productListTitle":"公司采购2017年年会奖品","productName":"名称3","productListId":1},{"createTime":1504254582000,"compId":1,"userHeadImg":"http://img02.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1510046873000,"unit":"个","addStr":"北京 北京市 东城区","productNum":111,"userId":51,"userName":"姜家成1","productListTitle":"公司采购2017年年会奖品","productName":"名称2","productListId":1},{"createTime":1504254582000,"compId":1,"userHeadImg":"http://img03.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1510046873000,"unit":"个","addStr":"北京 北京市 东城区","productNum":100,"userId":51,"userName":"姜家成1","productListTitle":"公司采购2017年年会奖品","productName":"名称1","productListId":1},{"compId":1,"createTime":1509353681000,"userHeadImg":"http://img07.iambuyer.com/imgup/upload/images/2017/10/12/hcjjc2FiYnHjiQG5aNDdWxWQQzdMShcjjc2F1QPARHw68Wlq0DWiNblgLUzWdxhcjjc2Bq0BH0nojUwxm1.jpg","sysIndustryName":"家电配件","addStr":"北京 北京市 东城区","compName":"企业名称","userId":55,"userName":"www","endTime":1509580800000,"productListTitle":"标题1","productListId":8},{"createTime":1508328613000,"compId":1,"userHeadImg":"http://img01.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1510046873000,"unit":"个","addStr":"北京 北京市 东城区","productNum":100,"userId":51,"userName":"姜家成1","productListTitle":"标题","productName":"名称1","productListId":7},{"createTime":1508328613000,"compId":1,"userHeadImg":"http://img05.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1510046873000,"unit":"个","addStr":"北京 北京市 东城区","productNum":133,"userId":51,"userName":"姜家成1","productListTitle":"标题","productName":"名称4","productListId":7},{"createTime":1510048269000,"compId":1,"userHeadImg":"http://img06.iambuyer.com/imgup/upload/images/2017/10/12/hcjjc2FiYnHjiQG5aNDdWxWQQzdMShcjjc2F1QPARHw68Wlq0DWiNblgLUzWdxhcjjc2Bq0BH0nojUwxm1.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1511913600000,"unit":"进口","addStr":"北京 北京市 东城区","productNum":12,"userId":55,"userName":"www","productListTitle":"好开心","productName":"行吗","productListId":20},{"createTime":1510048269000,"compId":1,"userHeadImg":"http://img03.iambuyer.com/imgup/upload/images/2017/10/12/hcjjc2FiYnHjiQG5aNDdWxWQQzdMShcjjc2F1QPARHw68Wlq0DWiNblgLUzWdxhcjjc2Bq0BH0nojUwxm1.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1511913600000,"unit":"很OK哦咯","addStr":"北京 北京市 东城区","productNum":12,"userId":55,"userName":"www","productListTitle":"好开心","productName":"howl","productListId":20},{"compId":1,"createTime":1509522121000,"userHeadImg":"http://img06.iambuyer.com/imgup/upload/images/2017/10/12/hcjjc2FiYnHjiQG5aNDdWxWQQzdMShcjjc2F1QPARHw68Wlq0DWiNblgLUzWdxhcjjc2Bq0BH0nojUwxm1.jpg","sysIndustryName":"家电配件","addStr":"北京 北京市 东城区","compName":"企业名称","userId":55,"userName":"www","endTime":1509408000000,"productListTitle":"ww","productListId":19},{"createTime":1508328613000,"compId":1,"userHeadImg":"http://img06.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1510046873000,"unit":"个","addStr":"北京 北京市 东城区","productNum":122,"userId":51,"userName":"姜家成1","productListTitle":"标题","productName":"名称3","productListId":7},{"compId":1,"createTime":1509502312000,"userHeadImg":"http://img02.iambuyer.com/imgup/upload/images/2017/10/12/hcjjc2FiYnHjiQG5aNDdWxWQQzdMShcjjc2F1QPARHw68Wlq0DWiNblgLUzWdxhcjjc2Bq0BH0nojUwxm1.jpg","sysIndustryName":"家电配件","addStr":"北京 北京市 东城区","compName":"企业名称","userId":55,"userName":"www","endTime":1509408000000,"productListTitle":"22","productListId":17},{"createTime":1508328613000,"compId":1,"userHeadImg":"http://img02.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","sysIndustryName":"家电配件","compName":"企业名称","endTime":1510046873000,"unit":"个","addStr":"北京 北京市 东城区","productNum":111,"userId":51,"userName":"姜家成1","productListTitle":"标题","productName":"名称2","productListId":7}]
-         * stProduct_list : {"compId":1,"productListId":1,"userId":51,"listState":"0","endTime":1510046873000,"createTime":1504254582000,"updateTime":1506760217000,"shareCount":0,"recordCount":1,"productListTitle":"公司采购2017年年会奖品","productListDetail":"内容","states":"0","createMan":"admin","updateMan":"admin","lookCount":2,"soldCause":null}
-         * userHeadImg : http://img01.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg
-         * sysIndustryName : 家电配件
-         * compName : 企业名称
-         * addStr : 北京 北京市 东城区
-         * userName : 姜家成1
-         * followComp : 1
-         * stProducts : [{"productName":"名称1","productListId":1,"productId":1,"unit":"个","productNum":100,"states":"0"},{"productName":"名称2","productListId":1,"productId":12,"unit":"个","productNum":111,"states":"0"},{"productName":"名称3","productListId":1,"productId":13,"unit":"个","productNum":122,"states":"0"}]
+         * paramName : canshu
+         * paramValue : 124
          */
 
-        public StProductListBean stProduct_list;
-        public String userHeadImg;
-        public String sysIndustryName;
-        public String compName;
-        public String addStr;
-        public String userName;
-        public String checkState;
-        public String userPosition;
-        public int followComp;
-        public List<RecommendListBean> recommendList;
-        public List<StProductsBean> stProducts;
+        public String paramName;
+        public String paramValue;
 
-        public static class StProductListBean {
-            /**
-             * compId : 1
-             * productListId : 1
-             * userId : 51
-             * listState : 0
-             * endTime : 1510046873000
-             * createTime : 1504254582000
-             * updateTime : 1506760217000
-             * shareCount : 0
-             * recordCount : 1
-             * productListTitle : 公司采购2017年年会奖品
-             * productListDetail : 内容
-             * states : 0
-             * createMan : admin
-             * updateMan : admin
-             * lookCount : 2
-             * soldCause : null
-             */
-
-            public int compId;
-            public int productListId;
-            public int userId;
-            public String listState;
-            public long endTime;
-            public long createTime;
-            public long updateTime;
-            public int shareCount;
-            public int recordCount;
-            public String productListTitle;
-            public String productListDetail;
-            public String states;
-            public String createMan;
-            public String updateMan;
-            public int lookCount;
-            public Object soldCause;
+        public StProductParasBean(String paramName, String paramValue) {
+            this.paramName = paramName;
+            this.paramValue = paramValue;
         }
+    }
 
-        public static class RecommendListBean {
-            /**
-             * createTime : 1504254582000
-             * compId : 1
-             * userHeadImg : http://img03.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg
-             * sysIndustryName : 家电配件
-             * compName : 企业名称
-             * endTime : 1510046873000
-             * unit : 个
-             * addStr : 北京 北京市 东城区
-             * productNum : 122
-             * userId : 51
-             * userName : 姜家成1
-             * productListTitle : 公司采购2017年年会奖品
-             * productName : 名称3
-             * productListId : 1
-             */
+    public static class OfferProdListBean {
+        /**
+         * id : 263
+         * offerTime : 2018-03-09 16:16:02
+         * offerProdImage : http://img08.iambuyer.com/imgup/upload/images/2018/03/21/TNEkCJacsQBDNdWXdTI3AGLhbohcjjc2FwTctQ2YzV9mLqJY8Khcjjc2FXeu40q1QCrEVC4Uij6K.jpeg
+         * offerProdName : 45
+         * offerProdPrice : 0
+         * offerProdStore : 10
+         * offerPhone : 12341567489
+         * offerContent : 111111111111111
+         */
 
-            public long createTime;
-            public int compId;
-            public String userHeadImg;
-            public String sysIndustryName;
-            public String compName;
-            public long endTime;
-            public String unit;
-            public String addStr;
-            public int productNum;
-            public int userId;
-            public String userName;
-            public String productListTitle;
-            public String productName;
-            public int productListId;
-            public int productId;
-        }
-
-        public static class StProductsBean implements Serializable{
-            /**
-             * productName : 名称1
-             * productListId : 1
-             * productId : 1
-             * unit : 个
-             * productNum : 100
-             * states : 0
-             */
-
-            public String productName;
-            public int productListId;
-            public int productId;
-            public String unit;
-            public int productNum;
-            public String states;
-        }
+        public int id;
+        public String offerTime;
+        public String offerProdImage;
+        public String offerProdName;
+        public String offerProdPrice;
+        public String offerProdStore;
+        public String offerPhone;
+        public String offerContent;
+        public String isIntention;
     }
 }

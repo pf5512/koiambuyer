@@ -7,6 +7,7 @@ import com.hc360.koiambuyer.api.bean.ResponseInfo;
 import com.hc360.koiambuyer.api.bean.ShipAddressInfo;
 import com.hc360.koiambuyer.myinterface.ipresenter.IShipAddressPresenter;
 import com.hc360.koiambuyer.myinterface.iview.IShipAddressView;
+import com.hc360.koiambuyer.view.MyApp;
 
 import rx.Observer;
 import rx.functions.Action0;
@@ -29,13 +30,12 @@ public class ShipAddressPresenter implements IShipAddressPresenter {
         this.mView = view;
     }
 
-
     /**
      * 获取发货地址
      */
     @Override
     public void getAddresses(String id, final boolean setDefault) {
-        RetrofitService.getAddresses(new Integer(id))
+        RetrofitService.getAddresses(new Integer(MyApp.sUserId))
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
@@ -74,8 +74,8 @@ public class ShipAddressPresenter implements IShipAddressPresenter {
     }
 
     @Override
-    public void setDefaultAddress(int deliverId,int comId , String id) {
-        RetrofitService.setDefaultAddress(deliverId,comId,id)
+    public void setDefaultAddress(int deliverId,String id) {
+        RetrofitService.setDefaultAddress(deliverId,id)
                 .subscribe(new MyObserver<ResponseInfo>() {
                     @Override
                     public void onNext(ResponseInfo responseInfo) {

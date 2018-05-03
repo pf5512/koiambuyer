@@ -14,7 +14,7 @@ import com.hc360.koiambuyer.api.bean.UserBaseInfo;
  */
 
 public interface IPersonalDataView {
-    void postPic(String name);
-    void updateInfo(String type);
+    void postPic(String name,String httpName);
+    void updateInfo();
     void getUserBaseInfo(UserBaseInfo info);
 }

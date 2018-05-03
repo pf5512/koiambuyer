@@ -122,4 +122,35 @@ public class Msg {
     public static final String LAST_WX_ASK_TIME = "last_wx";
     public static final String MAIN_TRADE_TAKE_MSG = "main_trade_take_msg";
     public static final String HUAWEI = "huawei";
+    public static final String PUR_ID = "pur_id";
+    public static final String QUOTE_ID = "quote_id";
+
+    public static final String PURCHASE_STATE = "purchase_state";
+    public static final String STATE = "state";
+    public static final String QR = "qr";
+    public static final String POSITION = "position";
+    public static final String ORDERNO = "orderno";
+    public static final String GOOD_INFO = "good_info";
+    public static final String GOOD_NUM = "good_num";
+    public static final String GOOD_PRICE = "good_price";
+    public static final String GOOD_MSG = "good_msg";
+    public static final String GOOD_ID = "good_id";
+    public static final String GOOD_MAX_NUM = "good_max_num";
+
+    public static final String GOOD_MIN_NUM = "good_min_num";
+    public static final String GOOD_NAME = "good_name";
+    public static final String GOOD_PIC = "good_pic";
+    public static final String GOOD_MAX_PRICE = "good_max_price";
+    public static final String GOOD_MIN_PRICE = "good_min_price";
+    public static final String GOOD_GOOD_ID = "good_good_id";
+    public static final String GOOD_DESC = "good_desc";
+    public static final String TO_FIND = "to_find";
+    public static final String BUYER_ID = "buyer_id";
+    public static final String USER_NAME = "user_name";
+    public static final String BACK = "back";
+    public static final String SELECT = "select";
+    public static final String USER_TELE = "user_tele";
+
+    public static final String IS_CUO = "is_cuo";
+    public static final String EMAIL = "email";
 }

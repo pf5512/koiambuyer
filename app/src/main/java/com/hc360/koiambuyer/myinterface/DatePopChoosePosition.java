@@ -11,5 +11,6 @@ package com.hc360.koiambuyer.myinterface;
  */
 
 public interface DatePopChoosePosition {
-    void getDateType(String type, String msg);
+    void getType(int type, String msg);
+    void onPopDismiss();
 }

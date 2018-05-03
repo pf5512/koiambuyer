@@ -5,44 +5,72 @@
     android:background="@color/StvColor"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_title"
+        android:background="@color/mainColor"
+        android:textColor="#FFFFFFFF"
+        android:textSize="16sp"
+        android:paddingTop="23dp"
+        android:paddingLeft="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:background="@color/mainColor"
+        android:paddingLeft="30dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="37.5dp"
+        android:textColor="#FFFFFFFF"
+        android:textSize="12sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <LinearLayout
-        style="@style/LLWithPaddingStyle">
-        <TextView
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            style="@style/TvLeftWapStyle"
-            android:text="@string/set_pwd"/>
+        style="@style/LLStyle"
+        android:paddingTop="50dp">
         <EditText
             android:id="@+id/et_set"
-            android:layout_weight="1"
-            style="@style/EtMidStyle"
-            android:textColorHint="@color/HintColor"
+            android:background="@null"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:hint="@string/input_pwd_first"
             android:inputType="textPassword"
-            android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ"
-            android:paddingLeft="14dp"
-            android:layout_marginLeft="10dp"
-            android:hint="@string/set_pwd_hint" />
+            android:paddingBottom="15dp"
+            android:textColorHint="@color/HintColor"
+            android:textSize="@dimen/et_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
     <View
-        style="@style/LineLongStyle"/>
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/LineColor"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
     <LinearLayout
-        style="@style/LLWithPaddingStyle">
-        <TextView
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            style="@style/TvLeftWapStyle"
-            android:text="@string/set_confirm_pwd"/>
+        android:layout_marginTop="28dp"
+        style="@style/LLStyle">
         <EditText
             android:id="@+id/et_confirm"
-            android:layout_weight="1"
-            style="@style/EtMidStyle"
-            android:textColorHint="@color/HintColor"
-            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:hint="@string/input_pwd_second"
             android:inputType="textPassword"
-            android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ"
-            android:paddingLeft="14dp"
-            android:hint="@string/set_confirm_pwd_hint" />
+            android:paddingBottom="15dp"
+            android:textColorHint="@color/HintColor"
+            android:textSize="@dimen/et_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
-    <include layout="@layout/layout_stv"/>
+    <View
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/LineColor"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
 
+    <include layout="@layout/layout_stv"/>
 </LinearLayout>

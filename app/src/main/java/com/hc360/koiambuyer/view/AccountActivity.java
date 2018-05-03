@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hc360.koiambuyer.R;
+import com.hc360.koiambuyer.api.MyObserver;
 import com.hc360.koiambuyer.engine.CustomTextWatcher;
 import com.hc360.koiambuyer.model.Constant;
 import com.hc360.koiambuyer.model.Msg;
@@ -28,6 +29,8 @@ import com.hc360.koiambuyer.myinterface.IdentifyListener;
 import com.hc360.koiambuyer.myinterface.ipresenter.IAccountPresenter;
 import com.hc360.koiambuyer.myinterface.iview.IAccountView;
 import com.hc360.koiambuyer.presenter.AccountPresenter;
+import com.hc360.koiambuyer.rxbus.RxBus;
+import com.hc360.koiambuyer.rxbus.event.FinishAccountEvent;
 import com.hc360.koiambuyer.utils.DialogHelper;
 import com.hc360.koiambuyer.utils.FormTool;
 import com.hc360.koiambuyer.utils.PopUtils;
@@ -42,6 +45,7 @@ import com.hc360.koiambuyer.widget.SingleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscription;
 
 public class AccountActivity extends BaseActivity<IAccountPresenter> implements IAccountView {
 
@@ -102,10 +106,11 @@ public class AccountActivity extends BaseActivity<IAccountPresenter> implements 
     private String phone;
     private String password;
 
-    private int l = 59;
+    public static final int INIT_TIME = 59;
+    private int l = INIT_TIME;
     private int ml = 900;
     private int TIME = 1000;
-    private int r = 59;
+    private int r = INIT_TIME;
     private int mr = 900;
     Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -122,6 +127,7 @@ public class AccountActivity extends BaseActivity<IAccountPresenter> implements 
                                 }
                             }
                         } else {
+                            mHandler.removeMessages(SEND_LOGIN_MSG);
                             mTvLoginIdentify.setText(getResources().getString(R.string.get_identify));
                             mTvLoginIdentify.setClickable(true);
                         }
@@ -139,10 +145,12 @@ public class AccountActivity extends BaseActivity<IAccountPresenter> implements 
                             r--;
                             mTvRegisterIdentify.setText(r + "s");
                             if (mTvRegisterIdentify.getText().toString().equals("0s")) {
+                                mHandler.removeMessages(SEND_REGISTER_MSG);
                                 mTvRegisterIdentify.setText(getResources().getString(R.string.get_identify));
                                 mTvRegisterIdentify.setClickable(true);
                             }
                         } else {
+                            mHandler.removeMessages(SEND_REGISTER_MSG);
                             mTvRegisterIdentify.setText(getResources().getString(R.string.get_identify));
                             mTvRegisterIdentify.setClickable(true);
                         }
@@ -161,10 +169,20 @@ public class AccountActivity extends BaseActivity<IAccountPresenter> implements 
 
         ;
     };
+    private Subscription mSubscribe;
 
     @Override
     protected void initView() {
         mDialog = new ProgressDialog(this);
+        mSubscribe = RxBus.getInstance().toObservable(FinishAccountEvent.class)
+                .subscribe(new MyObserver<FinishAccountEvent>() {
+                    @Override
+                    public void onNext(FinishAccountEvent finishAccountEvent) {
+                        if (finishAccountEvent.isAccountFinish){
+                            finish();
+                        }
+                    }
+                });
     }
 
 
@@ -231,22 +249,24 @@ public class AccountActivity extends BaseActivity<IAccountPresenter> implements 
                 tabChange(true, getResources().getString(R.string.input_phone), getResources().getString(R.string.input_identify), getResources().getString(R.string.next));
                 break;
             case R.id.tv_identify:
-            case R.id.tv_re_identify:
+                l=INIT_TIME;
                 //逻辑需要改，根据服务器返回进行数据展示，没有网，就不倒计时
-                phone = mEtPhone.getText().toString().trim();
-                mPresenter.sendIdentify(phone, isRegister ? SmsStautsEnum.REG.getValue() : SmsStautsEnum.NOTELOGIN.getValue());
-                SPUtils.saveString(this, Msg.LAST_ACCOUNT, phone);
+                getIdentify();
+                break;
+            case R.id.tv_re_identify:
+                r=INIT_TIME;
+                //逻辑需要改，根据服务器返回进行数据展示，没有网，就不倒计时
+                getIdentify();
                 //获取验证码的按钮
                 break;
-
             case R.id.tv_login_way:
                 //登录方式的按钮，是验证码还是密码
                 loginWayChange(isLoginByIdentify);
                 break;
             case R.id.tv_forget:
                 //忘记密码的按钮
-                Intent openForgetPwd = new Intent(AccountActivity.this, ContainerMainFooterActivity.class);
-                openForgetPwd.putExtra(Constant.TYPE, Constant.FORGET_PWD);
+                Intent openForgetPwd = new Intent(AccountActivity.this, ContainerFooterActivity.class);
+                openForgetPwd.putExtra(Constant.TYPE, Constant.CHANGE_PWD_FIRST);
                 startActivity(openForgetPwd);
                 break;
             case R.id.tv_agree:
@@ -337,6 +357,12 @@ public class AccountActivity extends BaseActivity<IAccountPresenter> implements 
         }
     }
 
+    private void getIdentify() {
+        phone = mEtPhone.getText().toString().trim();
+        mPresenter.sendIdentify(phone, isRegister ? SmsStautsEnum.REG.getValue() : SmsStautsEnum.NOTELOGIN.getValue());
+        SPUtils.saveString(this, Msg.LAST_ACCOUNT, phone);
+    }
+
     @Override
     public void loginCount(String phone) {
         int count = SPUtils.getInt(this, phone, 0);
@@ -349,6 +375,19 @@ public class AccountActivity extends BaseActivity<IAccountPresenter> implements 
         SPUtils.saveBoolean(this, Msg.IS_LOGIN_IDENTIFY, false);
         SPUtils.saveBoolean(this, Msg.IS_REGISTER_IDENTIFY, false);
         dialogDismiss();
+        //将登录状态改回来
+        isLoginIdentify = false;
+        isRegisterIdentify = false;
+        mHandler.removeCallbacksAndMessages(null);
+        mTvRegisterIdentify.setClickable(true);
+        mTvLoginIdentify.setClickable(true);
+        mTvLoginIdentify.setText(getStr(R.string.get_identify));
+        mTvRegisterIdentify.setText(getStr(R.string.get_identify));
+        l = INIT_TIME;
+        ml = 900;
+        r = INIT_TIME;
+        mr = 900;
+
         switch (msg) {
             case States.OK:
                 //调用查看是否选择身份
@@ -387,9 +426,7 @@ public class AccountActivity extends BaseActivity<IAccountPresenter> implements 
     public void getUserStates(String state) {
         //登录成功，暂时跳到主页
         startActivity(new Intent(this, HomeActivity.class));
-        //这里需要判断是否已经选择了城市经理
-//        startActivity(new Intent(this,CityManagerActivity.class));
-
+        finish();
     }
 
     @Override
@@ -410,7 +447,6 @@ public class AccountActivity extends BaseActivity<IAccountPresenter> implements 
     public void sendSuccess(String businessName) {
         if (businessName.equals(SmsStautsEnum.REG.getValue())) {
             isRegisterIdentify = true;
-            r = 19;
             mTvRegisterIdentify.setClickable(false);
             new Thread(new Runnable() {
                 @Override
@@ -431,7 +467,6 @@ public class AccountActivity extends BaseActivity<IAccountPresenter> implements 
             SPUtils.saveBoolean(this, Msg.IS_REGISTER_IDENTIFY, true);
         } else if (businessName.equals(SmsStautsEnum.NOTELOGIN.getValue())) {
             isLoginIdentify = true;
-            l = 19;
             mTvLoginIdentify.setClickable(false);
             mTvLoginIdentify.setText(l + "s");
             new Thread(new Runnable() {
@@ -481,6 +516,7 @@ public class AccountActivity extends BaseActivity<IAccountPresenter> implements 
             mTvRegisterIdentify.setVisibility(View.VISIBLE);
             mTvLoginIdentify.setVisibility(View.GONE);
         } else {
+            mTvLoginWay.setText(getResources().getString(R.string.login_by_identify) );
             mTvRegisterIdentify.setVisibility(View.GONE);
             mTvLoginIdentify.setVisibility(View.GONE);
         }
@@ -498,5 +534,13 @@ public class AccountActivity extends BaseActivity<IAccountPresenter> implements 
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (!mSubscribe.isUnsubscribed()) {
+            mSubscribe.unsubscribe();
+        }
     }
 }

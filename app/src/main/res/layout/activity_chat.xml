@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/head"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/StvColor"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/LineColor" />
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl_prove"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#FFF4E5">
+
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:paddingLeft="60dp"
+            android:textSize="12sp"
+            android:text="未认证商家不可使用此功能，"
+            android:textColor="@color/refuseColor" />
+
+        <TextView
+            android:id="@+id/tv_prove"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/tv_msg"
+            android:gravity="center_vertical"
+            android:text="点击这里去认证"
+            android:textSize="12sp"
+            android:textColor="@color/refuseColor" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/tv_card"
+            style="@style/TvChatStyle"
+            android:drawablePadding="3dp"
+
+            android:text="换名片" />
+
+        <TextView
+            android:id="@+id/tv_wei_xin"
+            style="@style/TvChatStyle"
+            android:drawablePadding="3dp"
+            android:text="换微信" />
+
+        <TextView
+            android:id="@+id/tv_purchase"
+            style="@style/TvChatStyle"
+            android:drawablePadding="3dp"
+
+            android:text="采购单" />
+
+        <TextView
+            android:id="@+id/tv_no_suit"
+            style="@style/TvChatStyle"
+
+            android:text="不合适"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/LineColor" />
+
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+
+</LinearLayout>

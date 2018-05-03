@@ -23,6 +23,9 @@ public class TVDrawableUtil {
     public static void setLeftByRes(Context context, int resId, TextView tv){
         tv.setCompoundDrawables(getTvDrawable(context,resId), null, null, null);
     }
+    public static void setLeftRightByRes(Context context, int resId, TextView tv){
+        tv.setCompoundDrawables(getTvDrawable(context,resId), null, getTvDrawable(context,resId), null);
+    }
     public static void setLeftByRes(Context context, int resId,int iconSize, TextView tv){
         tv.setCompoundDrawables(getTvDrawable(context,resId,iconSize), null, null, null);
     }
@@ -68,4 +71,5 @@ public class TVDrawableUtil {
         nav.setBounds(0, 0, iconSize, iconSize);
         return nav;
     }
+
 }

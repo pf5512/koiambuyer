@@ -1,16 +1,21 @@
 package com.hc360.koiambuyer.view;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.multidex.MultiDexApplication;
 
+import com.hc360.koiambuyer.BuildConfig;
 import com.hc360.koiambuyer.api.RetrofitService;
 import com.hc360.koiambuyer.api.bean.CityInfo;
 import com.hc360.koiambuyer.api.bean.GoodsDetailInfo;
 import com.hc360.koiambuyer.api.bean.PostPicInfo;
 import com.hc360.koiambuyer.model.Constant;
 import com.hc360.koiambuyer.utils.SPUtils;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMOptions;
+import com.hyphenate.easeui.controller.EaseUI;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +31,13 @@ import java.util.List;
  * Copyright notice:
  */
 
-public class MyApp extends Application {
+public class MyApp extends MultiDexApplication {
 
     private static MyApp sContext;
     public static List<GoodsDetailInfo.ContentBean.SpProductPiceBean> sPriceList = new ArrayList<>();
     public static ArrayList<PostPicInfo> sImgBeans = new ArrayList<>();
     public static int sPosition;
-    public static String sUserId;
+    public static String sUserId ;
     public static String sComId;
     public static String sLoginType = "";
     public static String sPhone;
@@ -56,6 +61,23 @@ public class MyApp extends Application {
         sUserId = SPUtils.getString(this,Constant._ID,"");
         sPhone = SPUtils.getString(this,Constant._PHONE,"");
         RetrofitService.init();
+        if (RetrofitService.isDebug){
+            SPUtils.saveString(this,Constant._ID,"365");
+            sUserId = "365";
+        }
+
+        EMOptions options = new EMOptions();
+        // 默认添加好友时，是不需要验证的，false需要验证
+        options.setAcceptInvitationAlways(false);
+        EaseUI.getInstance().init(getApplicationContext(), options);
+        try {
+            EMClient.getInstance().setDebugMode(true);  //设置debug模式
+        }catch (Exception e){
+
+        }
+        if (BuildConfig.DEBUG) {
+            Logger.init("LogTAG");
+        }
     }
 
 

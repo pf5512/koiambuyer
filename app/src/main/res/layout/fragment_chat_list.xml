@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/StvColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp" >
+        <TextView
+            android:text="@string/msg"
+            android:textColor="@color/StvColor"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="@color/buyerColor"
+            android:layout_width="match_parent"
+            android:layout_height="44dp" />
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/iv_back"
+            android:paddingLeft="20dp"
+            android:paddingRight="25dp"
+            android:src="@mipmap/ic_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_contacts"
+        android:paddingLeft="15dp"
+        android:gravity="center_vertical"
+        android:text="@string/chat_msg"
+        android:drawableLeft="@drawable/shape_title_left"
+        android:textSize="13sp"
+        android:textColor="@color/tvNormalColor"
+        android:drawablePadding="10dp"
+        android:background="@color/BgColor"
+        android:layout_width="match_parent"
+        android:layout_height="38dp" />
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/LineColor"
+        android:layout_height="1px"/>
+    <include layout="@layout/layout_xrecyclerview"/>
+</LinearLayout>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/StvColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.hc360.koiambuyer.widget.SmartSecondScrollNestedView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:background="@color/mainColor"
+                android:layout_height="44dp">
+                <ImageView
+                    android:src="@mipmap/ic_back"
+                    android:paddingLeft="16.5dp"
+                    android:paddingRight="16.5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+
+            <TextView
+                android:paddingTop="19.5dp"
+                android:paddingLeft="20dp"
+                android:text="@string/publish_success_title"
+                android:background="@color/mainColor"
+                android:layout_width="match_parent"
+                android:textSize="16sp"
+                android:textColor="@color/StvColor"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:paddingTop="10dp"
+                android:paddingLeft="20dp"
+                android:text="@string/publish_success_content"
+                android:background="@color/mainColor"
+                android:layout_width="match_parent"
+                android:textSize="12sp"
+                android:textColor="@color/StvColor"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:background="@color/mainColor"
+                android:paddingTop="30dp"
+                android:paddingBottom="36dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="23dp"
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_publish"
+                    android:text="@string/publish_success_go_on"
+                    android:textColor="@color/mainColor"
+                    android:textSize="16sp"
+                    android:background="@drawable/selector_w_tv_second_4"
+                    android:gravity="center"
+                    android:layout_marginRight="8.5dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp" />
+                <TextView
+                    android:id="@+id/tv_watch_mine"
+                    android:text="@string/publish_success_go_to"
+                    android:textColor="@color/StvColor"
+                    android:textSize="16sp"
+                    android:background="@drawable/selector_y_tv_second_pub_suc"
+                    android:layout_marginLeft="8.5dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp" />
+            </LinearLayout>
+            <TextView
+                android:paddingTop="20dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:textColor="@color/tvNormalColor"
+                android:textSize="15sp"
+                android:text="@string/publish_success_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <include layout="@layout/layout_xrecyclerview"/>
+        </LinearLayout>
+    </com.hc360.koiambuyer.widget.SmartSecondScrollNestedView>
+    <FrameLayout
+        android:id="@+id/fl_top"
+        android:layout_width="match_parent"
+        android:background="@color/mainColor"
+        android:layout_height="44dp">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:src="@mipmap/ic_back"
+            android:paddingLeft="16.5dp"
+            android:paddingRight="16.5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+</RelativeLayout>

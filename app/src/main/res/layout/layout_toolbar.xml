@@ -19,13 +19,11 @@
     <TextView
         android:id="@+id/toolbar_right"
         android:textColor="@color/StvColor"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:layout_gravity="right|center_vertical"
         android:gravity="center_vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-
 </android.support.v7.widget.Toolbar>

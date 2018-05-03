@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hc360.koiambuyer.R;
-import com.hc360.koiambuyer.api.bean.PurchaseDetailInfo;
 import com.hc360.koiambuyer.model.Constant;
 import com.hc360.koiambuyer.model.Msg;
 import com.hc360.koiambuyer.utils.CameraUtil;
@@ -88,6 +87,7 @@ public class ContainerMainFooterActivity extends BaseActivity {
             case Constant.CHANGE_PHONE:
                 //修改手机号
                 replaceFragmentWithTitle(getStr(R.string.toolbar_edit_phone));
+                mLine.setVisibility(View.GONE);
                 break;
             case Constant.CHANGE_PWD:
                 //更换密码
@@ -233,8 +233,8 @@ public class ContainerMainFooterActivity extends BaseActivity {
                 break;
             case Constant.EDIT_PURCHASE:
             case Constant.EDIT_PURCHASE_BEFORE:
-                PurchaseDetailInfo.ContentBean.StProductsBean extra = (PurchaseDetailInfo.ContentBean.StProductsBean) getIntent().getSerializableExtra(Msg.PURCHASE);
-                replaceEditPurchaseWithTitleAndMsg("采购产品", extra);
+//                PurchaseDetailInfo.ContentBean.StProductsBean extra = (PurchaseDetailInfo.ContentBean.StProductsBean) getIntent().getSerializableExtra(Msg.PURCHASE);
+//                replaceEditPurchaseWithTitleAndMsg("采购产品", extra);
 
                 break;
             case Constant.NEW_PURCHASE:
@@ -583,7 +583,7 @@ public class ContainerMainFooterActivity extends BaseActivity {
                         cropImageUri = Uri.fromFile(fileCropUri);
                         Uri newUri = Uri.parse(PhotoUtils.getPath(this, data.getData()));
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                            newUri = FileProvider.getUriForFile(this, "com.hc360.iambuyer.fileprovider", new File(newUri.getPath()));
+                            newUri = FileProvider.getUriForFile(this, "com.hc360.koiambuyer.fileprovider", new File(newUri.getPath()));
                         }
                         PhotoUtils.cropImageUri(this, newUri, cropImageUri, Constant.CROP_PICTURE);
                     } else {

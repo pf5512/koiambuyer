@@ -12,7 +12,14 @@
         <item name="android:textColor">@color/minorColor</item>
         <item name="android:textSize">14sp</item>
     </style>
-
+    <!--buyTheme-->
+    <style name="WhiteTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/StvColor</item>
+        <item name="colorPrimaryDark">@color/StvColor</item>
+        <!--<item name="toolbarNavigationButtonStyle">@style/myToolbarNavigationButtonStyle</item>-->
+        <item name="toolbarStyle">@style/MyToolbar</item>
+        <item name="colorAccent">@color/StvColor</item>
+    </style>
 
     <style name="AppTheme.FullScreen" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
@@ -185,6 +192,16 @@
         <item name="android:background">@null</item>
         <item name="android:textColor">@color/minorColor</item>
     </style>
+    <!--设置的默认样式right不带图标-->
+    <style name="TvRightPadStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingRight">@dimen/content_padding_short</item>
+        <item name="android:textSize">14.5sp</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/minorColor</item>
+    </style>
+
 
     <!--设置的默认样式right不带图标-->
     <style name="BtnRightStyle">
@@ -413,12 +430,28 @@
         <item name="android:textColor">@color/TitleColor</item>
     </style>
 
+    <style name="OrderTvStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <!-- 自定义Dialog主题 -->
     <style name="BottomDialogStyle" parent="@android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:windowAnimationStyle">@style/BottomDialogAnimation</item>
     </style>
+
+    <!-- 自定义Dialog主题 -->
+    <style name="BottomDialogTranStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/BottomDialogAnimation</item>
+    </style>
+
     <!-- 自定义Dialog动画 -->
     <style name="BottomDialogAnimation">
         <item name="android:windowEnterAnimation">@anim/input_method_enter</item>
@@ -427,6 +460,8 @@
     <style name="TabText" parent="TextAppearance.AppCompat">
         <item name="android:textStyle">bold</item>
     </style>
-
-
+    <style name="TabLayoutStyle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>

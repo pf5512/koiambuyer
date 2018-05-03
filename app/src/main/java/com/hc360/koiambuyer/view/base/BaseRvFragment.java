@@ -84,7 +84,7 @@ public abstract class BaseRvFragment<T extends IBasePresenter,M extends BaseQuic
                 showEmpty();
             } else {
                 hideLoading();
-                ToastUtil.showShort(MyApp.getAppContext(),"没有更多数据了");
+                ToastUtil.showShort(MyApp.getAppContext(),getResources().getString(R.string.no_more_data));
             }
         }
     }

@@ -14,6 +14,6 @@ import com.hc360.koiambuyer.view.base.IBasePresenter;
  */
 
 public interface ISettingPresenter extends IBasePresenter {
-    void getSettingInfo(String userId);
+    void getSettingInfo();
     void loginOut();
 }

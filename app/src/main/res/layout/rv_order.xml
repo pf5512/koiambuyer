@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/StvColor"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:id="@+id/space"
+        android:background="@color/BgColor"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+    <FrameLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginBottom="10.5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_time"
+            android:textSize="12sp"
+            android:textColor="@color/tvNormalColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_state"
+            android:textSize="12sp"
+            android:layout_gravity="right"
+            android:textColor="@color/buyerColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+    <View style="@style/LineLongStyle"/>
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/shape_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.CardView
+            android:id="@+id/card"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="4dp"
+            android:layout_width="110dp"
+            android:layout_height="61dp">
+            <ImageView
+                android:id="@+id/iv_good"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v7.widget.CardView>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_toRightOf="@id/card"
+            android:layout_marginTop="10dp"
+            android:maxLines="2"
+            android:layout_marginRight="10dp"
+            android:ellipsize="end"
+            android:textColor="@color/minorSecondColor"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_price_about"
+            android:layout_toRightOf="@id/card"
+            android:layout_marginTop="10dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_alignBottom="@id/card"
+            android:textColor="@color/minorSecondColor"
+            android:textSize="14sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_content"
+            android:textSize="12sp"
+            android:textColor="@color/tvNormalColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_marginLeft="2dp"
+            android:textSize="12sp"
+            android:textColor="@color/buyerColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:id="@+id/line"
+        style="@style/LineLongStyle"/>
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginRight="15dp"
+        android:layout_gravity="right"
+        android:layout_marginLeft="15dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/cancel_order_tv"
+            android:id="@+id/tv_cancel"
+            android:textSize="12sp"
+            android:textColor="@color/tvNormalColor"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"
+            android:paddingTop="4.5dp"
+            android:paddingBottom="4.5dp"
+            android:background="@drawable/selector_order_w"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/again_order_tv"
+            android:id="@+id/tv_again"
+            android:textColor="@color/tvNormalColor"
+            android:textSize="12sp"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"
+            android:paddingTop="4.5dp"
+            android:paddingBottom="4.5dp"
+            android:background="@drawable/selector_order_w"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/sure_order_tv"
+            android:id="@+id/tv_sure"
+            android:textColor="@color/StvColor"
+            android:textSize="12sp"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"
+            android:paddingTop="4.5dp"
+            android:paddingBottom="4.5dp"
+            android:background="@drawable/selector_order_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

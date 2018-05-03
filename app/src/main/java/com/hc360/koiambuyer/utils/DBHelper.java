@@ -173,7 +173,7 @@ public class DBHelper {
         List<ClassifyBean> list = new ArrayList<>();
         File file = new File(context.getFilesDir(),"classify.db");
         SQLiteDatabase database = SQLiteDatabase.openDatabase(file.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
-        String sql = "SELECT * FROM sys_category WHERE LENGTH(CATE_ID) = 3";
+        String sql = "SELECT * FROM kor_sys_category WHERE LENGTH(CATE_ID) = 3";
         //查询结果封装成游标
         //rawQuery 第一个参数 要执行查询的sql语句 如果有条件 条件的值要用? 替代
         //第二个参数 string数组 这个数组中保存了用来查询的条件的值 用来替代 sql中?的
@@ -199,7 +199,7 @@ public class DBHelper {
         List<ClassifyBean> list = new ArrayList<>();
         File file = new File(context.getFilesDir(),"classify.db");
         SQLiteDatabase database = SQLiteDatabase.openDatabase(file.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
-        String sql = "SELECT * FROM sys_category WHERE  PARENT_CATE_ID = ?";
+        String sql = "SELECT * FROM kor_sys_category WHERE  PARENT_CATE_ID = ?";
         String[] selectionArgs = {msg};
         //查询结果封装成游标
         //rawQuery 第一个参数 要执行查询的sql语句 如果有条件 条件的值要用? 替代

@@ -14,11 +14,10 @@ import java.util.List;
  * Copyright notice:
  */
 
-public class GoodsDetailInfo {
-
+public class GoodsDetailInfo implements Serializable{
 
     /**
-     * content : {"unit":"个","comp":{"aName":"东城区","pName":"北京","compLogo":"http://img06.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","inName":"家电配件","compName":"企业名称","cName":"北京市","followComp":1},"sysCategoryStr":"CD盒","spProduct":{"userId":55,"productId":55,"productName":"张家林产品","loopImg001":"http://img04.iambuyer.com/imgup/upload/images/2017/10/20/nbcTt7DKByUvKhQysTNEL0D8P1S4WvYvaHpJEyTDjWYcZ7muIkLfdkRrBZG9Xhcjjc2BTZ.jpg","loopImg002":"http://img08.iambuyer.com/imgup/upload/images/2017/10/20/CBLp64QZO1OEykNuu0SMQ9wx5h5Jpbhcjjc2Fohcjjc2BHxHjC5lAwhcjjc2FfNIx1xcpgZNRzYlQMiZkX.jpg","loopImg003":"http://img01.iambuyer.com/imgup/upload/images/2017/10/20/YCmhcjjc2FjLOmQs8ia12cqXmmHdbeCDpX20vu6Yb1mQwRAOubij8yFbaL101M4ImWeqbe.jpg","loopImg004":"http://img01.iambuyer.com/imgup/upload/images/2017/10/20/yVqn22du9shcjjc2BLDP58BNVnZ3hcjjc2FlYSOOMh5Zn5hlbVxzR1MhUs5TJNzMbZXCc1gtcY00.jpg","loopImg005":"http://img01.iambuyer.com/imgup/upload/images/2017/10/20/zQjhcjjc2FlvB8ORRnKEbAN4UEU9xJBXJETQel1pOIVhja4n5t3nWlcMUUQMa46JGZ3pKP.jpg","thirdCateId":"001001001","secondCateId":"001001","deliverGoogsId":1,"providerId":1,"states":"0","createMan":"iambuyer","updateMan":"iambuyer","lookCount":0,"brandName":"品牌名称","isOnline":"0","isMade":"1","createTime":1508482453000,"updateTime":1508482453000,"shareCount":0,"recordCount":0,"productStates":null,"firstCateId":"001","fourthCateId":"","productPrice":"1","isHaveGoods":"0"},"SpProductPice":[{"productId":55,"price":5.1,"unit":"个","states":"0","priceId":149,"minNumber":30,"maxNumber":40},{"productId":55,"price":4.1,"unit":"个","states":"0","priceId":148,"minNumber":10,"maxNumber":20},{"productId":55,"price":2.1,"unit":"个","states":"0","priceId":147,"minNumber":1,"maxNumber":10}],"goodsDeliverAddrStr":"北京北京市","goodsDeliverAddrInfoStr":"北京 北京市 东城区","spProductImgS":[{"id":180,"imgName":"http://img04.iambuyer.com/imgup/upload/images/2017/10/20/4RcElGLfCV5u7IyGPezvGTXF0Ey1eUitLP70B5mhcjjc2BJwGEkdCfNCyA0p2Xhcjjc2FtqZ8pXK.jpg","productId":55,"createTime":1508482454000},{"id":179,"imgName":"http://img07.iambuyer.com/imgup/upload/images/2017/10/20/YVnbhcjjc2F0hcjjc2Fohcjjc2FW3Z9j7Ovq2IgWn4GWvSbEm70tE3jOVUV5O941RNgFUhTgH9CqpPKEit.jpg","productId":55,"createTime":1508482454000},{"id":178,"imgName":"http://img08.iambuyer.com/imgup/upload/images/2017/10/20/MUiHygAzCKVwMarJMk9AwdTk08hcjjc2BpoCo3j291ggBaHS4oc4dH7iEFPwTPloaHtjFJ.jpg","productId":55,"createTime":1508482454000},{"id":177,"imgName":"http://img01.iambuyer.com/imgup/upload/images/2017/10/20/ABtRmuyHM95FhAkjXfadAoMSeoghcjjc2BnSjoVrWELXQfee0PCd8JZ8dJ1c1KeMmGaRfs.jpg","productId":55,"createTime":1508482454000}],"user":{"wxCode":"11111","compId":1,"userHeadImg":"http://img02.iambuyer.com/imgup/upload/images/2017/10/12/hcjjc2FiYnHjiQG5aNDdWxWQQzdMShcjjc2F1QPARHw68Wlq0DWiNblgLUzWdxhcjjc2Bq0BH0nojUwxm1.jpg","compLogo":"JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","compName":"企业名称","qqCode":"123456","isCust":"0","cName":"北京市","loginType":"1","aName":"东城区","pName":"北京","refuseReason":"老子不背锅,自动@张佳林\n","cUserId":55,"inName":"家电配件","userId":55,"userName":"www","checkState":"2","userPosition":"销售经理"},"minPice":2.1,"spProductIntro":{"img001":null,"img003":null,"img002":null,"img004":null,"img005":null,"productId":55,"states":"0","introId":51,"img006":null,"img007":null,"img008":null,"img009":null,"img010":null,"productIntro":"你好啊测试----"}}
+     * content : {"spProduct":{"createTime":1513924439000,"loopImg002":null,"loopImg003":null,"loopImg004":null,"loopImg005":null,"thirdCateId":"004050002","secondCateId":"004050","deliverGoogsId":62,"providerId":61,"states":"0","shareCount":0,"loopImg001":"http://img07.iambuyer.com/imgup/upload/images/2017/12/22/IXNbKLg6PaJ3Zh6Thcjjc2Bfy334aHhcjjc2BNNqNylhVZhcjjc2Bmiemb7GK4FaNcW0Gr0vRKFOBNXhcjjc2FGhcjjc2F.jpg","productId":221,"sysType":"IambuyerKorea","recordCount":5,"lookCount":13,"sendTime":"1","productUnit":"1","productPrice":"0","productName":"2017款 苹果笔记本","phone":"1","userId":203,"compName":"1","productNum":"1","productSize":"1","productPkgsize":"1","productWeight":"1","productColor":"1","productMoney":1,"productStates":null,"brandName":"RO","isOnline":"1","firstCateId":"004","fourthCateId":null,"productTotal":1,"productMaxcount":1,"buyerContent":"1","isHaveGoods":"1","isMade":"1","createMan":"iambuyer","updateTime":1513924574000,"updateMan":"iambuyer"},"SpProductPice":[{"states":"0","productId":221,"price":1000,"unit":"台","priceId":10,"minNumber":10,"maxNumber":100},{"states":"0","productId":221,"price":10,"unit":"件","priceId":9,"minNumber":100,"maxNumber":200}],"followCount":3,"maxPice":1000,"spProductImgS":[{"id":667,"createTime":1513924574000,"productId":221,"imgName":"http://img01.iambuyer.com/imgup/upload/images/2017/12/22/ZQLwKAhcjjc2Ft5bPG17bOBnrwmHUUprNsVAz1uF4Gyhcjjc2FZjHX41a9nDRAswhcmD2p07ahQ6.jpg"}],"followComp":0,"user":{"referUserid":null,"createTime":null,"userQrimg":null,"email":null,"role":"1","userName":"王亚蒙","headImg":null,"ssoUserId":203,"pName":"전라북도","cName":"정읍시","phone":"15901368829","userContent":null,"loginTime":null,"createTimeStart":null,"createTimeEnd":null,"loginTimeEnd":null,"loginTimeStart":null,"referUserName":null,"userId":"35"},"minPice":10,"spProductIntro":{"states":"0","productId":221,"introId":370,"img006":null,"img007":null,"img008":null,"img009":null,"img010":null,"productIntro":"了","img001":null,"img002":null,"img003":null,"img004":null,"img005":null}}
      * ret : 200
      * msg : success
      */
@@ -29,88 +28,75 @@ public class GoodsDetailInfo {
 
     public static class ContentBean implements Serializable{
         /**
-         * unit : 个
-         * comp : {"aName":"东城区","pName":"北京","compLogo":"http://img06.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","inName":"家电配件","compName":"企业名称","cName":"北京市","followComp":1}
-         * sysCategoryStr : CD盒
-         * spProduct : {"userId":55,"productId":55,"productName":"张家林产品","loopImg001":"http://img04.iambuyer.com/imgup/upload/images/2017/10/20/nbcTt7DKByUvKhQysTNEL0D8P1S4WvYvaHpJEyTDjWYcZ7muIkLfdkRrBZG9Xhcjjc2BTZ.jpg","loopImg002":"http://img08.iambuyer.com/imgup/upload/images/2017/10/20/CBLp64QZO1OEykNuu0SMQ9wx5h5Jpbhcjjc2Fohcjjc2BHxHjC5lAwhcjjc2FfNIx1xcpgZNRzYlQMiZkX.jpg","loopImg003":"http://img01.iambuyer.com/imgup/upload/images/2017/10/20/YCmhcjjc2FjLOmQs8ia12cqXmmHdbeCDpX20vu6Yb1mQwRAOubij8yFbaL101M4ImWeqbe.jpg","loopImg004":"http://img01.iambuyer.com/imgup/upload/images/2017/10/20/yVqn22du9shcjjc2BLDP58BNVnZ3hcjjc2FlYSOOMh5Zn5hlbVxzR1MhUs5TJNzMbZXCc1gtcY00.jpg","loopImg005":"http://img01.iambuyer.com/imgup/upload/images/2017/10/20/zQjhcjjc2FlvB8ORRnKEbAN4UEU9xJBXJETQel1pOIVhja4n5t3nWlcMUUQMa46JGZ3pKP.jpg","thirdCateId":"001001001","secondCateId":"001001","deliverGoogsId":1,"providerId":1,"states":"0","createMan":"iambuyer","updateMan":"iambuyer","lookCount":0,"brandName":"品牌名称","isOnline":"0","isMade":"1","createTime":1508482453000,"updateTime":1508482453000,"shareCount":0,"recordCount":0,"productStates":null,"firstCateId":"001","fourthCateId":"","productPrice":"1","isHaveGoods":"0"}
-         * SpProductPice : [{"productId":55,"price":5.1,"unit":"个","states":"0","priceId":149,"minNumber":30,"maxNumber":40},{"productId":55,"price":4.1,"unit":"个","states":"0","priceId":148,"minNumber":10,"maxNumber":20},{"productId":55,"price":2.1,"unit":"个","states":"0","priceId":147,"minNumber":1,"maxNumber":10}]
-         * goodsDeliverAddrStr : 北京北京市
-         * goodsDeliverAddrInfoStr : 北京 北京市 东城区
-         * spProductImgS : [{"id":180,"imgName":"http://img04.iambuyer.com/imgup/upload/images/2017/10/20/4RcElGLfCV5u7IyGPezvGTXF0Ey1eUitLP70B5mhcjjc2BJwGEkdCfNCyA0p2Xhcjjc2FtqZ8pXK.jpg","productId":55,"createTime":1508482454000},{"id":179,"imgName":"http://img07.iambuyer.com/imgup/upload/images/2017/10/20/YVnbhcjjc2F0hcjjc2Fohcjjc2FW3Z9j7Ovq2IgWn4GWvSbEm70tE3jOVUV5O941RNgFUhTgH9CqpPKEit.jpg","productId":55,"createTime":1508482454000},{"id":178,"imgName":"http://img08.iambuyer.com/imgup/upload/images/2017/10/20/MUiHygAzCKVwMarJMk9AwdTk08hcjjc2BpoCo3j291ggBaHS4oc4dH7iEFPwTPloaHtjFJ.jpg","productId":55,"createTime":1508482454000},{"id":177,"imgName":"http://img01.iambuyer.com/imgup/upload/images/2017/10/20/ABtRmuyHM95FhAkjXfadAoMSeoghcjjc2BnSjoVrWELXQfee0PCd8JZ8dJ1c1KeMmGaRfs.jpg","productId":55,"createTime":1508482454000}]
-         * user : {"wxCode":"11111","compId":1,"userHeadImg":"http://img02.iambuyer.com/imgup/upload/images/2017/10/12/hcjjc2FiYnHjiQG5aNDdWxWQQzdMShcjjc2F1QPARHw68Wlq0DWiNblgLUzWdxhcjjc2Bq0BH0nojUwxm1.jpg","compLogo":"JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","compName":"企业名称","qqCode":"123456","isCust":"0","cName":"北京市","loginType":"1","aName":"东城区","pName":"北京","refuseReason":"老子不背锅,自动@张佳林\n","cUserId":55,"inName":"家电配件","userId":55,"userName":"www","checkState":"2","userPosition":"销售经理"}
-         * minPice : 2.1
-         * spProductIntro : {"img001":null,"img003":null,"img002":null,"img004":null,"img005":null,"productId":55,"states":"0","introId":51,"img006":null,"img007":null,"img008":null,"img009":null,"img010":null,"productIntro":"你好啊测试----"}
+         * spProduct : {"createTime":1513924439000,"loopImg002":null,"loopImg003":null,"loopImg004":null,"loopImg005":null,"thirdCateId":"004050002","secondCateId":"004050","deliverGoogsId":62,"providerId":61,"states":"0","shareCount":0,"loopImg001":"http://img07.iambuyer.com/imgup/upload/images/2017/12/22/IXNbKLg6PaJ3Zh6Thcjjc2Bfy334aHhcjjc2BNNqNylhVZhcjjc2Bmiemb7GK4FaNcW0Gr0vRKFOBNXhcjjc2FGhcjjc2F.jpg","productId":221,"sysType":"IambuyerKorea","recordCount":5,"lookCount":13,"sendTime":"1","productUnit":"1","productPrice":"0","productName":"2017款 苹果笔记本","phone":"1","userId":203,"compName":"1","productNum":"1","productSize":"1","productPkgsize":"1","productWeight":"1","productColor":"1","productMoney":1,"productStates":null,"brandName":"RO","isOnline":"1","firstCateId":"004","fourthCateId":null,"productTotal":1,"productMaxcount":1,"buyerContent":"1","isHaveGoods":"1","isMade":"1","createMan":"iambuyer","updateTime":1513924574000,"updateMan":"iambuyer"}
+         * SpProductPice : [{"states":"0","productId":221,"price":1000,"unit":"台","priceId":10,"minNumber":10,"maxNumber":100},{"states":"0","productId":221,"price":10,"unit":"件","priceId":9,"minNumber":100,"maxNumber":200}]
+         * followCount : 3
+         * maxPice : 1000
+         * spProductImgS : [{"id":667,"createTime":1513924574000,"productId":221,"imgName":"http://img01.iambuyer.com/imgup/upload/images/2017/12/22/ZQLwKAhcjjc2Ft5bPG17bOBnrwmHUUprNsVAz1uF4Gyhcjjc2FZjHX41a9nDRAswhcmD2p07ahQ6.jpg"}]
+         * followComp : 0
+         * user : {"referUserid":null,"createTime":null,"userQrimg":null,"email":null,"role":"1","userName":"王亚蒙","headImg":null,"ssoUserId":203,"pName":"전라북도","cName":"정읍시","phone":"15901368829","userContent":null,"loginTime":null,"createTimeStart":null,"createTimeEnd":null,"loginTimeEnd":null,"loginTimeStart":null,"referUserName":null,"userId":"35"}
+         * minPice : 10
+         * spProductIntro : {"states":"0","productId":221,"introId":370,"img006":null,"img007":null,"img008":null,"img009":null,"img010":null,"productIntro":"了","img001":null,"img002":null,"img003":null,"img004":null,"img005":null}
          */
 
-        public String unit;
-        public CompBean comp;
-        public String sysCategoryStr;
         public SpProductBean spProduct;
-        public String goodsDeliverAddrStr;
-        public String goodsDeliverAddrInfoStr;
+        public int followCount;
+        public BigDecimal maxPice;
+        public int followPro;
         public UserBean user;
-        public double minPice;
+        public BigDecimal minPice;
+        public int isCreateOrder = -1;
         public SpProductIntroBean spProductIntro;
         public List<SpProductPiceBean> SpProductPice;
         public List<SpProductImgSBean> spProductImgS;
 
-        public static class CompBean {
+        public static class SpProductBean implements Serializable {
             /**
-             * aName : 东城区
-             * pName : 北京
-             * compLogo : http://img06.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg
-             * inName : 家电配件
-             * compName : 企业名称
-             * cName : 北京市
-             * followComp : 1
-             */
-
-            public String aName;
-            public String pName;
-            public String compLogo;
-            public String inName;
-            public String compName;
-            public String compShortName;
-            public String cName;
-            public int followComp;
-        }
-
-        public static class SpProductBean {
-            /**
-             * userId : 55
-             * productId : 55
-             * productName : 张家林产品
-             * loopImg001 : http://img04.iambuyer.com/imgup/upload/images/2017/10/20/nbcTt7DKByUvKhQysTNEL0D8P1S4WvYvaHpJEyTDjWYcZ7muIkLfdkRrBZG9Xhcjjc2BTZ.jpg
-             * loopImg002 : http://img08.iambuyer.com/imgup/upload/images/2017/10/20/CBLp64QZO1OEykNuu0SMQ9wx5h5Jpbhcjjc2Fohcjjc2BHxHjC5lAwhcjjc2FfNIx1xcpgZNRzYlQMiZkX.jpg
-             * loopImg003 : http://img01.iambuyer.com/imgup/upload/images/2017/10/20/YCmhcjjc2FjLOmQs8ia12cqXmmHdbeCDpX20vu6Yb1mQwRAOubij8yFbaL101M4ImWeqbe.jpg
-             * loopImg004 : http://img01.iambuyer.com/imgup/upload/images/2017/10/20/yVqn22du9shcjjc2BLDP58BNVnZ3hcjjc2FlYSOOMh5Zn5hlbVxzR1MhUs5TJNzMbZXCc1gtcY00.jpg
-             * loopImg005 : http://img01.iambuyer.com/imgup/upload/images/2017/10/20/zQjhcjjc2FlvB8ORRnKEbAN4UEU9xJBXJETQel1pOIVhja4n5t3nWlcMUUQMa46JGZ3pKP.jpg
-             * thirdCateId : 001001001
-             * secondCateId : 001001
-             * deliverGoogsId : 1
-             * providerId : 1
+             * createTime : 1513924439000
+             * loopImg002 : null
+             * loopImg003 : null
+             * loopImg004 : null
+             * loopImg005 : null
+             * thirdCateId : 004050002
+             * secondCateId : 004050
+             * deliverGoogsId : 62
+             * providerId : 61
              * states : 0
-             * createMan : iambuyer
-             * updateMan : iambuyer
-             * lookCount : 0
-             * brandName : 品牌名称
-             * isOnline : 0
-             * isMade : 1
-             * createTime : 1508482453000
-             * updateTime : 1508482453000
              * shareCount : 0
-             * recordCount : 0
+             * loopImg001 : http://img07.iambuyer.com/imgup/upload/images/2017/12/22/IXNbKLg6PaJ3Zh6Thcjjc2Bfy334aHhcjjc2BNNqNylhVZhcjjc2Bmiemb7GK4FaNcW0Gr0vRKFOBNXhcjjc2FGhcjjc2F.jpg
+             * productId : 221
+             * sysType : IambuyerKorea
+             * recordCount : 5
+             * lookCount : 13
+             * sendTime : 1
+             * productUnit : 1
+             * productPrice : 0
+             * productName : 2017款 苹果笔记本
+             * phone : 1
+             * userId : 203
+             * compName : 1
+             * productNum : 1
+             * productSize : 1
+             * productPkgsize : 1
+             * productWeight : 1
+             * productColor : 1
+             * productMoney : 1
              * productStates : null
-             * firstCateId : 001
-             * fourthCateId :
-             * productPrice : 1
-             * isHaveGoods : 0
+             * brandName : RO
+             * isOnline : 1
+             * firstCateId : 004
+             * fourthCateId : null
+             * productTotal : 1
+             * productMaxcount : 1
+             * buyerContent : 1
+             * isHaveGoods : 1
+             * isMade : 1
+             * createMan : iambuyer
+             * updateTime : 1513924574000
+             * updateMan : iambuyer
              */
 
-            public int userId;
-            public int productId;
-            public String productName;
-            public String loopImg001;
+            public long createTime;
             public String loopImg002;
             public String loopImg003;
             public String loopImg004;
@@ -120,142 +106,162 @@ public class GoodsDetailInfo {
             public int deliverGoogsId;
             public int providerId;
             public String states;
-            public String createMan;
-            public String updateMan;
+            public int shareCount;
+            public String loopImg001;
+            public int productId;
+            public String sysType;
+            public int recordCount;
             public int lookCount;
+            public String sendTime;
+            public String productUnit;
+            public String productPrice;
+            public String productName;
+            public String phone;
+            public int userId;
+            public String compName;
+            public String productNum;
+            public String productSize;
+            public String productPkgsize;
+            public String productWeight;
+            public String productColor;
+            public BigDecimal productMoney;
+            public Object productStates;
             public String brandName;
             public String isOnline;
-            public String isMade;
-            public long createTime;
-            public long updateTime;
-            public int shareCount;
-            public int recordCount;
-            public Object productStates;
             public String firstCateId;
-            public String fourthCateId;
-            public String productPrice;
+            public Object fourthCateId;
+            public int productTotal;
+            public int productMaxcount;
+            public String buyerContent;
             public String isHaveGoods;
+            public String isMade;
+            public String createMan;
+            public long updateTime;
+            public String updateMan;
         }
 
-        public static class UserBean {
+        public static class UserBean implements Serializable{
             /**
-             * wxCode : 11111
-             * compId : 1
-             * userHeadImg : http://img02.iambuyer.com/imgup/upload/images/2017/10/12/hcjjc2FiYnHjiQG5aNDdWxWQQzdMShcjjc2F1QPARHw68Wlq0DWiNblgLUzWdxhcjjc2Bq0BH0nojUwxm1.jpg
-             * compLogo : JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg
-             * compName : 企业名称
-             * qqCode : 123456
-             * isCust : 0
-             * cName : 北京市
-             * loginType : 1
-             * aName : 东城区
-             * pName : 北京
-             * refuseReason : 老子不背锅,自动@张佳林
-
-             * cUserId : 55
-             * inName : 家电配件
-             * userId : 55
-             * userName : www
-             * checkState : 2
-             * userPosition : 销售经理
+             * referUserid : null
+             * createTime : null
+             * userQrimg : null
+             * email : null
+             * role : 1
+             * userName : 王亚蒙
+             * headImg : null
+             * ssoUserId : 203
+             * pName : 전라북도
+             * cName : 정읍시
+             * phone : 15901368829
+             * userContent : null
+             * loginTime : null
+             * createTimeStart : null
+             * createTimeEnd : null
+             * loginTimeEnd : null
+             * loginTimeStart : null
+             * referUserName : null
+             * userId : 35
              */
 
-            public String wxCode;
-            public int compId;
-            public String userHeadImg;
-            public String compLogo;
-            public String compName;
-            public String qqCode;
-            public String isCust;
-            public String cName;
-            public String loginType;
-            public String aName;
-            public String pName;
-            public String refuseReason;
-            public int cUserId;
-            public String inName;
-            public int userId;
+            public Object referUserid;
+            public Object createTime;
+            public Object userQrimg;
+            public Object email;
+            public String role;
             public String userName;
-            public String checkState;
-            public String userPosition;
+            public String headImg;
+            public int ssoUserId;
+            public String pName;
+            public String cName;
+            public String phone;
+            public String userContent;
+            public Object loginTime;
+            public Object createTimeStart;
+            public Object createTimeEnd;
+            public Object loginTimeEnd;
+            public Object loginTimeStart;
+            public Object referUserName;
+            public String userId;
         }
 
-        public static class SpProductIntroBean {
+        public static class SpProductIntroBean implements Serializable{
             /**
-             * img001 : null
-             * img003 : null
-             * img002 : null
-             * img004 : null
-             * img005 : null
-             * productId : 55
              * states : 0
-             * introId : 51
+             * productId : 221
+             * introId : 370
              * img006 : null
              * img007 : null
              * img008 : null
              * img009 : null
              * img010 : null
-             * productIntro : 你好啊测试----
+             * productIntro : 了
+             * img001 : null
+             * img002 : null
+             * img003 : null
+             * img004 : null
+             * img005 : null
              */
 
+            public String states;
+            public int productId;
+            public int introId;
+            public Object img006;
+            public Object img007;
+            public Object img008;
+            public Object img009;
+            public Object img010;
+            public String productIntro;
             public String img001;
-            public String img003;
             public String img002;
+            public String img003;
             public String img004;
             public String img005;
-            public int productId;
-            public String states;
-            public int introId;
-            public String img006;
-            public String img007;
-            public String img008;
-            public String img009;
-            public String img010;
-            public String productIntro;
         }
 
         public static class SpProductPiceBean implements Serializable{
+
             /**
-             * productId : 55
-             * price : 5.1
-             * unit : 个
              * states : 0
-             * priceId : 149
-             * minNumber : 30
-             * maxNumber : 40
+             * productId : 221
+             * price : 1000
+             * unit : 台
+             * priceId : 10
+             * minNumber : 10
+             * maxNumber : 100
              */
 
-            public int productId;
-            public BigDecimal price = new BigDecimal(0);
-            public String unit;
             public String states;
+            public int productId;
+            public BigDecimal price;
+            public String unit;
             public int priceId;
             public int minNumber;
             public int maxNumber;
 
-            @Override
-            public String toString() {
-                return "SpProductPiceBean{" +
-                        "price=" + price +
-                        ", minNumber=" + minNumber +
-                        ", maxNumber=" + maxNumber +
-                        ", unit='" + unit + '\'' +
-                        '}';
+            public SpProductPiceBean(String states, int productId, BigDecimal price, String unit, int priceId, int minNumber, int maxNumber) {
+                this.states = states;
+                this.productId = productId;
+                this.price = price;
+                this.unit = unit;
+                this.priceId = priceId;
+                this.minNumber = minNumber;
+                this.maxNumber = maxNumber;
             }
         }
 
-        public static class SpProductImgSBean {
+        public static class SpProductImgSBean implements Serializable{
+
             /**
-             * id : 180
-             * imgName : http://img04.iambuyer.com/imgup/upload/images/2017/10/20/4RcElGLfCV5u7IyGPezvGTXF0Ey1eUitLP70B5mhcjjc2BJwGEkdCfNCyA0p2Xhcjjc2FtqZ8pXK.jpg
-             * productId : 55
-             * createTime : 1508482454000
+             * id : 667
+             * createTime : 1513924574000
+             * productId : 221
+             * imgName : http://img01.iambuyer.com/imgup/upload/images/2017/12/22/ZQLwKAhcjjc2Ft5bPG17bOBnrwmHUUprNsVAz1uF4Gyhcjjc2FZjHX41a9nDRAswhcmD2p07ahQ6.jpg
              */
 
             public int id;
-            public String imgName;
-            public int productId;
             public long createTime;
+            public int productId;
+            public String imgName;
         }
     }
 }

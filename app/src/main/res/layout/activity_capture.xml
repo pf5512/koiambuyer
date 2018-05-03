@@ -20,6 +20,7 @@
     </RelativeLayout>
 
     <Button
+        android:visibility="gone"
         android:id="@+id/decode_language"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -29,6 +30,7 @@
         android:layout_gravity="top" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/decode_file"
         android:layout_width="match_parent"
         android:layout_height="50dp"

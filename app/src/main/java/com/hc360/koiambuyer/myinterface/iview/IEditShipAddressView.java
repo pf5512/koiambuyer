@@ -15,5 +15,5 @@ import com.hc360.koiambuyer.api.bean.AddressInfo;
 
 public interface IEditShipAddressView {
     void getAddress(AddressInfo addressInfo);
-    void saveAddress();
+    void saveAddress(int receiveId,String addStr,String userStr);
 }

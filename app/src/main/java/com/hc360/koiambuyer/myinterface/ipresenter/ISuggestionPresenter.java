@@ -19,5 +19,5 @@ import java.util.List;
 
 public interface ISuggestionPresenter extends IBasePresenter {
     void postPic(File file, int position, Bitmap bitmap);
-    void submit(String userId, String context, List<String> imgs);
+    void submit(String userId, String context,String phone,String feedType, List<String> imgs);
 }

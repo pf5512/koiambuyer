@@ -2,10 +2,12 @@ package com.hc360.koiambuyer.presenter;
 
 import android.text.TextUtils;
 
+import com.hc360.koiambuyer.R;
 import com.hc360.koiambuyer.api.MyObserver;
 import com.hc360.koiambuyer.api.RetrofitService;
 import com.hc360.koiambuyer.api.bean.InitInfo;
 import com.hc360.koiambuyer.api.bean.LoginInfo;
+import com.hc360.koiambuyer.api.bean.MyEMCallBack;
 import com.hc360.koiambuyer.api.bean.ResponseInfo;
 import com.hc360.koiambuyer.model.Constant;
 import com.hc360.koiambuyer.model.States;
@@ -13,8 +15,11 @@ import com.hc360.koiambuyer.myinterface.ipresenter.IAccountPresenter;
 import com.hc360.koiambuyer.myinterface.iview.IAccountView;
 import com.hc360.koiambuyer.utils.FormTool;
 import com.hc360.koiambuyer.utils.SPUtils;
+import com.hc360.koiambuyer.utils.ThreadUtil;
 import com.hc360.koiambuyer.utils.ToastUtil;
 import com.hc360.koiambuyer.view.MyApp;
+import com.hyphenate.chat.EMClient;
+import com.orhanobut.logger.Logger;
 
 import rx.Observer;
 import rx.functions.Action0;
@@ -43,7 +48,7 @@ public class AccountPresenter implements IAccountPresenter {
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
-                        mView.dialogShow("登录中");
+                        mView.dialogShow(MyApp.getAppContext().getResources().getString(R.string.logining));
                     }
                 })
                 .subscribe(new Observer<LoginInfo>() {
@@ -78,7 +83,7 @@ public class AccountPresenter implements IAccountPresenter {
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
-                        mView.dialogShow("登录中");
+                        mView.dialogShow(MyApp.getAppContext().getResources().getString(R.string.logining));
                     }
                 })
                 .subscribe(new Observer<LoginInfo>() {
@@ -95,7 +100,8 @@ public class AccountPresenter implements IAccountPresenter {
                     @Override
                     public void onNext(LoginInfo loginInfo) {
                         if (loginInfo.ret.equals(States.STATES_RESULT_OK)){
-                            mView.loginSuccess(loginInfo.content.loginRetType,loginInfo.content.retSsoUser.id+"");
+                            login("iambuyer_"+loginInfo.content.retSsoUser.id,loginInfo);
+
                         }else{
                             mView.dialogDismiss();
                             ToastUtil.showShort(MyApp.getAppContext(),loginInfo.msg);
@@ -134,7 +140,7 @@ public class AccountPresenter implements IAccountPresenter {
     @Override
     public void sendIdentify(String phone, final String businessName) {
         if (!FormTool.isPhone(phone)){
-            ToastUtil.showShort(MyApp.getAppContext(),"请输入正确的手机号");
+            ToastUtil.showShort(MyApp.getAppContext(),MyApp.getAppContext().getResources().getString(R.string.input_right_phone));
             return;
         }
         RetrofitService.sendIdentify(phone, businessName)
@@ -158,17 +164,12 @@ public class AccountPresenter implements IAccountPresenter {
                 .subscribe(new MyObserver<InitInfo>() {
                     @Override
                     public void onNext(InitInfo initInfo) {
-                        mView.getUserStates(initInfo.content.initType);
-                        int compId = initInfo.content.compId;
-                        String userPhone = initInfo.content.userPhone;
-                        String userName = initInfo.content.userName;
-                        String userHeadImg = initInfo.content.userHeadImg;
-                        String checkState = initInfo.content.checkState;
-                        String isBoss = initInfo.content.isBoss+"";
+                        mView.getUserStates(initInfo.content.user.role);
+                        String userPhone = initInfo.content.user.phone;
+                        String userName = initInfo.content.user.userName;
+                        String userHeadImg = initInfo.content.user.headImg;
                         SPUtils.saveString(MyApp.getAppContext(), Constant._ID, id);
                         MyApp.sUserId = id;
-                        SPUtils.saveString(MyApp.getAppContext(),Constant._COM_ID,compId+"");
-
                         if (!TextUtils.isEmpty(userPhone)){
                             SPUtils.saveString(MyApp.getAppContext(),Constant._PHONE,userPhone);
                             MyApp.sPhone = userPhone;
@@ -185,21 +186,56 @@ public class AccountPresenter implements IAccountPresenter {
                         if (!TextUtils.isEmpty(userHeadImg)){
                             SPUtils.saveString(MyApp.getAppContext(), Constant.USER_IMG,userHeadImg);
                         }
-                        if (!TextUtils.isEmpty(checkState)){
-                            SPUtils.saveString(MyApp.getAppContext(),Constant.CHECK_STATE,checkState);
-                        }else{
-                            SPUtils.saveString(MyApp.getAppContext(),Constant.CHECK_STATE,States.NO_CHECK_STATE);
+                        SPUtils.saveBoolean(MyApp.getAppContext(),Constant._IS_BOSS,true);
+                        if (!TextUtils.isEmpty(initInfo.content.user.referPhone)){
+                            SPUtils.saveString(MyApp.getAppContext(),Constant.REFER_PHONE,initInfo.content.user.referPhone);
+                        }else {
+                            SPUtils.saveString(MyApp.getAppContext(),Constant.REFER_PHONE,"");
                         }
-                        if (!TextUtils.isEmpty(isBoss)){
-                            SPUtils.saveBoolean(MyApp.getAppContext(),Constant._IS_BOSS,isBoss.equals("0"));
-                        }else{
-                            SPUtils.saveBoolean(MyApp.getAppContext(),Constant._IS_BOSS,false);
-                        }
-                        SPUtils.saveBoolean(MyApp.getAppContext(),Constant.HAVE_BUY_INTENT,initInfo.content.myStProductIntentionList.size()!=0);
-                        MyApp.sComId = initInfo.content.compId+"";
                         mView.dialogDismiss();
                     }
                 });
+    }
+
+    private void login(final String imId, final LoginInfo info) {
+        // TODO Auto-generated method stub
+        ThreadUtil.toToOnSubThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    EMClient.getInstance().login(imId, Constant.IM_PWD, new MyEMCallBack() {
+                        @Override
+                        public void onSuccess() {
+                            //环信登录成功
+                            //保存信息
+                            ThreadUtil.toToOnMainThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Logger.e("登录成功");
+                                    mView.loginSuccess(info.content.loginRetType,info.content.retSsoUser.id+"");
+                                }
+                            });
+                        }
+                        @Override
+                        public void onError(int code, final String message) {
+                            ThreadUtil.toToOnMainThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (message.equals("User is already login")){
+                                        Logger.e("重复登录");
+                                        mView.loginSuccess(info.content.loginRetType,info.content.retSsoUser.id+"");
+                                    }else{
+                                        ToastUtil.showShort(MyApp.getAppContext(),message);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
     }
 
 }

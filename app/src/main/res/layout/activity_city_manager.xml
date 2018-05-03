@@ -22,7 +22,7 @@
             android:id="@+id/toolbar_right"
             android:textColor="@color/StvColor"
             android:textSize="13sp"
-            android:text="跳过"
+            android:text="@string/skip_up"
             android:layout_gravity="right|center_vertical"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
@@ -40,6 +40,7 @@
             android:textSize="17sp"
             android:padding="15dp"
             android:layout_weight="1"
+            android:background="@null"
             android:textColorHint="@color/HintColor"
             android:hint="@string/city_manager_et_hint"
             android:layout_width="match_parent"
@@ -47,13 +48,22 @@
         <ImageView
             android:id="@+id/iv_search"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/search"
+            android:src="@mipmap/ic_search_city_manager"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
     </LinearLayout>
     <View style="@style/LineLongStyle"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="13sp"
+        android:textColor="@color/buyerColor"
+        android:layout_marginLeft="15dp"
+        android:text="@string/city_manager_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <FrameLayout
         android:layout_weight="1"
         android:layout_marginLeft="10dp"

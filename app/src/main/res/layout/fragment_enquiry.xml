@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_toolbar"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <View
+                android:background="@color/mainColor"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <android.support.v7.widget.RecyclerView
+                android:background="@color/BgColor"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+            <View
+                android:background="@color/LineColor"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:background="@drawable/shape_children_account_detail_et_bg"
+                    android:layout_marginRight="10dp"
+                    android:hint="请简要描述您的问题(200字以内)"
+                    android:textColor="@color/tvNormalColor"
+                    android:maxLines="4"
+                    android:paddingTop="11dp"
+                    android:paddingBottom="11dp"
+                    android:paddingLeft="8.5dp"
+                    android:paddingRight="8.5dp"
+                    android:textColorHint="@color/KeepColor"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginBottom="2dp"
+                    android:layout_gravity="bottom"
+                    android:textColor="@color/StvColor"
+                    android:textSize="13sp"
+                    android:paddingTop="11dp"
+                    android:paddingBottom="11dp"
+                    android:paddingLeft="8.5dp"
+                    android:paddingRight="8.5dp"
+                    android:text="提交"
+                    android:gravity="center"
+                    android:background="@drawable/selector_submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

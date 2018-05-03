@@ -1,9 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
         android:text="@string/publish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <com.hc360.koiambuyer.widget.CodeInput.CodeInput
+        android:id="@+id/code"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:underline_color="#457ad1"
+        app:underline_selected_color="#9e1ace"
+        app:text_color="#b12eff"
+        app:hint_color="#77ce9d"
+        app:hint_text="Pin code"
+        app:codes="4" />
+
+    <TableLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:weightSum="3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="0.5dp"
+            android:background="@color/LineColor">
+
+            <TextView
+                android:layout_weight="1"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/StvColor"
+                android:layout_marginRight="1dp"
+                android:gravity="center"
+                android:text="normal0"/>
+            <TextView
+                android:layout_weight="1"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/StvColor"
+                android:layout_marginRight="1dp"
+                android:gravity="center"
+                android:text="normal0"/>
+            <TextView
+                android:layout_weight="1"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/StvColor"
+                android:layout_marginRight="1dp"
+                android:gravity="center"
+                android:text="nororma\nnorormal0\nnorormal0\n"/>
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:background="@color/LineColor"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+        <LinearLayout
+            android:layout_weight="4"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="1px"
+                android:background="@color/LineColor"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:layout_weight="3"
+                android:padding="10dp"
+                android:text="11111111111111"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_width="1px"
+                android:background="@color/LineColor"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:text="11111111111111"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_width="1px"
+                android:background="@color/LineColor"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+        <View
+            android:background="@color/LineColor"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+    </LinearLayout>
+
 </LinearLayout>

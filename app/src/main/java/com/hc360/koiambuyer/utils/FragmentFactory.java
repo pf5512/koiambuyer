@@ -14,8 +14,26 @@ import com.hc360.koiambuyer.view.ChangeFragment;
 import com.hc360.koiambuyer.view.MyApp;
 import com.hc360.koiambuyer.view.SettingPwdFragment;
 import com.hc360.koiambuyer.view.base.BaseFragment;
+import com.hc360.koiambuyer.view.good.BuyerDetailFragment;
+import com.hc360.koiambuyer.view.good.EnquiryFragment;
+import com.hc360.koiambuyer.view.home.ChatListFragment;
+import com.hc360.koiambuyer.view.me.AttentionFragment;
+import com.hc360.koiambuyer.view.me.ChatGoodFragment;
 import com.hc360.koiambuyer.view.me.EditShipAddressFragment;
+import com.hc360.koiambuyer.view.me.FirstStepFragment;
+import com.hc360.koiambuyer.view.me.LikeFragment;
+import com.hc360.koiambuyer.view.me.MsgFragment;
+import com.hc360.koiambuyer.view.me.MyPurchaseFragment;
+import com.hc360.koiambuyer.view.me.MySuggestionFragment;
+import com.hc360.koiambuyer.view.me.OrderFragment;
+import com.hc360.koiambuyer.view.me.QrFragment;
+import com.hc360.koiambuyer.view.me.SecondStepFragment;
 import com.hc360.koiambuyer.view.me.SuggestionFragment;
+import com.hc360.koiambuyer.view.me.ThirdStepFragment;
+import com.hc360.koiambuyer.view.purchase.PublishSuccessFragment;
+import com.hc360.koiambuyer.view.purchase.QuoteFragment;
+import com.hc360.koiambuyer.view.setting.BindEmailFragment;
+import com.hc360.koiambuyer.view.setting.BindEmailIdentifyFragment;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import java.util.List;
@@ -33,6 +51,14 @@ public class FragmentFactory {
         return changeFragment;
     }
 
+    private static BaseFragment getFistStepFragment(String mode) {
+        FirstStepFragment changeFragment = new FirstStepFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constant.MODE, mode);
+        changeFragment.setArguments(bundle);
+        return changeFragment;
+    }
+
     /**
      * 根据tag获取Fragment
      *
@@ -42,13 +68,15 @@ public class FragmentFactory {
     public static BaseFragment getFragmentByTag(String tag) {
         switch (tag) {
             case Constant.CHANGE_PHONE:
-            case Constant.CHANGE_PWD:
+                return getFistStepFragment(tag);
+            case Constant.CHANGE_PWD_FIRST:
+                return getFistStepFragment(tag);
             case Constant.FORGET_PWD:
                 return getChangeFragment(tag);
-//            case Constant.BIND_EMAIL:
-//                return new BindEmailFragment();
-//            case Constant.BIND_EMAIL_IDENTIFY:
-//                return new BindEmailIdentifyFragment();
+            case Constant.BIND_EMAIL:
+                return new BindEmailFragment();
+            case Constant.BIND_EMAIL_IDENTIFY:
+                return new BindEmailIdentifyFragment();
             case Constant.SUGGESTION:
                 //可以删除
                 return new SuggestionFragment();
@@ -56,6 +84,8 @@ public class FragmentFactory {
                 return null;
         }
     }
+
+
 
     /**
      * 根据tag每次创建新的Fragment
@@ -77,6 +107,37 @@ public class FragmentFactory {
             case Constant.SETTING_PWD:
                 //设置密码传手机号
                 return getSettingPwdFragment(t);
+            case Constant.CHANGE_PWD:
+                return getSecondStepFragment(tag,t);
+            case Constant.CHANGE_PWD_FORGET:
+                return getSecondStepFragment(tag,t);
+            case Constant.MY_SUGGESTION:
+                return new MySuggestionFragment();
+            case Constant.ENQUIRY:
+                return new EnquiryFragment();
+            case Constant.LIKE:
+                return new LikeFragment();
+            case Constant.MSG:
+                return new MsgFragment();
+            case Constant.PUBLISH_SUCCESS:
+                return new PublishSuccessFragment();
+            case Constant.QUOTE:
+                return getQuoteFragment(t);
+            case Constant.ORDER:
+                return getOrderFragment(t);
+            case Constant.BUYER_DETAIL:
+                return getBuyerDetailFragment(t);
+            case Constant.CHAT_GOOD:
+                return new ChatGoodFragment();
+            case Constant.CHAT_LIST:
+                return getChatListFragment(t);
+            case Constant.THIRD_STEP:
+            case Constant.THIRD_STEP_CHANGE:
+                return getThirdStepFragment(tag,t);
+            case Constant.BIND_EMAIL:
+                return getBindEmailFragment(tag,t);
+//            case Constant.MY_ATTENTION:
+//                return new AttentionFragment();
 //            case Constant.UPDATE_PWD:
 //                return new SettingPwdFragment();
 //            case Constant.CHOOSE_STATES:
@@ -131,8 +192,8 @@ public class FragmentFactory {
 //                return getSetNameFragment(tag);
 //            case Constant.SET_POSITION:
 //                return getSetNameFragment(tag);
-//            case Constant.ATTENTION:
-//                return new AttentionFragment();
+            case Constant.ATTENTION:
+                return new AttentionFragment();
 //            case Constant.COMPANY_BASIC_INFO:
 //                return getCompanyBasicInfoFragment(tag, t);
 //            case Constant.COMPANY_SHORT_NAME:
@@ -146,8 +207,10 @@ public class FragmentFactory {
 //                return getEditPurchaseFragment(tag, (PurchaseDetailInfo.ContentBean.StProductsBean) t[0]);
 //            case Constant.NEW_PURCHASE:
 //                return getEditPurchaseFragment(tag);
-//            case Constant.MY_PURCHASE:
-//                return new MyPurchaseFragment();
+            case Constant.MY_PURCHASE:
+                return getMyPurchaseFragment(t);
+            case Constant.QR:
+                return getQrFragment(t);
 //            case Constant.MY_SUB_PURCHASE:
 //                return new MySubPurchaseFragment();
 //            case Constant.CHOICE_SELLER:
@@ -166,6 +229,28 @@ public class FragmentFactory {
                 return null;
         }
     }
+
+    private static <T> BaseFragment getThirdStepFragment(String tag,T ... t) {
+        ThirdStepFragment fragment = new ThirdStepFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constant.MODE, tag);
+        if (t.length>0) {
+            bundle.putString(Msg.MSG, (String) t[0]);
+        }
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+    private static <T> BaseFragment getBindEmailFragment(String tag,T ... t) {
+        BindEmailFragment fragment = new BindEmailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constant.MODE, tag);
+        if (t.length>0) {
+            bundle.putString(Msg.EMAIL, (String) t[0]);
+        }
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
 
 //    private static <T> BaseFragment getMainTradeFragment(String tag, T... t) {
 //        WebFragment fragment = new WebFragment();
@@ -416,7 +501,7 @@ public class FragmentFactory {
 //        aboutUsFragment.setArguments(bundle);
 //        return aboutUsFragment;
 //    }
-//
+
     public static <T> BaseFragment getSettingPwdFragment(T... msg) {
         SettingPwdFragment settingPwdFragment = new SettingPwdFragment();
         Bundle bundle = new Bundle();
@@ -425,6 +510,75 @@ public class FragmentFactory {
         }
         settingPwdFragment.setArguments(bundle);
         return settingPwdFragment;
+    }
+
+    private static  <T> BaseFragment getSecondStepFragment(String mode, T... msg) {
+        SecondStepFragment fragment = new SecondStepFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constant.MODE, mode);
+        if (msg.length>0){
+            for (Object m : msg) {
+                bundle.putString(Msg.MSG, (String) m);
+            }
+        }
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+    public static <T> BaseFragment getMyPurchaseFragment(T... msg) {
+        MyPurchaseFragment settingPwdFragment = new MyPurchaseFragment();
+        Bundle bundle = new Bundle();
+        for (Object m : msg) {
+            bundle.putString(Msg.STATE, (String) m);
+        }
+        settingPwdFragment.setArguments(bundle);
+        return settingPwdFragment;
+    }
+    public static <T> BaseFragment getQrFragment(T... msg) {
+        QrFragment settingPwdFragment = new QrFragment();
+        Bundle bundle = new Bundle();
+        for (Object m : msg) {
+            bundle.putString(Msg.QR, (String) m);
+        }
+        settingPwdFragment.setArguments(bundle);
+        return settingPwdFragment;
+    }
+    public static <T> BaseFragment getQuoteFragment(T... msg) {
+        QuoteFragment settingPwdFragment = new QuoteFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(Msg.QUOTE_ID, (String) msg[0]);
+        if (msg.length>1){
+            bundle.putString(Msg.IS_CUO, (String) msg[1]);
+        }
+        settingPwdFragment.setArguments(bundle);
+        return settingPwdFragment;
+    }
+
+    public static <T> BaseFragment getOrderFragment(T... msg) {
+        OrderFragment settingPwdFragment = new OrderFragment();
+        Bundle bundle = new Bundle();
+        for (Object m : msg) {
+            bundle.putString(Msg.POSITION, (String) m);
+        }
+        settingPwdFragment.setArguments(bundle);
+        return settingPwdFragment;
+    }
+    public static <T> BaseFragment getBuyerDetailFragment(T... msg) {
+        BuyerDetailFragment fragment = new BuyerDetailFragment();
+        Bundle bundle = new Bundle();
+        for (Object m : msg) {
+            bundle.putString(Msg.BUYER_ID, (String) m);
+        }
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+    public static <T> BaseFragment getChatListFragment(T... msg) {
+        ChatListFragment fragment = new ChatListFragment();
+        Bundle bundle = new Bundle();
+        for (Object m : msg) {
+            bundle.putString(Msg.BACK, (String) m);
+        }
+        fragment.setArguments(bundle);
+        return fragment;
     }
 //
 //

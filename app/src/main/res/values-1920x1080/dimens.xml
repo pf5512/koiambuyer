@@ -1,3 +1,4 @@
 <resources>
     <dimen name="px_2">1dp</dimen>
+    <dimen name="card_radius">12dp</dimen>
 </resources>

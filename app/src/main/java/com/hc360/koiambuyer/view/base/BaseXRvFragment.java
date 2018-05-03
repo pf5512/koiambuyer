@@ -4,6 +4,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.hc360.koiambuyer.R;
+import com.hc360.koiambuyer.engine.SpaceItemDecoration;
+import com.hc360.koiambuyer.utils.DensityUtil;
 import com.hc360.koiambuyer.utils.ToastUtil;
 import com.hc360.koiambuyer.view.MyApp;
 import com.hc360.koiambuyer.widget.EmptyLayout;
@@ -34,11 +36,21 @@ public abstract class BaseXRvFragment<T extends IBasePresenter,M extends BaseAda
     M mAdapter;
     boolean isRefresh = false;
     boolean isBack = false;
+    public boolean isNewAdapter = false;
 
     @Override
     public void onResume() {
         super.onResume();
         getData();
+        initNewAdapter();
+        initXRv();
+    }
+
+    public void initNewAdapter(){
+        isNewAdapter = false;
+    }
+
+    public void initXRv() {
         isBack = (mPager != 1);
         mXRv.setPullRefreshEnabled(true);
         mXRv.setLoadingMoreEnabled(true);
@@ -105,14 +117,20 @@ public abstract class BaseXRvFragment<T extends IBasePresenter,M extends BaseAda
     }
 
     public void initAdapter(I i){
-        if (mAdapter == null){
+        if (isNewAdapter){
             initRvLayoutManager();
             mAdapter = (M) newAdapter(i);
             mXRv.setAdapter(mAdapter);
-        }else{
-            mAdapter.getData().clear();
-            mAdapter.getData().addAll(getList(i));
-            mAdapter.notifyDataSetChanged();
+        }else {
+            if (mAdapter == null){
+                initRvLayoutManager();
+                mAdapter = (M) newAdapter(i);
+                mXRv.setAdapter(mAdapter);
+            }else{
+                mAdapter.getData().clear();
+                mAdapter.getData().addAll(getList(i));
+                mAdapter.notifyDataSetChanged();
+            }
         }
     }
 
@@ -122,5 +140,27 @@ public abstract class BaseXRvFragment<T extends IBasePresenter,M extends BaseAda
 
     public void showEmpty(){
         showNoData();
+    }
+
+    public void notifyXRv(){
+        if (mAdapter != null){
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void setRvInScroll(){
+        mXRv.setNestedScrollingEnabled(false);
+    }
+
+    public void setItemSpace(int spaceDp){
+        mXRv.addItemDecoration(new SpaceItemDecoration(DensityUtil.dp2px(mContext,spaceDp)));
+    }
+    public void setItemSpace(int spaceDp,int bgColorRes){
+        mXRv.addItemDecoration(new SpaceItemDecoration(DensityUtil.dp2px(mContext,spaceDp)));
+        mXRv.setBackgroundResource(bgColorRes);
+    }
+
+    public XRecyclerView getXRv(){
+        return mXRv;
     }
 }

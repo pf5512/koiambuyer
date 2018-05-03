@@ -1,7 +1,5 @@
 package com.hc360.koiambuyer.api.bean;
 
-import java.util.List;
-
 /**
  * Project: IAmBuyer
  * Author:  张佳林
@@ -16,7 +14,7 @@ public class UserBaseInfo {
 
 
     /**
-     * content : {"purcIntentionList":[{"firstCateId":"001","cateName":"IT设备/数码产品/软件"},{"firstCateId":"002","cateName":"安全/防护"}],"wxCode":"11111","compId":1,"phone":"15501150866","userHeadImg":"http://img06.iambuyer.com/imgup/upload/images/2017/10/12/hcjjc2FiYnHjiQG5aNDdWxWQQzdMShcjjc2F1QPARHw68Wlq0DWiNblgLUzWdxhcjjc2Bq0BH0nojUwxm1.jpg","compLogo":"http://img08.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg","compName":"姜家成股份有限公司","qqCode":"123456","isCust":"0","cName":"北京市","loginType":"0","aName":"东城区","isBoss":0,"pName":"北京","cUserId":55,"inName":"家电配件","userId":55,"userName":"姜家成221","emailCode":"","checkState":"1","userPosition":"销售经理"}
+     * content : {"user":{"createTimeStart":null,"createTimeEnd":null,"email":"158111@qq.com","loginTimeEnd":null,"loginTimeStart":null,"referUserName":"zhaojie","role":"-1","loginTime":null,"userContent":null,"userId":"86","referUserid":396,"pName":null,"cName":null,"headImg":"http://img07.iambuyer.com/imgup/upload/images/2018/03/19/shcjjc2FEMYXVPIi3MLT99ueFNSmOLtUoXg11Ma52TRm58PogsrliNuGtYC1hcjjc2BWH9kZjhcjjc2B19.png","phone":"18611874490","ssoUserId":365,"userName":"名字","createTime":null,"userQrimg":null}}
      * ret : 200
      * msg : success
      */
@@ -27,60 +25,53 @@ public class UserBaseInfo {
 
     public static class ContentBean {
         /**
-         * purcIntentionList : [{"firstCateId":"001","cateName":"IT设备/数码产品/软件"},{"firstCateId":"002","cateName":"安全/防护"}]
-         * wxCode : 11111
-         * compId : 1
-         * phone : 15501150866
-         * userHeadImg : http://img06.iambuyer.com/imgup/upload/images/2017/10/12/hcjjc2FiYnHjiQG5aNDdWxWQQzdMShcjjc2F1QPARHw68Wlq0DWiNblgLUzWdxhcjjc2Bq0BH0nojUwxm1.jpg
-         * compLogo : http://img08.iambuyer.com/imgup/upload/images/2017/10/11/JY1RGm53BdzS4ZqFAZjmMsP0rkGLofHeJlAdZ7lYswxMFAhcjjc2F5F66Ozhcjjc2FVWhY5ul6VK.jpg
-         * compName : 姜家成股份有限公司
-         * qqCode : 123456
-         * isCust : 0
-         * cName : 北京市
-         * loginType : 0
-         * aName : 东城区
-         * isBoss : 0
-         * pName : 北京
-         * cUserId : 55
-         * inName : 家电配件
-         * userId : 55
-         * userName : 姜家成221
-         * emailCode :
-         * checkState : 1
-         * userPosition : 销售经理
+         * user : {"createTimeStart":null,"createTimeEnd":null,"email":"158111@qq.com","loginTimeEnd":null,"loginTimeStart":null,"referUserName":"zhaojie","role":"-1","loginTime":null,"userContent":null,"userId":"86","referUserid":396,"pName":null,"cName":null,"headImg":"http://img07.iambuyer.com/imgup/upload/images/2018/03/19/shcjjc2FEMYXVPIi3MLT99ueFNSmOLtUoXg11Ma52TRm58PogsrliNuGtYC1hcjjc2BWH9kZjhcjjc2B19.png","phone":"18611874490","ssoUserId":365,"userName":"名字","createTime":null,"userQrimg":null}
          */
 
-        public String wxCode;
-        public int compId;
-        public String phone;
-        public String userHeadImg;
-        public String compLogo;
-        public String compName;
-        public String qqCode;
-        public String isCust;
-        public String cName;
-        public String loginType;
-        public String aName;
-        public int isBoss;
-        public String pName;
-        public int cUserId;
-        public String inName;
-        public int userId;
-        public String userName;
-        public String emailCode;
-        public String refuseReason;
-        public String checkState;
-        public String userPosition;
-        public List<PurcIntentionListBean> purcIntentionList;
+        public UserBean user;
 
-        public static class PurcIntentionListBean {
+        public static class UserBean {
             /**
-             * firstCateId : 001
-             * cateName : IT设备/数码产品/软件
+             * createTimeStart : null
+             * createTimeEnd : null
+             * email : 158111@qq.com
+             * loginTimeEnd : null
+             * loginTimeStart : null
+             * referUserName : zhaojie
+             * role : -1
+             * loginTime : null
+             * userContent : null
+             * userId : 86
+             * referUserid : 396
+             * pName : null
+             * cName : null
+             * headImg : http://img07.iambuyer.com/imgup/upload/images/2018/03/19/shcjjc2FEMYXVPIi3MLT99ueFNSmOLtUoXg11Ma52TRm58PogsrliNuGtYC1hcjjc2BWH9kZjhcjjc2B19.png
+             * phone : 18611874490
+             * ssoUserId : 365
+             * userName : 名字
+             * createTime : null
+             * userQrimg : null
              */
 
-            public String firstCateId;
-            public String cateName;
+            public Object createTimeStart;
+            public Object createTimeEnd;
+            public String email;
+            public Object loginTimeEnd;
+            public Object loginTimeStart;
+            public String referUserName;
+            public String role;
+            public Object loginTime;
+            public Object userContent;
+            public String userId;
+            public int referUserid;
+            public Object pName;
+            public Object cName;
+            public String headImg;
+            public String phone;
+            public int ssoUserId;
+            public String userName;
+            public Object createTime;
+            public String userQrimg;
         }
     }
 }

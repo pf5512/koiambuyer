@@ -120,6 +120,8 @@ public class Constant {
 	public static final int OPEN_EDIT_PURCHASE = 1025;
 	//发采购单和采购项
 	public static final int OPEN_PUR_PRO = 1026;
+
+	public static final int OPEN_SHIP = 1027;
 	/**
 	 * 图片名称
 	 */
@@ -276,5 +278,27 @@ public class Constant {
 	public static final String COMPANY_HEIGHT = "company_height";
 	public static final int CALL_PHONE = 10568;
 	public static final int SPLASH_PERM = 10570;
+	public static final String SEARCH_HISTORY = "search_history";
+	public static final String ENQUIRY = "enquiry";
+	public static final String MSG = "msg";
+	public static final String PUBLISH_SUCCESS = "publish_success";
+	public static final String QUOTE = "quote";
+	public static final String QR = "qr";
+	public static final String ORDER = "order";
+	public static final String STOCK_SAMPLE = "stock_sample";
+	public static final String BUYER_DETAIL = "buyer_detail";
+	public static final String CHAT_GOOD = "chat_good";
+	public static final String CHAT_LIST = "chat_list";
+	public static final String MY_HEAD = "my_head";
+	public static final String SKIP_CITY_MANAGER = "skip_city_manager";
+	public static final String REFERUSERID = "referuserid";
+	public static final String CHANGE_PWD_FIRST = "change_pwd_first";
+	public static final String CHANGE_PWD_FORGET = "change_pwd_forget";
+	public static final String THIRD_STEP = "third_step";
+	public static final String THIRD_STEP_CHANGE = "third_step_change";
+	public static final String REFER_PHONE = "referphone";
+	public static final String IS_CUSTOM = "is_custom";
 	public static int LOCATION = 10561;
+	public static final String MY_SUGGESTION = "my_suggestion";
+	public static final String LIKE = "like";
 }

@@ -114,4 +114,18 @@ public class SingleTextView extends TextView {
     public void setBgPressColorRes(int color){
         mBgPressColor =getResources().getColor(color);
     }
+
+    public void setBgColorRes(int color){
+        mBgNormalColor = getResources().getColor(color);
+        mGg.setColor(mBgNormalColor);
+        mGg.setCornerRadius(mRadius);
+        mBgPressColor =getResources().getColor(color);
+    }
+
+    public void setBgColorRes(int normalColor,int pressColor){
+        mBgNormalColor = getResources().getColor(normalColor);
+        mGg.setColor(mBgNormalColor);
+        mGg.setCornerRadius(mRadius);
+        mBgPressColor =getResources().getColor(pressColor);
+    }
 }

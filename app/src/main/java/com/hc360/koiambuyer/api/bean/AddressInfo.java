@@ -11,24 +11,54 @@ package com.hc360.koiambuyer.api.bean;
  */
 
 public class AddressInfo {
+
+    /**
+     * content : {"pName":"서울특별시","cName":"서울특별시","states":"0","userId":365,"compId":null,"provinceCode":"001","cityCode":"001001","areaCode":null,"addressDetail":"地址","receiveId":1,"receiveUser":"地址","useState":"0","createTime":1521178791000,"createMan":"00","updateTime":1521452594000,"updateMan":"iambuyer","telphone":"18611874477"}
+     * ret : 200
+     * msg : success
+     */
+
     public ContentBean content;
     public String ret;
     public String msg;
+
     public static class ContentBean {
-        public String addStr;
-        public String useState;
-        public int compId;
+        /**
+         * pName : 서울특별시
+         * cName : 서울특별시
+         * states : 0
+         * userId : 365
+         * compId : null
+         * provinceCode : 001
+         * cityCode : 001001
+         * areaCode : null
+         * addressDetail : 地址
+         * receiveId : 1
+         * receiveUser : 地址
+         * useState : 0
+         * createTime : 1521178791000
+         * createMan : 00
+         * updateTime : 1521452594000
+         * updateMan : iambuyer
+         * telphone : 18611874477
+         */
+
+        public String pName;
+        public String cName;
+        public String states;
+        public int userId;
+        public Object compId;
         public String provinceCode;
         public String cityCode;
-        public String areaCode;
+        public Object areaCode;
         public String addressDetail;
-        public String states;
+        public int receiveId;
+        public String receiveUser;
+        public String useState;
         public long createTime;
         public String createMan;
         public long updateTime;
         public String updateMan;
-        public int deliverId;
-        public String deliverUser;
         public String telphone;
     }
 }

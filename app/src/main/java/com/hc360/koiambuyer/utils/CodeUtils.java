@@ -56,7 +56,9 @@ public class CodeUtils {
 
         code = createCode();
 
+        //这里可以修改背景色
         canvas.drawColor(Color.rgb(DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR));
+//        canvas.drawColor(MyApp.getAppContext().getResources().getColor(R.color.transparentColor));
         Paint paint = new Paint();
         paint.setTextSize(DEFAULT_FONT_SIZE);
 

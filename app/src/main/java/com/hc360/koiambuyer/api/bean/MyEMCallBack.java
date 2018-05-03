@@ -1,6 +1,7 @@
 package com.hc360.koiambuyer.api.bean;
 
 
+import com.hyphenate.EMCallBack;
 
 /**
  * Project: IAmBuyer
@@ -12,6 +13,17 @@ package com.hc360.koiambuyer.api.bean;
  * Copyright notice:
  */
 
-public abstract class MyEMCallBack {
+public abstract class MyEMCallBack implements EMCallBack {
+    @Override
+    public abstract void onSuccess();
 
+    @Override
+    public void onError(int i, String s) {
+
+    }
+
+    @Override
+    public void onProgress(int i, String s) {
+
+    }
 }

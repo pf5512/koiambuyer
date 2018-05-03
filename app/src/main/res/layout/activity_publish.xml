@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/StvColor"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <include layout="@layout/layout_toolbar" />
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="16dp"
+                        android:textStyle="bold"
+                        android:text="@string/publish_first_title"
+                        android:textColor="@color/tvNormalColor"
+                        android:textSize="14sp" />
+                    <ImageView
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="16dp"
+                        android:src="@mipmap/ic_must"
+                        android:layout_width="7.5dp"
+                        android:layout_height="7.5dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/must_input"
+                    android:textColor="@color/minorColor"
+                    android:textSize="10sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/LineColor" />
+
+                <com.hc360.koiambuyer.widget.EditInput
+                    android:id="@+id/ei_pro_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View style="@style/LineLongStyle" />
+
+                <com.hc360.koiambuyer.widget.EditInput
+                    android:id="@+id/ei_pro_class"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View style="@style/LineLongStyle" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/publish_price"
+                        android:textColor="#FF2E2E30"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_weight="1" />
+
+                    <EditText
+                        android:id="@+id/et_min_price"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/shape_bg_radius_2"
+                        android:gravity="center"
+                        android:hint="@string/publish_price_et1"
+                        android:inputType="number|numberDecimal"
+                        android:textColor="@color/tvNormalColor"
+                        android:textColorHint="@color/KeepColor"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/tvNormalColor" />
+
+                    <EditText
+                        android:id="@+id/et_max_price"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/shape_bg_radius_2"
+                        android:gravity="center"
+                        android:hint="@string/publish_price_et2"
+                        android:inputType="number|numberDecimal"
+                        android:textColor="@color/tvNormalColor"
+                        android:textColorHint="@color/KeepColor"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <View style="@style/LineLongStyle" />
+
+                <com.hc360.koiambuyer.widget.EditInput
+                    android:id="@+id/ei_sample_pro_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></com.hc360.koiambuyer.widget.EditInput>
+
+                <View style="@style/LineLongStyle" />
+
+                <com.hc360.koiambuyer.widget.EditInput
+                    android:id="@+id/ei_pro_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></com.hc360.koiambuyer.widget.EditInput>
+
+                <View style="@style/LineLongStyle" />
+
+                <com.hc360.koiambuyer.widget.EditInput
+                    android:id="@+id/ei_unit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></com.hc360.koiambuyer.widget.EditInput>
+
+                <View style="@style/SpaceStyle" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    android:id="@+id/rv_param"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                <TextView
+                    android:id="@+id/tv_add_param"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="center"
+                    android:text="@string/publish_add"
+                    android:textColor="@color/buyerColor" />
+
+
+                <View style="@style/SpaceStyle" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/publish_supplement" />
+
+                <EditText
+                    android:id="@+id/et_into"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/shape_bg"
+                    android:gravity="top"
+                    android:hint="@string/publish_et_hint"
+                    android:maxLines="10"
+                    android:minLines="4"
+                    android:paddingBottom="7.5dp"
+                    android:paddingLeft="9dp"
+                    android:paddingRight="9dp"
+                    android:paddingTop="7.5dp"
+                    android:textColorHint="@color/KeepColor"
+                    android:textSize="12sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"></android.support.v7.widget.RecyclerView>
+
+                <TextView
+                    android:id="@+id/tv_add_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/selector_w_tv_pub"
+                    android:gravity="center"
+                    android:text="@string/publish_add_pic"
+                    android:textColor="@color/tvNormalColor"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:paddingBottom="30dp"
+                    android:text="@string/publish_notice"
+                    android:textColor="@color/mainColor"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="10dp">
+
+            <com.hc360.koiambuyer.widget.SingleTextView
+                android:id="@+id/stv_submit"
+                style="@style/STVLongStyle"
+                android:text="@string/publish_submit" />
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_call"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
+        android:src="@mipmap/ic_call_phone" />
+</RelativeLayout>

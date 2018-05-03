@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/StvColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_toolbar"/>
+    <include layout="@layout/layout_xrecyclerview"/>
+    <android.support.v7.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/card_edit"
+        app:cardElevation="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <LinearLayout
+            android:weightSum="3"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/tv_all"
+                android:text="@string/all_select"
+                android:textColor="#FF4A4A4A"
+                android:textSize="15sp"
+                android:drawablePadding="5dp"
+                android:paddingLeft="15dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:drawableLeft="@mipmap/not_select_s"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.hc360.koiambuyer.widget.SingleTextView
+                android:id="@+id/stv_read"
+                android:layout_weight="1"
+                android:text="@string/read"
+                app:bg_normal_color="@color/sellerColor"
+                app:bg_press_color="@color/sellerSelectColor"
+                app:radius="0dp"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/StvColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <com.hc360.koiambuyer.widget.SingleTextView
+                android:id="@+id/stv_delete"
+                android:layout_weight="1"
+                app:radius="0dp"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/StvColor"
+                android:text="@string/delete"
+                app:bg_normal_color="@color/buyerColor"
+                app:bg_press_color="@color/buyerSelectColor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

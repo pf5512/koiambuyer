@@ -1,0 +1,10 @@
+<resources>
+    <string name="listview_header_hint_normal">pull-down ,새로고침</string>
+    <string name="listview_header_hint_release">즉시 새로고침</string>
+    <string name="listview_loading">로딩중...</string>
+    <string name="nomore_loading">없다</string>
+    <string name="refreshing">새로고침중...</string>
+    <string name="refresh_done">새로고침완료</string>
+    <string name="loading_done">로딩완료</string>
+    <string name="listview_header_last_time">마지막업데이트시간：</string>
+</resources>

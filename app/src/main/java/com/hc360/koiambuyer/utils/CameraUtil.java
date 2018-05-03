@@ -14,9 +14,10 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.hc360.koiambuyer.R;
 import com.hc360.koiambuyer.model.Constant;
-import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -331,16 +332,6 @@ public class CameraUtil {
     }
 
 
-
-
-
-
-
-
-
-
-
-
     public static void cropPicture(Activity activity, Uri uri) {
         activity.startActivityForResult(cropPicture(uri), Constant.CROP_PICTURE);
     }
@@ -357,11 +348,100 @@ public class CameraUtil {
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
-            return file;
+//            ToastUtil.showShort(context,context.getResources().getString(R.string.save_success));
         } catch (Exception e) {
+            ToastUtil.showShort(context,context.getResources().getString(R.string.save_fail));
             e.printStackTrace();
-            Logger.e(e.toString());
         }
+//        // 其次把文件插入到系统图库
+//        try {
+//            MediaStore.Images.Media.insertImage(context.getContentResolver(),
+//                    file.getAbsolutePath(), fileName, null);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        // 最后通知图库更新
+//        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
+
         return file;
+    }
+
+    /**
+     * @param bmp 获取的bitmap数据
+     * @param picName 自定义的图片名
+     */
+    public static void saveBmp2Gallery(Context context,Bitmap bmp, String picName) {
+        String fileName = null;
+        //系统相册目录
+        String galleryPath= Environment.getExternalStorageDirectory()
+                + File.separator + Environment.DIRECTORY_DCIM
+                +File.separator+"Camera"+File.separator;
+
+        // 声明文件对象
+        File file = null;
+        // 声明输出流
+        FileOutputStream outStream = null;
+        try {
+            // 如果有目标文件，直接获得文件对象，否则创建一个以filename为名称的文件
+            file = new File(galleryPath, picName+ ".jpg");
+            if (file.exists()){
+                file.delete();
+            }
+            // 获得文件相对路径
+            fileName = file.toString();
+            // 获得输出流，如果文件中有内容，追加内容
+            outStream = new FileOutputStream(fileName);
+            if (null != outStream) {
+                bmp.compress(Bitmap.CompressFormat.JPEG, 90, outStream);
+            }
+        } catch (Exception e) {
+            //保存不了相册，就保存到iambuyer文件夹
+            saveImage(context,bmp,picName);
+        }finally {
+            try {
+                if (outStream != null) {
+                    outStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //通知相册更新
+        MediaStore.Images.Media.insertImage(context.getContentResolver(),
+                bmp, fileName, null);
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri uri = Uri.fromFile(file);
+        intent.setData(uri);
+        context.sendBroadcast(intent);
+        Toast.makeText(context, context.getResources().getString(R.string.save_success), Toast.LENGTH_SHORT).show();
+    }
+
+    public static void saveImage(Context context, Bitmap bmp ,String fileName) {
+        // 首先保存图片
+        File appDir = new File(Environment.getExternalStorageDirectory(), "iambuyer");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        File file = new File(appDir, fileName);
+        if (file.exists()){
+            file.delete();
+        }
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        }catch (Exception e) {
+            file.delete();
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Toast.makeText(context, context.getResources().getString(R.string.save_success_in_file), Toast.LENGTH_SHORT).show();
     }
 }

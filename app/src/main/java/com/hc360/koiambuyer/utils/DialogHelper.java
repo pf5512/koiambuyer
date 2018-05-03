@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.hc360.koiambuyer.R;
 import com.hc360.koiambuyer.engine.LimitInputTextWatcher;
-import com.hc360.koiambuyer.model.Constant;
 import com.hc360.koiambuyer.myinterface.CalendarDialogListener;
 import com.hc360.koiambuyer.myinterface.DialogChoosePositionListener;
 import com.hc360.koiambuyer.myinterface.DialogClickListener;
@@ -27,7 +26,6 @@ import com.hc360.koiambuyer.myinterface.DialogPositiveClickListener;
 import com.hc360.koiambuyer.myinterface.DialogPositiveClickWithMsgListener;
 import com.hc360.koiambuyer.myinterface.EtLimitHelper;
 import com.hc360.koiambuyer.myinterface.IdentifyListener;
-import com.hc360.koiambuyer.view.MyApp;
 
 import java.util.Calendar;
 
@@ -62,9 +60,63 @@ public class DialogHelper {
         TextView tvContent = (TextView) dialogView.findViewById(R.id.tv_content);
         TextView tvCancel = (TextView) dialogView.findViewById(R.id.tv_cancel);
         TextView tvSure = (TextView) dialogView.findViewById(R.id.tv_sure);
-        if (!TextUtils.isEmpty(MyApp.sLoginType)){
-            tvSure.setTextColor(activity.getResources().getColor(MyApp.sLoginType.equals(Constant.BUYER)?R.color.buyerColor:R.color.sellerColor));
+
+        tvSure.setTextColor(activity.getResources().getColor(R.color.buyerColor));
+        if (TextUtils.isEmpty(title)){
+            tvTitle.setText(activity.getResources().getString(R.string.dialog_default_title));
+        }else{
+            tvTitle.setText(title);
         }
+        tvContent.setText(content);
+        if (TextUtils.isEmpty(cancel)){
+            tvCancel.setText(activity.getResources().getString(R.string.dialog_default_cancel));
+        }else{
+            tvCancel.setText(cancel);
+        }
+        if (TextUtils.isEmpty(sure)){
+            tvSure.setText(activity.getResources().getString(R.string.dialog_default_sure));
+        }else{
+            tvSure.setText(sure);
+        }
+        customizeDialog.setView(dialogView);
+        final AlertDialog show = customizeDialog.show();
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.negativeClick();
+                show.dismiss();
+            }
+        });
+        tvSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.positiveClick();
+                show.dismiss();
+            }
+        });
+        return show;
+    }
+
+    public static AlertDialog showCustomNormalColorDialog(final Context activity, @Nullable String title, String content, @Nullable String cancel,int cancelColorRes,  @Nullable String sure,int sureColorRes, final DialogClickListener listener) {
+        final AlertDialog.Builder customizeDialog =
+                new AlertDialog.Builder(activity);
+        final View dialogView = LayoutInflater.from(activity)
+                .inflate(R.layout.dialog_normal,null);
+        TextView tvTitle = (TextView) dialogView.findViewById(R.id.tv_title);
+        TextView tvContent = (TextView) dialogView.findViewById(R.id.tv_content);
+        TextView tvCancel = (TextView) dialogView.findViewById(R.id.tv_cancel);
+        TextView tvSure = (TextView) dialogView.findViewById(R.id.tv_sure);
+        try {
+            if (cancelColorRes !=0){
+                tvCancel.setTextColor(activity.getResources().getColor(cancelColorRes));
+            }
+            if (sureColorRes != 0){
+                tvSure.setTextColor(activity.getResources().getColor(sureColorRes));
+            }
+        }catch (Exception e){
+
+        }
+
         if (TextUtils.isEmpty(title)){
             tvTitle.setText(activity.getResources().getString(R.string.dialog_default_title));
         }else{
@@ -117,9 +169,8 @@ public class DialogHelper {
         TextView tvTitle = (TextView) dialogView.findViewById(R.id.tv_title);
         TextView tvContent = (TextView) dialogView.findViewById(R.id.tv_content);
         TextView tvSure = (TextView) dialogView.findViewById(R.id.tv_sure);
-        if (!TextUtils.isEmpty(MyApp.sLoginType)){
-            tvSure.setTextColor(activity.getResources().getColor(MyApp.sLoginType.equals(Constant.BUYER)?R.color.buyerColor:R.color.sellerColor));
-        }
+
+        tvSure.setTextColor(activity.getResources().getColor(R.color.buyerColor));
         if (TextUtils.isEmpty(title)){
             tvTitle.setText(activity.getResources().getString(R.string.dialog_default_title));
         }else{
@@ -162,11 +213,7 @@ public class DialogHelper {
         TextView tvContent = (TextView) dialogView.findViewById(R.id.tv_content);
         TextView tvCancel = (TextView) dialogView.findViewById(R.id.tv_cancel);
         TextView tvSure = (TextView) dialogView.findViewById(R.id.tv_sure);
-        if (!TextUtils.isEmpty(MyApp.sLoginType)){
-            tvSure.setTextColor(activity.getResources().getColor(MyApp.sLoginType.equals(Constant.BUYER)?R.color.buyerColor:R.color.sellerColor));
-        }else{
-            tvSure.setTextColor(activity.getResources().getColor(R.color.sellerColor));
-        }
+        tvSure.setTextColor(activity.getResources().getColor(R.color.mainColor));
         tvContent.setText(content);
         if (TextUtils.isEmpty(cancel)){
             tvCancel.setText(activity.getResources().getString(R.string.dialog_default_cancel));
@@ -211,9 +258,7 @@ public class DialogHelper {
                 .inflate(R.layout.dialog_no_title_sure,null);
         TextView tvContent = (TextView) dialogView.findViewById(R.id.tv_content);
         TextView tvSure = (TextView) dialogView.findViewById(R.id.tv_sure);
-        if (!TextUtils.isEmpty(MyApp.sLoginType)){
-            tvSure.setTextColor(activity.getResources().getColor(MyApp.sLoginType.equals(Constant.BUYER)?R.color.buyerColor:R.color.sellerColor));
-        }
+        tvSure.setTextColor(activity.getResources().getColor(R.color.buyerColor));
         tvContent.setText(content);
 
         if (TextUtils.isEmpty(sure)){
@@ -294,7 +339,7 @@ public class DialogHelper {
         }else{
             tvSure.setText(sure);
         }
-        tvSure.setTextColor(activity.getResources().getColor((MyApp.sLoginType.equals(Constant.BUYER)?R.color.buyerColor:R.color.sellerColor)));
+        tvSure.setTextColor(activity.getResources().getColor((R.color.buyerColor)));
         customizeDialog.setView(dialogView);
         final AlertDialog show = customizeDialog.show();
         show.setCanceledOnTouchOutside(canDismissOutside);

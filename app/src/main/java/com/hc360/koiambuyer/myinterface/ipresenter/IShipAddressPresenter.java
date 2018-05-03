@@ -16,5 +16,5 @@ import com.hc360.koiambuyer.view.base.IBasePresenter;
 public interface IShipAddressPresenter extends IBasePresenter {
     void getAddresses(String id, boolean setDefault);
     void deleteAddress(int id);
-    void setDefaultAddress(int deliverId, int comId, String id);
+    void setDefaultAddress(int deliverId,String id);
 }

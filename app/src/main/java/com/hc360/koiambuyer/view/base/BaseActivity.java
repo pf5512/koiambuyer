@@ -1,5 +1,6 @@
 package com.hc360.koiambuyer.view.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -7,17 +8,23 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hc360.koiambuyer.R;
+import com.hc360.koiambuyer.api.RetrofitService;
 import com.hc360.koiambuyer.utils.DensityUtil;
 import com.hc360.koiambuyer.utils.HeightTool;
 import com.hc360.koiambuyer.utils.SwipeRefreshHelper;
 import com.hc360.koiambuyer.utils.TVDrawableUtil;
+import com.hc360.koiambuyer.view.MyApp;
 import com.hc360.koiambuyer.widget.EmptyLayout;
+import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
@@ -102,13 +109,25 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setCusTheme();
         setContentView(attachLayoutRes());
+        if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0){
+            finish();
+            return;
+        }
         ButterKnife.bind(this);
+        if (RetrofitService.isDebug){
+            MyApp.sUserId = "365";
+        }
         initInjector();
         initViewConfig();
         initView();
         initSwipeRefresh();
         updateViews(false);
+    }
+
+    public void setCusTheme() {
+
     }
 
     protected  void initViewConfig(){
@@ -140,7 +159,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
 
     public void setNoDataIcon(int IconRes){
         try {
-            TVDrawableUtil.setTopByRes(this,IconRes,mEmptyLayout.getTvNoData());
+            TVDrawableUtil.setTopNormalByRes(this,IconRes,mEmptyLayout.getTvNoData());
         }catch (Exception e){}
     }
 
@@ -321,7 +340,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
      * @param containerViewId
      * @param fragment
      */
-    protected void replaceFragment(int containerViewId, Fragment fragment) {
+    public void replaceFragment(int containerViewId, Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(containerViewId, fragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -360,4 +379,26 @@ public abstract class BaseActivity<T extends IBasePresenter> extends RxAppCompat
         return getResources().getString(resId);
     }
 
+
+    public String initStr(String text){
+        if (TextUtils.isEmpty(text)){
+            return "";
+        }else {
+            return text;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Logger.e(MyApp.sUserId+"");
+    }
+
+    public void initRv(RecyclerView rv, LinearLayoutManager manager){
+        manager.setSmoothScrollbarEnabled(true);
+        manager.setAutoMeasureEnabled(true);
+        rv.setLayoutManager(manager);
+        rv.setHasFixedSize(true);
+        rv.setNestedScrollingEnabled(false);
+    }
 }

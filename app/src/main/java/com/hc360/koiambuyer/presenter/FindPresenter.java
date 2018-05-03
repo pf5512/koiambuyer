@@ -2,7 +2,7 @@ package com.hc360.koiambuyer.presenter;
 
 
 import com.hc360.koiambuyer.api.RetrofitService;
-import com.hc360.koiambuyer.api.bean.SearchInfo;
+import com.hc360.koiambuyer.api.bean.FindInfo;
 import com.hc360.koiambuyer.myinterface.ipresenter.IFindPresenter;
 import com.hc360.koiambuyer.myinterface.iview.IFindView;
 
@@ -20,22 +20,22 @@ import rx.functions.Action0;
  */
 
 public class FindPresenter implements IFindPresenter {
-    IFindView mView;
 
+    IFindView mView;
     public FindPresenter(IFindView mView) {
         this.mView = mView;
     }
 
     @Override
     public void getGoods(String productName, int pager) {
-        RetrofitService.getSearchByCode(productName,pager)
+        RetrofitService.findGood(productName,pager)
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
                         mView.showLoading();
                     }
                 })
-                .subscribe(new Observer<SearchInfo>() {
+                .subscribe(new Observer<FindInfo>() {
                     @Override
                     public void onCompleted() {
 
@@ -47,9 +47,9 @@ public class FindPresenter implements IFindPresenter {
                     }
 
                     @Override
-                    public void onNext(SearchInfo searchInfo) {
-                        mView.getGoods(searchInfo);
-                        if (searchInfo.list.size()>0){
+                    public void onNext(FindInfo findInfo) {
+                        mView.getGoods(findInfo);
+                        if (findInfo.list.size()>0){
                             mView.hideLoading();
                         }
                     }

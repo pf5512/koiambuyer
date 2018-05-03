@@ -35,6 +35,13 @@ public class BaseHolder extends RecyclerView.ViewHolder {
         }
         return this;
     }
+    public BaseHolder setTextColor(Integer viewId, Integer colorRes) {
+        TextView textView = getView(viewId);
+        if (textView != null) {
+            textView.setTextColor(textView.getContext().getResources().getColor(colorRes));
+        }
+        return this;
+    }
     public BaseHolder setImageResource(Integer viewId, Integer resId) {
         ImageView imageView = getView(viewId);
         if (imageView != null) {
@@ -53,6 +60,21 @@ public class BaseHolder extends RecyclerView.ViewHolder {
         View view = getView(viewId);
         if (view != null) {
             view.setVisibility(visible?View.VISIBLE:View.GONE);
+        }
+        return this;
+    }
+
+    public BaseHolder setBackgroundColor(Integer viewId, Integer colorRes) {
+        View view = getView(viewId);
+        if (view != null) {
+            view.setBackgroundColor(view.getContext().getResources().getColor(colorRes));
+        }
+        return this;
+    }
+    public BaseHolder setBackgroundRes(Integer viewId, Integer drawableRes) {
+        View view = getView(viewId);
+        if (view != null) {
+            view.setBackgroundResource(drawableRes);
         }
         return this;
     }

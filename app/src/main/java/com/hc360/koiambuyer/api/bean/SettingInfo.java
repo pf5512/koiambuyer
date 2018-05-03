@@ -13,7 +13,7 @@ package com.hc360.koiambuyer.api.bean;
 public class SettingInfo {
 
     /**
-     * content : {"iswx":"1","isemail":"0","isqq":"1","version":"1.0"}
+     * content : {"version":"1.0"}
      * ret : 200
      * msg : success
      */
@@ -24,15 +24,9 @@ public class SettingInfo {
 
     public static class ContentBean {
         /**
-         * iswx : 1
-         * isemail : 0
-         * isqq : 1
          * version : 1.0
          */
 
-        public String iswx;
-        public String isemail;
-        public String isqq;
         public String version;
     }
 }

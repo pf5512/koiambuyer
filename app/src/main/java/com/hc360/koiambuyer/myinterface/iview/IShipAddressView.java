@@ -18,8 +18,9 @@ public interface IShipAddressView extends IBaseView {
     void getAddress(ShipAddressInfo info);
     void deleteAddress(int id);
     void deleteAddress();
-    void setDefaultAddress(int id, int comId, String useState);
+    void setDefaultAddress(int id, String useState);
     void setDefaultAddress();
     void editAddress(int id);
-    void selectAddress(String addStr, int deliverId);
+    void selectAddress(String userStr,String addStr, int deliverId);
+    boolean getSelectState();
 }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.hc360.koiambuyer.R;
 import com.hc360.koiambuyer.api.bean.SettingInfo;
 import com.hc360.koiambuyer.model.Constant;
+import com.hc360.koiambuyer.model.Msg;
 import com.hc360.koiambuyer.myinterface.DialogPositiveClickListener;
 import com.hc360.koiambuyer.myinterface.ipresenter.ISettingPresenter;
 import com.hc360.koiambuyer.myinterface.iview.ISettingView;
@@ -44,8 +45,12 @@ public class SettingActivity extends BaseActivity<ISettingPresenter> implements 
     TextView mTvLoginOut;
     @BindView(R.id.tv_version)
     TextView mTvVersion;
-    @BindView(R.id.tv_about_us)
-    TextView mTvAboutUs;
+    @BindView(R.id.tv_change_email)
+    TextView mTvChangeEmail;
+    @BindView(R.id.tv_cache)
+    TextView mTvCache;
+    @BindView(R.id.ll_cache)
+    LinearLayout mLlCache;
     private String mVersion = "";
     private String mAppVersionName;
     private boolean isExit = false;
@@ -56,21 +61,21 @@ public class SettingActivity extends BaseActivity<ISettingPresenter> implements 
     @Override
     protected void initView() {
         initToolBar(mToolbar, null, true, getStr(R.string.me_setting));
-        setRight(mTvAboutUs,mTvVersion,mTvChangePhone,mTvChangePwd);
+        setRight(mTvChangeEmail,mTvCache,mTvVersion, mTvChangePhone, mTvChangePwd);
         mAppVersionName = VersionUtils.getAppVersionName(this);
         mTvVersion.setText("V" + mAppVersionName);
         mDialog = new ProgressDialog(this);
     }
 
-    private void setRight(TextView ... tvs){
+    private void setRight(TextView... tvs) {
         for (TextView tv : tvs) {
-            TVDrawableUtil.setRightByRes(this, R.mipmap.in,tv);
+            TVDrawableUtil.setRightByRes(this, R.mipmap.in, tv);
         }
     }
 
     @Override
     public void dialogShow(String msg) {
-        if (mDialog!= null){
+        if (mDialog != null) {
             mDialog.setMessage(msg);
             mDialog.show();
         }
@@ -78,7 +83,7 @@ public class SettingActivity extends BaseActivity<ISettingPresenter> implements 
 
     @Override
     public void dialogDismiss() {
-        if (mDialog!= null){
+        if (mDialog != null) {
             mDialog.dismiss();
         }
     }
@@ -86,7 +91,7 @@ public class SettingActivity extends BaseActivity<ISettingPresenter> implements 
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.getSettingInfo(MyApp.sUserId);
+        mPresenter.getSettingInfo();
     }
 
     @Override
@@ -111,7 +116,7 @@ public class SettingActivity extends BaseActivity<ISettingPresenter> implements 
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.tv_change_phone, R.id.tv_change_pwd,  R.id.ll_update_version, R.id.tv_login_out, R.id.tv_about_us})
+    @OnClick({R.id.tv_change_phone, R.id.tv_change_pwd, R.id.ll_update_version, R.id.tv_login_out,R.id.tv_change_email,R.id.ll_cache})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_change_phone:
@@ -124,9 +129,9 @@ public class SettingActivity extends BaseActivity<ISettingPresenter> implements 
                 //更换密码
                 Intent changePwd = new Intent(SettingActivity.this, ContainerFooterActivity.class);
                 changePwd.putExtra(Constant.TYPE, Constant.CHANGE_PWD);
+                changePwd.putExtra(Msg.MSG, MyApp.sPhone);
                 startActivity(changePwd);
                 break;
-
             case R.id.ll_update_version:
                 //版本更新
                 if (mVersion.equals(mAppVersionName)) {
@@ -144,12 +149,13 @@ public class SettingActivity extends BaseActivity<ISettingPresenter> implements 
                     }
                 });
                 break;
-            case R.id.tv_about_us:
-                //关于我们
-//                Intent openAboutUs = new Intent(this,ContainerFooterActivity.class);
-//                openAboutUs.putExtra(Constant.TYPE,Constant.ABOUT_US);
-//                openAboutUs.putExtra(Msg.VERSION,mAppVersionName);
-//                startActivity(openAboutUs);
+            case R.id.tv_change_email:
+                Intent openFragment = new Intent(SettingActivity.this, ContainerFooterActivity.class);
+                openFragment.putExtra(Constant.TYPE, Constant.BIND_EMAIL);
+                startActivityForResult(openFragment,Constant.OPEN_BIND_EMAIL);
+                break;
+            case R.id.ll_cache:
+
                 break;
         }
     }
@@ -182,4 +188,5 @@ public class SettingActivity extends BaseActivity<ISettingPresenter> implements 
             isExit = false;
         }
     }
+
 }

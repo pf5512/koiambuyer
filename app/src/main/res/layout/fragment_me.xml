@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v4.widget.NestedScrollView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:overScrollMode="never"
@@ -15,7 +16,7 @@
         <LinearLayout
             android:background="@mipmap/me_bg_buyer"
             android:layout_width="match_parent"
-            android:layout_height="145dp"
+            android:layout_height="160dp"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -23,14 +24,23 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="45dp">
-                <TextView
-                    android:id="@+id/tv_code"
-                    android:text="@string/me_qr_code"
+                <ImageView
+                    android:id="@+id/iv_code"
                     android:padding="10dp"
-                    android:textColor="@color/StvColor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_marginLeft="6dp"
+                    android:src="@mipmap/ic_me_qr"
+                    android:layout_width="37dp"
+                    android:layout_height="36dp" />
+
+                <ImageView
+                    android:id="@+id/iv_setting"
+                    android:padding="10dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/ic_me_setting"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
                 <LinearLayout
+                    android:id="@+id/ll_user"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="40dp"
@@ -47,66 +57,152 @@
                             android:id="@+id/tv_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:maxLength="8"
                             android:maxLines="1"
                             android:textColor="@color/StvColor"
                             android:textSize="24dp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <LinearLayout
                             android:layout_below="@id/tv_name"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="6dp"
-                            android:drawablePadding="6dp"
-                            android:drawableRight="@mipmap/in_w"
-                            android:text="@string/me_edit_info"
-                            android:textColor="@color/StvColor"
-                            android:textSize="12sp" />
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_like"
+                                android:paddingTop="15dp"
+                                android:text="@string/see_personal"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="6dp"
+                                android:drawablePadding="7.5dp"
+                                android:drawableRight="@mipmap/in_w"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:textColor="@color/StvColor"
+                                android:textSize="12sp" />
+                           <View
+                               android:visibility="gone"
+                               android:background="@color/StvColor"
+                               android:layout_width="1px"
+                               android:layout_gravity="center_vertical"
+                               android:layout_height="12dp"/>
+                            <TextView
+                                android:id="@+id/tv_attention"
+                                android:paddingTop="6dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="6dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:textColor="@color/StvColor"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
                     </RelativeLayout>
-                    <FrameLayout
-                        android:layout_alignParentRight="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp">
-                        <android.support.v7.widget.CardView
-                            app:cardCornerRadius="28.5dp"
-                            app:cardElevation="0dp"
-                            android:layout_width="57dp"
-                            android:layout_height="57dp">
-                            <ImageView
-                                android:id="@+id/iv_head"
-                                android:src="@mipmap/buyer_head"
-                                android:scaleType="centerCrop"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
-                        </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_head"
+                        app:cardCornerRadius="30dp"
+                        app:cardElevation="0dp"
+                        android:layout_gravity="bottom"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
                         <ImageView
-                            android:id="@+id/iv_prove_flag"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|right" />
-                    </FrameLayout>
+                            android:id="@+id/iv_head"
+                            android:scaleType="centerCrop"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </android.support.v7.widget.CardView>
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
 
-        <View style="@style/LineLongStyle" />
-        <View
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
             android:layout_width="match_parent"
-            android:layout_height="22dp"/>
+            android:layout_height="match_parent">
 
-        <TextView
-            style="@style/MeTvStyle"
-            android:text="@string/me_enquiry"
-            android:id="@+id/tv_enquiry"/>
+        </android.support.v7.widget.RecyclerView>
 
         <View style="@style/LineLongStyle" />
+        <FrameLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:text="@string/my_purchase"
+                android:textColor="@color/tvNormalColor"
+                android:textSize="15sp"
+                android:paddingTop="5dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/tv_see_all_orders"
+                android:paddingTop="2dp"
+                android:gravity="center"
+                android:layout_marginRight="15dp"
+                android:text="@string/my_purchase_all"
+                android:textColor="@color/minorColor"
+                android:textSize="12sp"
+                android:paddingLeft="15dp"
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+
+        <View style="@style/LineLongStyle" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_order"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:text="@string/my_purchase_need"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/tvNormalColor"
+                android:textSize="15sp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_see_all_purchases"
+                android:gravity="center"
+                android:paddingRight="15dp"
+                android:text="@string/my_purchase_all"
+                android:textColor="@color/minorColor"
+                android:textSize="12sp"
+                android:paddingLeft="15dp"
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+
+        <View style="@style/LineLongStyle" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_purchase"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
         <TextView
-            android:text="@string/me_ship_address"
+            android:visibility="gone"
+            android:id="@+id/tv_enquiry"
+            style="@style/MeSettingTvStyle"
+            android:text="@string/me_enquiry" />
+
+        <View
+            android:visibility="gone"
+            style="@style/LineLongStyle" />
+        <TextView
             android:id="@+id/tv_ship_address"
-            style="@style/MeTvStyle" />
+            style="@style/MeSettingTvStyle"
+            android:text="@string/me_ship_address" />
+
         <View style="@style/LineLongStyle" />
         <TextView
             android:id="@+id/tv_messages"
@@ -119,11 +215,9 @@
             android:id="@+id/tv_suggestion"
             style="@style/MeSettingTvStyle"
             android:text="@string/me_suggestion" />
-        <View style="@style/LineLongStyle" />
-        <TextView
-            android:id="@+id/tv_setting"
-            style="@style/MeSettingTvStyle"
-            android:text="@string/me_setting" />
+        <View
+            android:visibility="gone"
+            style="@style/LineLongStyle" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
 

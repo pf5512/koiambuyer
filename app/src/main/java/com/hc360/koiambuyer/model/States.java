@@ -53,4 +53,10 @@ public class States {
     public static final String NOT_DEFAULT_ADDRESS = "1";
     public static final String NO_COMPANY = "-1";
 
+    public static final String READ = "1";
+    public static final String STATE_PURCHASED = "0";
+    public static final String STATE_MATCH = "1";
+    public static final String STATE_CANCEL = "2";
+    public static final String STATE_SUCCESS = "3";
+    public static final String WHITE = "white";
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_btn"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="7.5dp"
+    android:layout_marginBottom="7.5dp"
+    android:layout_width="match_parent"
+    android:weightSum="2"
+    android:layout_height="52dp">
+    <TextView
+        android:id="@+id/tv_pass"
+        style="@style/BottomTvStyle"
+        android:textColor="@color/TitleColor"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/selector_w_tv"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/tv_refuse"
+        android:layout_marginLeft="5dp"
+        style="@style/BottomTvStyle"
+        android:background="@drawable/selector_main_tv"
+        android:layout_weight="1" />
+</LinearLayout>

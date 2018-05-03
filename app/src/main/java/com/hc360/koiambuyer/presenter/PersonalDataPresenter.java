@@ -6,8 +6,11 @@ import com.hc360.koiambuyer.api.RetrofitService;
 import com.hc360.koiambuyer.api.bean.PostPicInfo;
 import com.hc360.koiambuyer.api.bean.ResponseInfo;
 import com.hc360.koiambuyer.api.bean.UserBaseInfo;
+import com.hc360.koiambuyer.model.Constant;
 import com.hc360.koiambuyer.myinterface.ipresenter.IPersonalDataPresenter;
 import com.hc360.koiambuyer.myinterface.iview.IPersonalDataView;
+import com.hc360.koiambuyer.utils.SPUtils;
+import com.hc360.koiambuyer.view.MyApp;
 
 import java.io.File;
 
@@ -34,18 +37,19 @@ public class PersonalDataPresenter implements IPersonalDataPresenter {
                 .subscribe(new MyObserver<PostPicInfo>() {
                     @Override
                     public void onNext(PostPicInfo postPicInfo) {
-                        mView.postPic(postPicInfo.name);
+                        SPUtils.saveString(MyApp.getAppContext(), Constant.MY_HEAD,postPicInfo.httpUrl);
+                        mView.postPic(postPicInfo.name,postPicInfo.httpUrl);
                     }
                 });
     }
 
     @Override
-    public void updateInfo(int userId, String msg, final String type) {
-        RetrofitService.updateInfo(userId,msg,type)
+    public void updateInfo(String headImg, String userName,String email) {
+        RetrofitService.updateInfo(headImg,userName,email)
                 .subscribe(new MyObserver<ResponseInfo>() {
                     @Override
                     public void onNext(ResponseInfo responseInfo) {
-                        mView.updateInfo(type);
+                        mView.updateInfo();
                     }
                 });
     }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/StvColor"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:visibility="gone"
+        android:weightSum="5"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+        <TextView
+            android:id="@+id/tv_all"
+            android:text="@string/all"
+            android:textColor="@color/tvNormalColor"
+            style="@style/OrderTvStyle" />
+        <TextView
+            android:id="@+id/tv_to_ready"
+            android:text="@string/to_ready"
+            android:textColor="@color/tvNormalColor"
+            style="@style/OrderTvStyle" />
+        <TextView
+            android:id="@+id/tv_send_order"
+            android:text="@string/to_receive"
+            android:textColor="@color/tvNormalColor"
+            style="@style/OrderTvStyle" />
+        <TextView
+            android:id="@+id/tv_success_order"
+            android:text="@string/success_order"
+            android:textColor="@color/tvNormalColor"
+            style="@style/OrderTvStyle" />
+        <TextView
+            android:id="@+id/tv_cancel_order"
+            android:text="@string/cancel_order"
+            android:textColor="@color/tvNormalColor"
+            style="@style/OrderTvStyle"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            app:tabIndicatorColor="@color/transparentColor"
+            app:tabIndicatorHeight="2dp"
+            app:tabMode="scrollable"
+            app:tabTextAppearance="@style/TabLayoutStyle"
+            app:tabSelectedTextColor="@color/tvNormalColor"
+            app:tabTextColor="@color/minorColor"></android.support.design.widget.TabLayout>
+    </FrameLayout>
+    <include layout="@layout/layout_xrecyclerview"/>
+
+</LinearLayout>

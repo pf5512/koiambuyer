@@ -6,10 +6,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
+        style="@style/LLWithPaddingStyle">
+        <TextView
+            style="@style/TvLeftWapStyle"
+            android:layout_marginRight="30dp"
+            android:text="@string/edit_ship_address_detail_name_text"/>
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_weight="1"
+            style="@style/EtMidStyle"
+            android:textColorHint="@color/minorColor"
+            android:paddingLeft="24dp"
+            android:hint="@string/edit_ship_address_detail_name_hint" />
+        <ImageView
+            android:visibility="gone"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:src="@mipmap/delete"
+            android:layout_gravity="center_vertical|right"
+            android:id="@+id/iv_name_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <View style="@style/LineLongStyle"/>
+    <LinearLayout
+        style="@style/LLWithPaddingStyle">
+        <TextView
+            style="@style/TvLeftWapStyle"
+            android:layout_marginRight="14dp"
+            android:text="@string/edit_ship_address_detail_phone_text"/>
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_weight="1"
+            style="@style/EtMidStyle"
+            android:inputType="number"
+            android:textColorHint="@color/minorColor"
+            android:paddingLeft="14dp"
+            android:hint="@string/edit_ship_address_detail_phone_hint" />
+        <ImageView
+            android:visibility="gone"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:src="@mipmap/delete"
+            android:layout_gravity="center_vertical|right"
+            android:id="@+id/iv_phone_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <View style="@style/LineLongStyle"/>
+
+    <LinearLayout
         android:id="@+id/ll_address"
         style="@style/LLWithPaddingStyle">
         <TextView
           style="@style/TvLeftWapStyle"
+            android:layout_marginRight="14dp"
           android:text="@string/edit_ship_address_local"/>
         <TextView
             android:id="@+id/tv_address"
@@ -28,12 +79,18 @@
     <LinearLayout
         style="@style/LLWithPaddingStyle">
         <TextView
+            android:layout_height="match_parent"
             style="@style/TvLeftWapStyle"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="14dp"
             android:text="@string/edit_ship_address_detail"/>
         <EditText
             android:id="@+id/et_address_detail"
             android:layout_weight="1"
             style="@style/EtMidStyle"
+            android:gravity="top"
+            android:minLines="2"
+            android:layout_marginTop="1dp"
             android:textColorHint="@color/minorColor"
             android:paddingLeft="14dp"
             android:hint="@string/edit_ship_address_detail_hint" />
@@ -42,16 +99,19 @@
     <FrameLayout
         android:id="@+id/fl_default"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
+        android:layout_height="45dp">
+        <TextView
             android:id="@+id/btn_default"
             android:layout_marginLeft="15dp"
             android:drawableLeft="@mipmap/not_select_s"
             android:drawablePadding="4dp"
             android:text="@string/edit_ship_address_default"
+            android:gravity="center_vertical"
+            android:textColor="@color/tvNormalColor"
+            android:textStyle="normal"
             android:background="@null"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
     </FrameLayout>
 
     <include layout="@layout/layout_stv"/>

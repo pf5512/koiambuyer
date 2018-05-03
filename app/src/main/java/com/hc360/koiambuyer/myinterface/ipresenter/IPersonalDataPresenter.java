@@ -14,6 +14,6 @@ import com.hc360.koiambuyer.view.base.IBasePhotoPresenter;
  */
 
 public interface IPersonalDataPresenter extends IBasePhotoPresenter {
-    void updateInfo(int userId, String msg, String type);
+    void updateInfo(String headImg, String userName,String email);
     void getUserBaseInfo(String userId);
 }

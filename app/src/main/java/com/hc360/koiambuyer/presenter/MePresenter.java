@@ -27,8 +27,8 @@ public class MePresenter implements IMePresenter {
 
 
     @Override
-    public void getMeInfo(int userId, String loginType) {
-        RetrofitService.getMeInfo(userId,loginType)
+    public void getMeInfo() {
+        RetrofitService.getMeInfo()
                 .subscribe(new MyObserver<MeInfo>() {
                     @Override
                     public void onNext(MeInfo meInfo) {

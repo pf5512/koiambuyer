@@ -15,6 +15,6 @@ import com.hc360.koiambuyer.view.base.IBasePresenter;
 
 public interface IEditShipAddressPresenter extends IBasePresenter {
     void getAddress(int id);
-    void saveAddress(int deliverId, int compId, String provinceCode, String cityCode, String areaCode, String addressDetail, String useState);
-    void saveAddress(int compId, String provinceCode, String cityCode, String areaCode, String addressDetail, String useState);
+    void saveAddress(int receiveId, int userId, String provinceCode, String cityCode, String addressDetail, String receiveUser, String telphone, String useState,String pName,String cName);
+    void saveAddress(int userId, String provinceCode, String cityCode, String addressDetail, String receiveUser,String telphone, String useState,String pName,String cName);
 }

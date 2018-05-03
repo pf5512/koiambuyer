@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/StvColor"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="14dp"
+                    android:src="@mipmap/ic_ship_address" />
+
+                <FrameLayout
+                    android:paddingBottom="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:id="@+id/ll_address_info"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_address_user"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:textColor="@color/tvNormalColor"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_address_detail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="13.5dp"
+                            android:layout_marginTop="7.5dp"
+                            android:textColor="@color/minorColor"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:paddingTop="14dp"
+                        android:id="@+id/tv_add_address"
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/stock_add_address"
+                        android:textColor="@color/mainColor"
+                        android:textSize="14sp" />
+                </FrameLayout>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="17dp"
+                    android:src="@mipmap/in" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@mipmap/address_line" />
+
+            <View style="@style/SpaceStyle" />
+
+            <RelativeLayout
+                android:id="@+id/rl_good"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card"
+                    android:layout_width="110dp"
+                    android:layout_height="61dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="0dp">
+
+                    <ImageView
+                        android:id="@+id/iv_good"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/card"
+                    android:lines="2"
+                    android:ellipsize="end"
+                    android:textColor="@color/tvNormalColor"
+                    android:textSize="14sp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/card"
+                    android:layout_toRightOf="@id/card">
+
+                    <TextView
+                        android:id="@+id/tv_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/tvNormalColor"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/tv_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/minorColor"
+                        android:textSize="14sp" />
+                </FrameLayout>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/LineColor" />
+
+            <com.hc360.koiambuyer.widget.StockNumView
+                android:id="@+id/snv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.hc360.koiambuyer.widget.StockNumView>
+
+            <View style="@style/LineLongStyle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="18dp"
+                android:text="@string/stock_remark"
+                android:textColor="@color/tvNormalColor"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_remark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10.5dp"
+                android:background="@drawable/shape_bg"
+                android:hint="@string/stock_remark_hint"
+                android:maxLines="10"
+                android:minLines="3"
+                android:gravity="top"
+                android:paddingBottom="7.5dp"
+                android:paddingLeft="11dp"
+                android:paddingRight="11dp"
+                android:paddingTop="7.5dp"
+                android:textColor="@color/tvNormalColor"
+                android:textColorHint="@color/HintColor"
+                android:textSize="12sp" />
+
+            <View style="@style/LineLongStyle" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_see_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/order_detail_price_info"
+                    android:textColor="@color/tvNormalColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_price_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textColor="@color/mainColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_see_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:drawablePadding="10dp"
+                    android:paddingBottom="18dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="18dp"
+                    android:text="@string/order_detail_see"
+                    android:textColor="@color/HintColor"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <View
+                android:id="@+id/line_top"
+                style="@style/LineLongStyle" />
+            <FrameLayout
+                android:id="@+id/fl_sample_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13.5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:paddingTop="13.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_detail_sample_price"
+                    android:textColor="@color/tvNormalColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_sample_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:textColor="@color/tvNormalColor"
+                    android:textSize="14sp" />
+            </FrameLayout>
+
+            <View
+                android:id="@+id/line_sample_price"
+                style="@style/LineLongStyle" />
+
+            <FrameLayout
+                android:id="@+id/fl_total_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13.5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:paddingTop="13.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_detail_all"
+                    android:textColor="@color/tvNormalColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:textColor="@color/mainColor"
+                    android:textSize="14sp" />
+            </FrameLayout>
+
+            <View style="@style/SpaceStyle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="11dp"
+                android:text="@string/stock_need"
+                android:textColor="@color/tvNormalColor"
+                android:textSize="14sp" />
+
+            <View style="@style/LineLongStyle" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:lineSpacingMultiplier="1.2"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="13.5dp"
+                android:text="@string/stock_msg_1"
+                android:textColor="@color/minorColor"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/stock_msg_3_1"
+                    android:lineSpacingMultiplier="1.2"
+                    android:textColor="@color/minorColor"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_iambuyer"
+                    android:lineSpacingMultiplier="1.2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stock_msg_3_2"
+                    android:textColor="@color/mainColor"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text=";"
+                    android:lineSpacingMultiplier="1.2"
+                    android:textColor="@color/minorColor"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="11dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/stock_msg_3_4"
+                android:textColor="@color/minorColor"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="10dp">
+
+        <com.hc360.koiambuyer.widget.SingleTextView
+            android:id="@+id/stv"
+            style="@style/STVLongStyle"
+            android:text="@string/stock_add" />
+    </android.support.v7.widget.CardView>
+</LinearLayout>

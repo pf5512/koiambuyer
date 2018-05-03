@@ -1,20 +1,19 @@
 package com.hc360.koiambuyer.view.find;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.hc360.koiambuyer.R;
-import com.hc360.koiambuyer.adapter.ChoiceSellerAdapter;
 import com.hc360.koiambuyer.adapter.SearchGoodsAdapter;
 import com.hc360.koiambuyer.api.bean.ChoiceSellerInfo;
 import com.hc360.koiambuyer.api.bean.HotInfo;
@@ -24,15 +23,17 @@ import com.hc360.koiambuyer.model.Constant;
 import com.hc360.koiambuyer.myinterface.ipresenter.ISearchPresenter;
 import com.hc360.koiambuyer.myinterface.iview.ISearchView;
 import com.hc360.koiambuyer.presenter.SearchPresenter;
+import com.hc360.koiambuyer.utils.SPUtils;
 import com.hc360.koiambuyer.utils.ToastUtil;
 import com.hc360.koiambuyer.view.MyApp;
-import com.hc360.koiambuyer.view.base.BaseActivity;
-import com.hc360.koiambuyer.widget.AutoLoadRecyclerView;
+import com.hc360.koiambuyer.view.base.BaseAdapter;
+import com.hc360.koiambuyer.view.base.BaseXRvActivity;
 import com.hc360.koiambuyer.widget.EmptyLayout;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,8 +41,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-
-public class SearchActivity extends BaseActivity<ISearchPresenter> implements ISearchView {
+public class SearchActivity extends BaseXRvActivity<ISearchPresenter, SearchGoodsAdapter, SearchInfo> implements ISearchView {
 
     @BindView(R.id.iv_back)
     ImageView mIvBack;
@@ -55,12 +55,8 @@ public class SearchActivity extends BaseActivity<ISearchPresenter> implements IS
     TextView mTvGoods;
     @BindView(R.id.tv_company)
     TextView mTvCompany;
-    @BindView(R.id.rv_list)
-    AutoLoadRecyclerView mRv;
     @BindView(R.id.empty_layout)
     EmptyLayout mEmptyLayout;
-    @BindView(R.id.swipe_refresh)
-    SwipeRefreshLayout mSwipeRefresh;
     @BindView(R.id.ll_result)
     LinearLayout mLlResult;
     @BindView(R.id.tfl_hot_goods)
@@ -75,22 +71,26 @@ public class SearchActivity extends BaseActivity<ISearchPresenter> implements IS
     LinearLayout head;
     @BindView(R.id.ll_search_head)
     LinearLayout mLlSearchHead;
-    private PopupWindow mPopWindow;
+    @BindView(R.id.iv_clear)
+    ImageView mIvClear;
+    @BindView(R.id.fl_history)
+    FrameLayout mFlHistory;
     //默认是搜索商品
     private boolean isGoods = true;
     private boolean haveClickHot = false;
-    private String mText;
+    public boolean isNoLong = false;
+    private String mText = "";
 
-    private ChoiceSellerAdapter mComAdapter;
-    private SearchGoodsAdapter mGoodsAdapter;
     private List<String> mProKeyList;
     private List<String> mCompKeyList;
 
     @Override
     protected void initView() {
+        mCompKeyList = new ArrayList<>();
         mEmptyLayout.setVisibility(View.GONE);
         mIvDelete.setVisibility(View.GONE);
         initTab();
+        setResumeData(false);
         mEtSearch.setFocusable(true);
         mEtSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -105,19 +105,13 @@ public class SearchActivity extends BaseActivity<ISearchPresenter> implements IS
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mIvDelete.setVisibility(TextUtils.isEmpty(s) ? View.GONE : View.VISIBLE);
-                if (TextUtils.isEmpty(s) && haveClickHot) {
+                if (TextUtils.isEmpty(s)) {
                     //出现热门搜索
                     mLlSearch.setVisibility(View.VISIBLE);
                     mLlResult.setVisibility(View.GONE);
+                    getHistory();
                     initTflData(mProKeyList, mCompKeyList);
                 }
-            }
-        });
-        mRv.setLoadMoreListener(new AutoLoadRecyclerView.loadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                mPager++;
-                getData();
             }
         });
         mPresenter.getHot();
@@ -134,39 +128,46 @@ public class SearchActivity extends BaseActivity<ISearchPresenter> implements IS
     }
 
     @Override
-    protected void updateViews(boolean isRefresh) {
-        if (isRefresh) {
-            getData();
+    protected void onResume() {
+        super.onResume();
+        getHistory();
+    }
+
+
+    private void getHistory() {
+        String searchHistory = SPUtils.getString(this, Constant.SEARCH_HISTORY + MyApp.sUserId, "");
+        if (!TextUtils.isEmpty(searchHistory)) {
+            mFlHistory.setVisibility(View.VISIBLE);
+            mTflHotCompany.setVisibility(View.VISIBLE);
+            String[] split = searchHistory.split(",");
+            for (String s : split) {
+                if (!mCompKeyList.contains(s)) {
+                    mCompKeyList.add(s);
+                }
+            }
+        }else {
+            mFlHistory.setVisibility(View.GONE);
+            mTflHotCompany.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void getHot(HotInfo info) {
         mProKeyList = info.proKeyList;
-        mCompKeyList = info.compKeyList;
         initTflData(mProKeyList, mCompKeyList);
     }
 
-
     @Override
     public void getCompany(ChoiceSellerInfo info) {
-        setComAdapter(info);
+
     }
 
     @Override
     public void getSearchGoods(SearchInfo info) {
-        setGoodsAdapter(info);
+        setAdapter(info);
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-    @OnClick({R.id.iv_back, R.id.iv_delete, R.id.tv_goods, R.id.tv_company, R.id.tv_search})
+    @OnClick({R.id.iv_back, R.id.iv_delete, R.id.tv_goods, R.id.tv_company, R.id.tv_search, R.id.iv_clear})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -190,13 +191,26 @@ public class SearchActivity extends BaseActivity<ISearchPresenter> implements IS
                 if (TextUtils.isEmpty(mText)) {
                     ToastUtil.showShort(this, getStr(R.string.search_toast));
                 } else {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+                    }
+                    mPager = 1;
                     getData();
                 }
+                break;
+            case R.id.iv_clear:
+                SPUtils.saveString(this, Constant.SEARCH_HISTORY + MyApp.sUserId, "");
+                mCompKeyList.clear();
+                final TagAdapter comAdapter = getTagAdapter(mCompKeyList, mTflHotCompany);
+                mTflHotCompany.setAdapter(comAdapter);
                 break;
         }
     }
 
-    private void getData() {
+
+    @Override
+    public void getData() {
         mLlSearch.setVisibility(View.GONE);
         mLlResult.setVisibility(View.VISIBLE);
         initTab();
@@ -205,14 +219,40 @@ public class SearchActivity extends BaseActivity<ISearchPresenter> implements IS
             mPresenter.getSearchGoods(mText, mPager);
         } else {
             //搜索公司
-            mPresenter.getCompany(mText, mPager);
+//            mPresenter.getCompany(mText, mPager);
+            mPresenter.getSearchGoods(mText, mPager);
         }
+        String searchHistory = SPUtils.getString(this, Constant.SEARCH_HISTORY + MyApp.sUserId, "");
+        StringBuilder sb = new StringBuilder(searchHistory);
+        if (!searchHistory.contains(mText)) {
+            if (searchHistory.length() == 0) {
+                sb.append(mText);
+            } else {
+                sb.append(",").append(mText);
+            }
+        }
+        SPUtils.saveString(this, Constant.SEARCH_HISTORY + MyApp.sUserId, sb.toString());
+    }
+
+    @Override
+    public BaseAdapter newAdapter(SearchInfo searchInfo) {
+        return new SearchGoodsAdapter(R.layout.rv_search_goods, searchInfo.list, this);
+    }
+
+    @Override
+    public List getList(SearchInfo searchInfo) {
+        if (mPager == 1) {
+            isNoLong = searchInfo.count == searchInfo.list.size();
+        } else {
+            isNoLong = searchInfo.list.size() < 10;
+        }
+        return searchInfo.list;
     }
 
     private void initTab() {
-        mPager = 1;
-        mTvGoods.setTextColor(getResources().getColor(isGoods ? (MyApp.sLoginType.equals(Constant.BUYER)?R.color.buyerColor:R.color.sellerColor) : R.color.minorSecondColor));
-        mTvCompany.setTextColor(getResources().getColor(isGoods ? R.color.minorSecondColor : (MyApp.sLoginType.equals(Constant.BUYER)?R.color.buyerColor:R.color.sellerColor)));
+//        mPager = 1;
+        mTvGoods.setTextColor(getResources().getColor(isGoods ? (MyApp.sLoginType.equals(Constant.BUYER) ? R.color.buyerColor : R.color.sellerColor) : R.color.minorSecondColor));
+        mTvCompany.setTextColor(getResources().getColor(isGoods ? R.color.minorSecondColor : (MyApp.sLoginType.equals(Constant.BUYER) ? R.color.buyerColor : R.color.sellerColor)));
     }
 
     private void initTflData(final List<String> proKeyList, final List<String> compKeyList) {
@@ -231,13 +271,13 @@ public class SearchActivity extends BaseActivity<ISearchPresenter> implements IS
                 comAdapter.notifyDataChanged();
                 mText = proKeyList.get(position);
                 haveClickHot = true;
+                mPager = 1;
                 getData();
                 return true;
             }
         });
 
         mTflHotCompany.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
-
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 isGoods = false;
@@ -247,6 +287,7 @@ public class SearchActivity extends BaseActivity<ISearchPresenter> implements IS
                 proAdapter.notifyDataChanged();
                 mText = compKeyList.get(position);
                 haveClickHot = true;
+                mPager = 1;
                 getData();
                 return true;
             }
@@ -266,62 +307,10 @@ public class SearchActivity extends BaseActivity<ISearchPresenter> implements IS
         };
     }
 
-
-    public void setComAdapter(ChoiceSellerInfo info) {
-        if (info.list.size() > 0) {
-            hideLoading();
-            if (mPager == 1) {
-                initComAdapter(info);
-            } else {
-                mComAdapter.getData().addAll(info.list);
-                mComAdapter.notifyDataSetChanged();
-            }
-            mSwipeRefresh.setRefreshing(false);
-            mRv.setLoading(false);
-        } else {
-            mSwipeRefresh.setRefreshing(false);
-            if (mPager == 1) {
-                initComAdapter(info);
-                showNoData();
-            } else {
-                hideLoading();
-                ToastUtil.showShort(MyApp.getAppContext(), getStr(R.string.no_more_data));
-            }
-        }
-    }
-
-    public void setGoodsAdapter(SearchInfo info) {
-        if (info.list.size() > 0) {
-            hideLoading();
-            if (mPager == 1) {
-                initGoodsAdapter(info);
-            } else {
-                mGoodsAdapter.getData().addAll(info.list);
-                mGoodsAdapter.notifyDataSetChanged();
-            }
-            mSwipeRefresh.setRefreshing(false);
-            mRv.setLoading(false);
-        } else {
-            mSwipeRefresh.setRefreshing(false);
-            if (mPager == 1) {
-                initGoodsAdapter(info);
-                showNoData();
-            } else {
-                hideLoading();
-                ToastUtil.showShort(MyApp.getAppContext(),  getStr(R.string.no_more_data));
-            }
-        }
-    }
-
-    public void initGoodsAdapter(SearchInfo info) {
-        mRv.setLayoutManager(new LinearLayoutManager(this));
-        mGoodsAdapter = new SearchGoodsAdapter(R.layout.rv_search_goods, info.list);
-        mRv.setAdapter(mGoodsAdapter);
-    }
-
-    public void initComAdapter(ChoiceSellerInfo info) {
-        mRv.setLayoutManager(new LinearLayoutManager(this));
-        mComAdapter = new ChoiceSellerAdapter(R.layout.rv_company, info.list);
-        mRv.setAdapter(mComAdapter);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,9 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.hc360.koiambuyer.R;
-import com.hc360.koiambuyer.adapter.FindXRxAdapter;
+import com.hc360.koiambuyer.adapter.FindHomeAdapter;
 import com.hc360.koiambuyer.api.bean.ClassifyBean;
-import com.hc360.koiambuyer.api.bean.SearchInfo;
+import com.hc360.koiambuyer.api.bean.FindInfo;
 import com.hc360.koiambuyer.myinterface.ipresenter.IFindPresenter;
 import com.hc360.koiambuyer.myinterface.iview.IFindView;
 import com.hc360.koiambuyer.presenter.FindPresenter;
@@ -48,7 +49,8 @@ import butterknife.OnClick;
  * Copyright notice:
  */
 
-public class FindFragment extends BaseXRvFragment<IFindPresenter, FindXRxAdapter, SearchInfo> implements IFindView {
+public class FindFragment extends BaseXRvFragment<IFindPresenter, FindHomeAdapter, FindInfo> implements IFindView {
+
     @BindView(R.id.toolbar_title)
     TextView mToolbarTitle;
     @BindView(R.id.toolbar)
@@ -89,6 +91,7 @@ public class FindFragment extends BaseXRvFragment<IFindPresenter, FindXRxAdapter
         mToolbar.setNavigationIcon(null);
         mToolbarTitle.setText(getStr(R.string.find_title));
         TVDrawableUtil.setRightByRes(mContext, R.mipmap.search, mTvRight);
+
         mTabList = new ArrayList<>();
         mTabList.add(new ClassifyBean(getStr(R.string.all), "", ""));
         List<ClassifyBean> classifyBeen = DBHelper.searchFirstClassify(mContext);
@@ -96,8 +99,11 @@ public class FindFragment extends BaseXRvFragment<IFindPresenter, FindXRxAdapter
         for (int i = 0; i < mTabList.size(); i++) {
             mTab.addTab(mTab.newTab().setText(mTabList.get(i).cateName), i == 0);
         }
+
         //修正指示器的宽度
         TagFlowLayoutUtils.reflex(mTab);
+        updateTabTextView(mTab.getTabAt(mTab.getSelectedTabPosition()), true);
+
         mTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -110,19 +116,54 @@ public class FindFragment extends BaseXRvFragment<IFindPresenter, FindXRxAdapter
                 }
                 mPager = 1;
                 getData();
+                updateTabTextView(tab, true);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                updateTabTextView(tab, false);
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+//                updateTabTextView(tab, false);
             }
         });
         setEmptyMsg(getStr(R.string.have_no_good));
+    }
+
+    private void updateTabTextView(TabLayout.Tab tab, boolean isSelect) {
+        if (isSelect) {
+            try {
+                java.lang.reflect.Field fieldView= tab.getClass().getDeclaredField("mView");
+                fieldView.setAccessible(true);
+                View view= (View) fieldView.get(tab);
+                java.lang.reflect.Field fieldTxt= view.getClass().getDeclaredField("mTextView");
+                fieldTxt.setAccessible(true);
+                TextView tabSelect= (TextView) fieldTxt.get(view);
+//                tabSelect.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                TextPaint tp = tabSelect.getPaint();
+                tp.setFakeBoldText(true);
+                tabSelect.setText(tab.getText());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                java.lang.reflect.Field fieldView= tab.getClass().getDeclaredField("mView");
+                fieldView.setAccessible(true);
+                View view= (View) fieldView.get(tab);
+                java.lang.reflect.Field fieldTxt= view.getClass().getDeclaredField("mTextView");
+                fieldTxt.setAccessible(true);
+                TextView tabSelect= (TextView) fieldTxt.get(view);
+//                tabSelect.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                TextPaint tp = tabSelect.getPaint();
+                tp.setFakeBoldText(false);
+                tabSelect.setText(tab.getText());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -182,24 +223,25 @@ public class FindFragment extends BaseXRvFragment<IFindPresenter, FindXRxAdapter
         mIvSelect.setImageResource(R.mipmap.up);
     }
 
-
     @Override
     public void getData() {
         mPresenter.getGoods(mSelectText, mPager);
     }
 
     @Override
-    public BaseAdapter newAdapter(SearchInfo searchInfo) {
-        return new FindXRxAdapter(R.layout.rv_search_goods_head, searchInfo.list);
+    public BaseAdapter newAdapter(FindInfo searchInfo) {
+        return new FindHomeAdapter(R.layout.rv_search_goods, searchInfo.list);
     }
 
     @Override
-    public List getList(SearchInfo searchInfo) {
+    public List getList(FindInfo searchInfo) {
         return searchInfo.list;
     }
 
     @Override
-    public void getGoods(SearchInfo info) {
+    public void getGoods(FindInfo info) {
         setAdapter(info);
     }
+
+
 }

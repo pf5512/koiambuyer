@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="match_parent"
+        android:weightSum="2"
+        android:background="@mipmap/ic_show_stock_bg"
+        android:layout_height="110dp">
+        <TextView
+            android:id="@+id/tv_get_sample"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:gravity="center_horizontal"
+            android:paddingTop="17dp"
+            android:text="@string/good_detail_get_sample"
+            android:layout_gravity="center"
+            android:textColor="@color/StvColor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_marginLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="#3fff"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+        <TextView
+            android:id="@+id/tv_get_good"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:paddingTop="13dp"
+            android:gravity="center_horizontal"
+            android:text="@string/good_detail_get_good"
+            android:layout_gravity="center"
+            android:textColor="@color/StvColor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>

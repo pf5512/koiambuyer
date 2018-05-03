@@ -2,6 +2,7 @@ package com.hc360.koiambuyer.view;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hc360.koiambuyer.R;
-import com.hc360.koiambuyer.api.bean.PurchaseDetailInfo;
 import com.hc360.koiambuyer.model.Constant;
 import com.hc360.koiambuyer.model.Msg;
 import com.hc360.koiambuyer.utils.CameraUtil;
@@ -30,10 +30,14 @@ import com.hc360.koiambuyer.view.base.BaseActivity;
 import com.hc360.koiambuyer.view.base.BaseFragment;
 import com.hc360.koiambuyer.view.home.HomeActivity;
 import com.hc360.koiambuyer.view.me.SuggestionFragment;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.entity.LocalMedia;
 
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,10 +76,24 @@ public class ContainerFooterActivity extends BaseActivity {
             case Constant.CHANGE_PHONE:
                 //修改手机号
                 replaceFragmentWithTitle(getStr(R.string.toolbar_edit_phone));
+                mLine.setVisibility(View.GONE);
                 break;
             case Constant.CHANGE_PWD:
                 //更换密码
                 replaceFragmentWithTitle(getStr(R.string.toolbar_edit_pwd));
+                mLine.setVisibility(View.GONE);
+                break;
+            case Constant.CHANGE_PWD_FORGET:
+                //更换密码
+                String forgetMsg = getIntent().getStringExtra(Msg.MSG);
+                replaceNewFragmentWithTitleAndMsg(getStr(R.string.forget_pwd), forgetMsg);
+                mLine.setVisibility(View.GONE);
+                break;
+            case Constant.THIRD_STEP:
+            case Constant.THIRD_STEP_CHANGE:
+                String thirdMsg = getIntent().getStringExtra(Msg.MSG);
+                replaceNewFragmentWithTitleAndMsg(getStr(R.string.forget_pwd), thirdMsg);
+                mLine.setVisibility(View.GONE);
                 break;
             case Constant.FORGET_PWD:
                 //忘记密码
@@ -87,11 +105,12 @@ public class ContainerFooterActivity extends BaseActivity {
                 break;
             case Constant.BIND_EMAIL:
                 //绑定邮箱
-                replaceFragmentWithTitle(getStr(R.string.toolbar_bind_email));
+                String email = getIntent().getStringExtra(Msg.EMAIL);
+                replaceNewFragmentWithTitleAndMsg(getStr(R.string.toolbar_bind_email), email);
                 break;
             case Constant.SUGGESTION:
                 //意见和反馈
-                replaceFragmentWithTitle(getStr(R.string.toolbar_suggestion));
+                replaceFragmentWithTitle(getStr(R.string.toolbar_suggestion),getStr(R.string.my_suggestion));
                 break;
             case Constant.EDIT_SHIP_ADDRESS:
                 //编辑地址
@@ -124,7 +143,7 @@ public class ContainerFooterActivity extends BaseActivity {
                 //注册设置密码
                 String phone = getIntent().getStringExtra(Msg.PHONE);
                 replaceNewFragmentWithTitleAndMsg(FragmentFactory.getFragmentTitle(mType), phone);
-                mToolbar.setBackgroundColor(getResources().getColor(R.color.sellerColor));
+                mLine.setVisibility(View.GONE);
                 break;
             case Constant.ABOUT_US:
                 String version = getIntent().getStringExtra(Msg.VERSION);
@@ -183,13 +202,13 @@ public class ContainerFooterActivity extends BaseActivity {
                 replaceFragmentWithTitle("选择采购意向");
                 break;
             case Constant.GOODS_DESC:
-                replaceFragmentWithTitle("商品描述");
+                replaceFragmentWithTitle(getStr(R.string.good_detail_desc));
                 break;
             case Constant.EDIT_GOODS_DESC:
                 //编辑商品描述
                 int productId = getIntent().getIntExtra(Msg.PRODUCT_ID, -1);
 //                replaceNewFragmentWithTitleAndMsg("商品描述", productId + "");
-                replaceGoodsDescFragment("商品描述", productId + "");
+                replaceGoodsDescFragment(getStr(R.string.good_detail_desc), productId + "");
                 break;
             case Constant.KEEP:
                 //收藏求购
@@ -200,13 +219,13 @@ public class ContainerFooterActivity extends BaseActivity {
                 replaceFragmentWithTitle("洽谈过");
                 break;
             case Constant.SET_NAME_FROM_PERSONAL:
-                replaceFragmentWithTitle("姓名", getStr(R.string.save));
+                replaceFragmentWithTitle(getStr(R.string.personal_data_name), getStr(R.string.save));
                 break;
             case Constant.SET_POSITION:
                 replaceFragmentWithTitle("我的职位", getStr(R.string.save));
                 break;
             case Constant.ATTENTION:
-                replaceFragmentWithTitle("关注公司");
+                replaceFragmentWithTitle(getStr(R.string.my_attention_number));
                 break;
             case Constant.COMPANY_BASIC_INFO:
                 //公司信息 -- 公司/店铺简称
@@ -214,24 +233,25 @@ public class ContainerFooterActivity extends BaseActivity {
                 replaceFragment("公司概况", getStr(R.string.save), companyIntro);
                 break;
             case Constant.SET_PASSWORD_UPDATE:
-                replaceFragmentWithTitle("设置密码");
+                replaceFragmentWithTitle(getStr(R.string.set_pwd));
                 break;
             case Constant.SET_PASSWORD_FORGET:
-                replaceNewFragmentWithTitleAndMsg("设置密码", getIntent().getStringExtra(Msg.PHONE));
+                replaceNewFragmentWithTitleAndMsg(getStr(R.string.set_pwd), getIntent().getStringExtra(Msg.PHONE));
                 break;
             case Constant.EDIT_PURCHASE:
             case Constant.EDIT_PURCHASE_BEFORE:
-                PurchaseDetailInfo.ContentBean.StProductsBean extra = (PurchaseDetailInfo.ContentBean.StProductsBean) getIntent().getSerializableExtra(Msg.PURCHASE);
-                replaceEditPurchaseWithTitleAndMsg("采购商品", extra);
+//                PurchaseDetailInfo.ContentBean.StProductsBean extra = (PurchaseDetailInfo.ContentBean.StProductsBean) getIntent().getSerializableExtra(Msg.PURCHASE);
+//                replaceEditPurchaseWithTitleAndMsg("采购商品", extra);
                 break;
             case Constant.NEW_PURCHASE:
-                replaceFragmentWithTitle("采购产品");
+                replaceFragmentWithTitle(getStr(R.string.publish_pro_name));
                 break;
             case Constant.MY_PURCHASE:
-                replaceFragmentWithTitle("我的求购");
+                int state = getIntent().getIntExtra(Msg.PURCHASE_STATE, -1);
+                replaceNewFragmentWithTitleAndMsg(getStr(R.string.my_purchase_title), String.valueOf(state));
                 break;
             case Constant.MY_SUB_PURCHASE:
-                replaceFragment("我的求购", "", "");
+                replaceFragment(getStr(R.string.my_purchase_title), "", "");
                 mTvRight.setVisibility(View.GONE);
                 break;
             case Constant.CHOICE_SELLER:
@@ -259,7 +279,19 @@ public class ContainerFooterActivity extends BaseActivity {
                 replaceNewFragmentWithTitleAndMsg(titlePurchase, cruxKey, purchaseType);
                 break;
             case Constant.NOTICE:
-                replaceFragmentWithTitle("消息通知");
+                replaceFragmentWithTitle(getStr(R.string.msg_title));
+                break;
+            case Constant.QUOTE:
+                String offerId = getIntent().getIntExtra(Msg.QUOTE_ID,-1)+"";
+                replaceNewFragmentWithTitleAndMsg(getStr(R.string.quote_title), offerId);
+                break;
+            case Constant.ORDER:
+                String position = getIntent().getStringExtra(Msg.POSITION);
+                replaceNewFragmentWithTitleAndMsg(getStr(R.string.my_order), position);
+                break;
+            case Constant.CHANGE_PWD_FIRST:
+                replaceFragmentWithTitle(getStr(R.string.forget_pwd));
+                mLine.setVisibility(View.GONE);
                 break;
 
         }
@@ -300,7 +332,6 @@ public class ContainerFooterActivity extends BaseActivity {
         }
         initToolBar(title);
     }
-
 
     public void replaceFragmentWithTitle(String title) {
         FragmentFactory.replaceFragment(this, R.id.fl_container, mType);
@@ -489,10 +520,18 @@ public class ContainerFooterActivity extends BaseActivity {
                     case Constant.SET_POSITION:
                         saveMsgFromSetFragment();
                         break;
+                    case Constant.SUGGESTION:
+                        startContainer(Constant.MY_SUGGESTION);
+                        break;
                 }
             }
-
         });
+    }
+
+    private void startContainer(String type){
+        Intent intent = new Intent(ContainerFooterActivity.this, ContainerActivity.class);
+        intent.putExtra(Constant.TYPE,type);
+        startActivity(intent);
     }
 
     private void saveMsgFromSetFragment() {
@@ -578,7 +617,7 @@ public class ContainerFooterActivity extends BaseActivity {
                         cropImageUri = Uri.fromFile(fileCropUri);
                         Uri newUri = Uri.parse(PhotoUtils.getPath(this, data.getData()));
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                            newUri = FileProvider.getUriForFile(this, "com.hc360.iambuyer.fileprovider", new File(newUri.getPath()));
+                            newUri = FileProvider.getUriForFile(this, "com.hc360.koiambuyer.fileprovider", new File(newUri.getPath()));
                         }
                         PhotoUtils.cropImageUri(this, newUri, cropImageUri, Constant.CROP_PICTURE);
                     } else {
@@ -609,6 +648,32 @@ public class ContainerFooterActivity extends BaseActivity {
                         e.printStackTrace();
                     }
                     break;
+                case PictureConfig.CHOOSE_REQUEST:
+                    // 图片、视频、音频选择结果回调
+                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                    // 例如 LocalMedia 里面返回三种path
+                    // 1.media.getPath(); 为原图path
+                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
+                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
+                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+                    for (LocalMedia media : selectList) {
+                        if (media.isCompressed()){
+                            switch (mType) {
+                                case Constant.SUGGESTION:
+                                    SuggestionFragment fragment = (SuggestionFragment) getSupportFragmentManager().findFragmentByTag(Constant.SUGGESTION);
+                                    fragment.getPic(BitmapFactory.decodeFile(media.getCompressPath()),new File(media.getCompressPath()));
+                                    break;
+                                case Constant.GOODS_DESC:
+                                case Constant.EDIT_GOODS_DESC:
+//                                    GoodsDescFragment goodsDescFragment = (GoodsDescFragment) getSupportFragmentManager().findFragmentByTag(mType);
+//                                    goodsDescFragment.getPic(bitmap, file);
+                                    break;
+                            }
+                        }
+                    }
+
+                    break;
+
             }
         }
     }
@@ -635,4 +700,5 @@ public class ContainerFooterActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+
 }

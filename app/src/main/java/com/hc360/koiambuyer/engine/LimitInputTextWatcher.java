@@ -4,7 +4,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.hc360.koiambuyer.R;
 import com.hc360.koiambuyer.utils.ToastUtil;
+import com.hc360.koiambuyer.view.MyApp;
 
 
 /**
@@ -71,7 +73,7 @@ public class LimitInputTextWatcher implements TextWatcher {
         editable.replace(0, editable.length(), inputStr.trim());
         et.addTextChangedListener(this);
         if (!isText(regex, str)){
-            ToastUtil.showShort(et.getContext(),"请输入汉字");
+            ToastUtil.showShort(et.getContext(), MyApp.getAppContext().getResources().getString(R.string.han_input));
         }
     }
 

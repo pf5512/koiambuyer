@@ -21,4 +21,5 @@ public class HotInfo {
 
     public List<String> compKeyList;
     public List<String> proKeyList;
+
 }

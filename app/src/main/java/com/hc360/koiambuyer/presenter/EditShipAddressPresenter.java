@@ -37,25 +37,34 @@ public class EditShipAddressPresenter implements IEditShipAddressPresenter {
     }
 
     @Override
-    public void saveAddress(int deliverId, int compId, String provinceCode, String cityCode, String areaCode, String addressDetail, String useState) {
-        RetrofitService.editAddress(deliverId,compId,provinceCode,cityCode,areaCode,addressDetail,useState)
+    public void saveAddress(final int receiveId, int userId, String provinceCode, String cityCode, final String addressDetail, final String receiveUser, final String telphone, String useState, final String pName, final String cName) {
+        RetrofitService.editAddress(receiveId,userId,provinceCode,cityCode,addressDetail,receiveUser,telphone,useState)
                 .subscribe(new MyObserver<ResponseInfo>() {
                     @Override
                     public void onNext(ResponseInfo responseInfo) {
-                        mView.saveAddress();
+                        mView.saveAddress(receiveId,pName+"  "+ cName+"  "+addressDetail,receiveUser+"   "+telphone);
                     }
                 });
     }
 
     @Override
-    public void saveAddress(int compId, String provinceCode, String cityCode, String areaCode, String addressDetail, String useState) {
-        RetrofitService.addAddress(compId,provinceCode,cityCode,areaCode,addressDetail,useState)
+    public void saveAddress(int userId, String provinceCode, String cityCode, final String addressDetail, final String receiveUser, final String telphone, String useState, final String pName, final String cName) {
+        RetrofitService.addAddress(userId,provinceCode,cityCode,addressDetail,receiveUser,telphone,useState)
                 .subscribe(new MyObserver<ResponseInfo>() {
                     @Override
                     public void onNext(ResponseInfo responseInfo) {
-                        mView.saveAddress();
+                        mView.saveAddress(getReceiveId(responseInfo.content),pName+"  "+ cName+"  "+addressDetail,receiveUser+"   "+telphone);
                     }
                 });
+    }
+
+    private int getReceiveId(String content) {
+        try {
+            int i = Integer.parseInt(content);
+            return i;
+        }catch (Exception e){
+            return -1;
+        }
     }
 
 

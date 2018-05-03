@@ -3,18 +3,26 @@ package com.hc360.koiambuyer.api;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.hc360.koiambuyer.R;
 import com.hc360.koiambuyer.api.bean.AddressInfo;
 import com.hc360.koiambuyer.api.bean.AttentionInfo;
+import com.hc360.koiambuyer.api.bean.AttentionKoInfo;
 import com.hc360.koiambuyer.api.bean.ChatAttentionInfo;
+import com.hc360.koiambuyer.api.bean.ChatGoodInfo;
 import com.hc360.koiambuyer.api.bean.ChatInfo;
+import com.hc360.koiambuyer.api.bean.ChatListInfo;
 import com.hc360.koiambuyer.api.bean.ChatLookedInfo;
+import com.hc360.koiambuyer.api.bean.ChatMsgInfo;
 import com.hc360.koiambuyer.api.bean.ChatStatesInfo;
 import com.hc360.koiambuyer.api.bean.ChildrenAccountInfo;
 import com.hc360.koiambuyer.api.bean.ChoiceSellerInfo;
+import com.hc360.koiambuyer.api.bean.CityManagerInfo;
 import com.hc360.koiambuyer.api.bean.ComAuthInfo;
 import com.hc360.koiambuyer.api.bean.CompanyInfo;
 import com.hc360.koiambuyer.api.bean.CompanyInfoHomeHotInfo;
 import com.hc360.koiambuyer.api.bean.FindCompanyInfo;
+import com.hc360.koiambuyer.api.bean.FindInfo;
 import com.hc360.koiambuyer.api.bean.GoodsDescInfo;
 import com.hc360.koiambuyer.api.bean.GoodsDetailInfo;
 import com.hc360.koiambuyer.api.bean.GoodsInfo;
@@ -23,18 +31,26 @@ import com.hc360.koiambuyer.api.bean.HotInfo;
 import com.hc360.koiambuyer.api.bean.InitInfo;
 import com.hc360.koiambuyer.api.bean.IntentInfo;
 import com.hc360.koiambuyer.api.bean.KeepGoodsInfo;
+import com.hc360.koiambuyer.api.bean.LikeInfo;
 import com.hc360.koiambuyer.api.bean.LoginInfo;
 import com.hc360.koiambuyer.api.bean.MeInfo;
+import com.hc360.koiambuyer.api.bean.MsgInfo;
 import com.hc360.koiambuyer.api.bean.MyIntentInfo;
 import com.hc360.koiambuyer.api.bean.MyPurchaseInfo;
+import com.hc360.koiambuyer.api.bean.MySuggestionInfo;
 import com.hc360.koiambuyer.api.bean.NewPurchaseInfo;
 import com.hc360.koiambuyer.api.bean.NoticeInfo;
+import com.hc360.koiambuyer.api.bean.OrderDetailInfo;
+import com.hc360.koiambuyer.api.bean.OrderInfo;
 import com.hc360.koiambuyer.api.bean.PostPicInfo;
+import com.hc360.koiambuyer.api.bean.PublishPurchaseInfo;
 import com.hc360.koiambuyer.api.bean.PurchaseDetailInfo;
 import com.hc360.koiambuyer.api.bean.PurchaseHomeInfo;
 import com.hc360.koiambuyer.api.bean.PurchaseInfo;
 import com.hc360.koiambuyer.api.bean.PurchaseItemInfo;
+import com.hc360.koiambuyer.api.bean.QuoteInfo;
 import com.hc360.koiambuyer.api.bean.ResponseInfo;
+import com.hc360.koiambuyer.api.bean.RightNowInfo;
 import com.hc360.koiambuyer.api.bean.SearchInfo;
 import com.hc360.koiambuyer.api.bean.SettingInfo;
 import com.hc360.koiambuyer.api.bean.ShipAddressInfo;
@@ -56,6 +72,7 @@ import com.orhanobut.logger.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,16 +109,19 @@ import rx.schedulers.Schedulers;
 
 public class RetrofitService {
     private static IApi sServiceSecond;
+    private static IApi sServiceThird;
     private static IApi sService;
     private static IApi sServiceIMG;
+    public static boolean isDebug = false;
 
     //测试环境
-//    private static final String API_HOST = "http://10.158.41.45:8090/";
-//    private static final String API_HOST_SECOND = "http://10.158.41.45:8091/";
+    public static final String API_HOST = "http://10.8.84.28:8080/";
+    public static final String API_HOST_SECOND = "http://10.8.84.28:8080/";
+    public static final String API_HOST_THIRD = "http://10.8.84.28:8080/";
 //    private static final String API_HOST_IMG = "http://10.158.41.39:8080/imgup/upLoad/";
     //正式环境
-        private static final String API_HOST_SECOND = "http://api.iambuyer.com/";
-        private static final String API_HOST = "http://api.iambuyer.com/";
+//        public static final String API_HOST_SECOND = "http://api.iambuyer.com/";
+//        public static final String API_HOST = "http://api.iambuyer.com/";
         private static final String API_HOST_IMG = "http://img01.iambuyer.com/imgup/upLoad/";
 
     //设缓存有效期为1天
@@ -144,9 +164,21 @@ public class RetrofitService {
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .baseUrl(API_HOST_THIRD)
+                .build();
+        sServiceThird = retrofit.create(IApi.class);
+
+        retrofit = new Retrofit.Builder()
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(API_HOST_IMG)
                 .build();
         sServiceIMG= retrofit.create(IApi.class);
+
+        if (RetrofitService.API_HOST_SECOND.equals("http://10.158.41.39:8091/")){
+            isDebug = true;
+        }
     }
     /**
      * 打印返回的json数据拦截器
@@ -206,11 +238,7 @@ public class RetrofitService {
             }
         }
     };
-
-
     //以下是具体的方法----------------------------------------------
-
-
     /**
      * 过滤器
      * @return
@@ -219,7 +247,7 @@ public class RetrofitService {
         return new Func1<ResponseInfo, Boolean>() {
             @Override
             public Boolean call(ResponseInfo responseInfo) {
-                if (responseInfo.ret.equals("200")){
+                if (responseInfo.ret.equals(States.STATES_RESULT_OK)){
                     return true;
                 }else{
                     ToastUtil.showShort(MyApp.getAppContext(),responseInfo.msg);
@@ -236,7 +264,7 @@ public class RetrofitService {
         HashMap<String,String> map  =new HashMap();
         map.put("phone",phone);
         map.put("password",password);
-        map.put("portal","iambuyer");
+        map.put("portal","IambuyerKorea");
         return sService.register(map)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -245,7 +273,7 @@ public class RetrofitService {
                 .filter(new Func1<ResponseInfo, Boolean>() {
                     @Override
                     public Boolean call(ResponseInfo responseInfo) {
-                        if (responseInfo.ret.equals("200")){
+                        if (responseInfo.ret.equals(States.STATES_RESULT_OK)){
                             return true;
                         }else{
                             ToastUtil.showShort(MyApp.getAppContext(),responseInfo.msg);
@@ -262,7 +290,7 @@ public class RetrofitService {
         HashMap<String,String> map  =new HashMap();
         map.put("phone",phone);
         map.put("businessName",businessName);
-        map.put("portal","iambuyer");
+        map.put("portal","IambuyerKorea");
         return sService.sendIdentify(map)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -271,14 +299,14 @@ public class RetrofitService {
                 .filter(_flatMap());
     }
     /**
-     * 发送验证码,不带拦截器i
+     * 发送验证码,不带拦截器
      * @return
      */
     public static Observable<ResponseInfo> identify(String phone, String businessName) {
         HashMap<String,String> map  =new HashMap();
         map.put("phone",phone);
         map.put("businessName",businessName);
-        map.put("portal","iambuyer");
+        map.put("portal","IambuyerKorea");
         Logger.e(map.toString());
         return sService.sendIdentify(map)
                 .subscribeOn(Schedulers.io())
@@ -295,7 +323,7 @@ public class RetrofitService {
         map.put("phone",phone);
         map.put("businessName", SmsStautsEnum.REG.getValue());
         map.put("phoneCode",phoneCode);
-        map.put("portal","iambuyer");
+        map.put("portal","IambuyerKorea");
         return sService.confirmIdentify(map)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -311,7 +339,7 @@ public class RetrofitService {
         map.put("phone",phone);
         map.put("businessName", businessNumber);
         map.put("phoneCode",phoneCode);
-        map.put("portal","iambuyer");
+        map.put("portal","IambuyerKorea");
         return sService.confirmIdentify(map)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -320,7 +348,7 @@ public class RetrofitService {
                 .filter(new Func1<ResponseInfo, Boolean>() {
                     @Override
                     public Boolean call(ResponseInfo responseInfo) {
-                        if (responseInfo.ret.equals("200")){
+                        if (responseInfo.ret.equals(States.STATES_RESULT_OK)){
                             return true;
                         }else{
                             ToastUtil.showShort(MyApp.getAppContext(),responseInfo.msg);
@@ -329,6 +357,23 @@ public class RetrofitService {
 
                     }
                 });
+    }
+
+    /**
+     * 注册--检验验证码
+     * @return
+     */
+    public static Observable<ResponseInfo> checkIdentifySecond(final String phone, final String phoneCode ,String businessNumber) {
+        HashMap<String,String> map  =new HashMap();
+        map.put("phone",phone);
+        map.put("businessName", businessNumber);
+        map.put("phoneCode",phoneCode);
+        map.put("portal","IambuyerKorea");
+        return sService.confirmIdentify(map)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
     }
     /**
      * 密码登录
@@ -339,7 +384,7 @@ public class RetrofitService {
         map.put("loginType", LoginTypeEnum.PASSWORD.getValue());
         map.put("phone",phone);
         map.put("password",password);
-        map.put("portal","iambuyer");
+        map.put("portal","IambuyerKorea");
         return sService.loginByPwd(map)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -355,7 +400,7 @@ public class RetrofitService {
         map.put("loginType",LoginTypeEnum.PHONECODE.getValue());
         map.put("phone",phone);
         map.put("phonecode",phonecode);
-        map.put("portal","iambuyer");
+        map.put("portal","IambuyerKorea");
         return sService.loginByPwd(map)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -383,7 +428,7 @@ public class RetrofitService {
         map.put("loginType",LoginTypeEnum.PHONECODE.getValue());
         map.put("phone",phone);
         map.put("phonecode",phonecode);
-        map.put("portal","iambuyer");
+        map.put("portal","IambuyerKorea");
         return sService.loginByPwd(map)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -405,7 +450,7 @@ public class RetrofitService {
                 .filter(new Func1<InitInfo, Boolean>() {
                     @Override
                     public Boolean call(InitInfo initInfo) {
-                        if (initInfo.ret.equals("200")){
+                        if (initInfo.ret.equals(States.STATES_RESULT_OK)){
                             return true;
                         }else{
                             ToastUtil.showShort(MyApp.getAppContext(),initInfo.msg);
@@ -474,10 +519,10 @@ public class RetrofitService {
                 .filter(new Func1<PostPicInfo, Boolean>() {
                     @Override
                     public Boolean call(PostPicInfo postPicInfo) {
-                        if (postPicInfo.ret.equals("200")){
+                        if (postPicInfo.ret.equals(States.STATES_RESULT_OK)){
                             return true;
                         }else {
-                            ToastUtil.showShort(MyApp.getAppContext(),"上传失败");
+                            ToastUtil.showShort(MyApp.getAppContext(),MyApp.getAppContext().getResources().getString(R.string.upload_fail));
                             return false;
                         }
                     }
@@ -678,10 +723,14 @@ public class RetrofitService {
      * 完善信息
      * @return
      */
-    public static Observable<ResponseInfo> submitSuggestion(String userId, String context, List<String> imgs) {
+    public static Observable<ResponseInfo> submitSuggestion(String userId, String context,String phone, String feedType, List<String> imgs) {
         HashMap<String,String> map  =new HashMap();
         map.put("userId",userId);
         map.put("context",context);
+        if (!TextUtils.isEmpty(phone)){
+            map.put("phone",phone);
+        }
+        map.put("feedType",feedType);
         for (int i = 0; i < imgs.size(); i++) {
             map.put("img00"+(i+1),imgs.get(i));
         }
@@ -690,16 +739,7 @@ public class RetrofitService {
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(new Func1<ResponseInfo, Boolean>() {
-                    @Override
-                    public Boolean call(ResponseInfo responseInfo) {
-                        if (responseInfo.ret.equals("200")){
-                            return true;
-                        }else{
-                            return false;
-                        }
-                    }
-                });
+                .filter(_flatMap());
     }
 
     /**
@@ -707,9 +747,7 @@ public class RetrofitService {
      * @return
      */
     public static Observable<ShipAddressInfo> getAddresses(Integer id) {
-        HashMap<String,Integer> map  =new HashMap();
-        map.put("compId",id);
-        return  sServiceSecond.getAddresses(map)
+        return  sServiceSecond.getAddresses(id)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -720,10 +758,9 @@ public class RetrofitService {
      * 设置为默认发货地址
      * @return
      */
-    public static Observable<ResponseInfo> setDefaultAddress(int deliverId,int comId , String useState) {
+    public static Observable<ResponseInfo> setDefaultAddress(int deliverId,String useState) {
         HashMap<String,Object> map  =new HashMap();
-        map.put("deliverId",deliverId);
-        map.put("compId",comId);
+        map.put("receiveId",deliverId);
         map.put("useState",useState);
         return  sServiceSecond.setDefaultAddress(map)
                 .subscribeOn(Schedulers.io())
@@ -750,13 +787,14 @@ public class RetrofitService {
      * 新增发货地址
      * @return
      */
-    public static Observable<ResponseInfo> addAddress(int compId, String provinceCode, String cityCode, String areaCode, String addressDetail,String useState) {
+    public static Observable<ResponseInfo> addAddress(int userId, String provinceCode, String cityCode, String addressDetail, String receiveUser,String telphone,String useState) {
         HashMap<String,Object> map  =new HashMap();
-        map.put("compId",compId);
+        map.put("userId",userId);
         map.put("provinceCode",provinceCode);
         map.put("cityCode",cityCode);
-        map.put("areaCode",areaCode);
         map.put("addressDetail",addressDetail);
+        map.put("receiveUser",receiveUser);
+        map.put("telphone",telphone);
         map.put("useState",useState);
         return  sServiceSecond.addAddress(map)
                 .subscribeOn(Schedulers.io())
@@ -780,7 +818,7 @@ public class RetrofitService {
                 .filter(new Func1<AddressInfo, Boolean>() {
                     @Override
                     public Boolean call(AddressInfo addressInfo) {
-                        if (addressInfo.ret.equals("200")){
+                        if (addressInfo.ret.equals(States.STATES_RESULT_OK)){
                             return true;
                         }else{
                             ToastUtil.showShort(MyApp.getAppContext(),addressInfo.msg);
@@ -795,14 +833,15 @@ public class RetrofitService {
      * 编辑发货地址
      * @return
      */
-    public static Observable<ResponseInfo> editAddress(int deliverId, int compId, String provinceCode, String cityCode, String areaCode, String addressDetail, String useState) {
+    public static Observable<ResponseInfo> editAddress(int receiveId, int userId, String provinceCode, String cityCode, String addressDetail, String receiveUser, String telphone, String useState) {
         HashMap<String,Object> map  =new HashMap();
-        map.put("deliverId",deliverId);
-        map.put("compId",compId);
+        map.put("receiveId",receiveId);
+        map.put("userId",userId);
         map.put("provinceCode",provinceCode);
         map.put("cityCode",cityCode);
-        map.put("areaCode",areaCode);
         map.put("addressDetail",addressDetail);
+        map.put("receiveUser",receiveUser);
+        map.put("telphone",telphone);
         map.put("useState",useState);
         return  sServiceSecond.setDefaultAddress(map)
                 .subscribeOn(Schedulers.io())
@@ -859,7 +898,7 @@ public class RetrofitService {
                         if (intentInfo.list.size()>0){
                             return true;
                         }else{
-                            ToastUtil.showShort(MyApp.getAppContext(),"没有数据了");
+                            ToastUtil.showShort(MyApp.getAppContext(),MyApp.getAppContext().getResources().getString(R.string.no_data_toast));
                             return false;
                         }
                     }
@@ -1116,7 +1155,7 @@ public class RetrofitService {
                 .filter(new Func1<GoodsDetailInfo, Boolean>() {
                     @Override
                     public Boolean call(GoodsDetailInfo goodsDetailInfo) {
-                        if (goodsDetailInfo.ret.equals("200")){
+                        if (goodsDetailInfo.ret.equals(States.STATES_RESULT_OK)){
                             return true;
                         }else{
                             return false;
@@ -1124,6 +1163,7 @@ public class RetrofitService {
                     }
                 });
     }
+
 
     /**
      * 商品详情-详情内容+图片
@@ -1176,36 +1216,16 @@ public class RetrofitService {
      * 提交采购意向
      * @return
      */
-    public static Observable<ResponseInfo> updateInfo(int userId,String msg,String type) {
+    public static Observable<ResponseInfo> updateInfo(String headImg, String userName,String email) {
         HashMap<String,Object> map  =new HashMap();
-        map.put("userId",userId);
-        switch (type){
-            case Constant.QQ:
-                map.put("qqcode",msg);
-                break;
-            case Constant.WX:
-                map.put("wxcode",msg);
-                break;
-            case Constant.EMAIL:
-                map.put("email",msg);
-                break;
-            case Constant.USER_POSITION:
-                map.put("userPosition",msg);
-                break;
-            case Constant.HEAD:
-                map.put("userHeadImg",msg);
-                break;
-            case Constant.USER_NAME:
-                map.put("userName",msg);
-                break;
-            case Constant.LOGIN_TYPE:
-                map.put("loginType",msg);
-                break;
-            case Constant.PASSWORD:
-                map.put("password",msg);
-                break;
+        if (!TextUtils.isEmpty(headImg)){
+            map.put("headImg",headImg);
         }
-        return  sServiceSecond.updateInfo(map)
+        if (!TextUtils.isEmpty(email)){
+            map.put("email",email);
+        }
+        map.put("userName",userName);
+        return  sServiceSecond.updateInfo(map,MyApp.sUserId)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -1360,8 +1380,8 @@ public class RetrofitService {
      * 设置界面获取版本，绑定
      * @return
      */
-    public static Observable<SettingInfo> getSettingInfo(String userId) {
-        return  sServiceSecond.getSettingInfo(userId)
+    public static Observable<SettingInfo> getSettingInfo() {
+        return  sServiceSecond.getSettingInfo()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -1427,7 +1447,7 @@ public class RetrofitService {
         HashMap<String,Object> map  =new HashMap();
         map.put("email",email);
         map.put("businessName",businessName);
-        map.put("portal","iambuyer");
+        map.put("portal","IambuyerKorea");
         return  sService.sendEmail(map)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -1443,7 +1463,7 @@ public class RetrofitService {
         HashMap<String,Object> map  =new HashMap();
         map.put("email",email);
         map.put("businessName",businessName);
-        map.put("portal","iambuyer");
+        map.put("portal","IambuyerKorea");
         map.put("emailCode",emailCode);
         return  sService.checkEmail(map)
                 .subscribeOn(Schedulers.io())
@@ -1491,11 +1511,8 @@ public class RetrofitService {
      * 我的
      * @return
      */
-    public static Observable<MeInfo> getMeInfo(int userId, String loginType) {
-        HashMap<String,Object> map  =new HashMap();
-        map.put("userId",userId);
-        map.put("loginType",loginType);
-        return  sServiceSecond.getMeInfo(map)
+    public static Observable<MeInfo> getMeInfo() {
+        return  sServiceSecond.getMeInfo(MyApp.sUserId)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -1503,7 +1520,7 @@ public class RetrofitService {
                 .filter(new Func1<MeInfo, Boolean>() {
                     @Override
                     public Boolean call(MeInfo meInfo) {
-                        if (meInfo.ret.equals("200")){
+                        if (meInfo.ret.equals(States.STATES_RESULT_OK)){
                             return true;
                         }else {
                             ToastUtil.showShort(MyApp.getAppContext(),meInfo.msg);
@@ -1513,28 +1530,7 @@ public class RetrofitService {
                 });
     }
 
-    /**
-     * 采购详情
-     * @return
-     */
-    public static Observable<PurchaseDetailInfo> getPurchaseDetail(int productListId, String userId) {
-        return  sServiceSecond.getPurchaseDetail(productListId , userId)
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .filter(new Func1<PurchaseDetailInfo, Boolean>() {
-                    @Override
-                    public Boolean call(PurchaseDetailInfo purchaseDetailInfo) {
-                        if (purchaseDetailInfo.ret.equals("200")){
-                            return true;
-                        }else{
-                            ToastUtil.showShort(MyApp.getAppContext(),purchaseDetailInfo.msg);
-                            return false;
-                        }
-                    }
-                });
-    }
+
 
     /**
      * 发布采购
@@ -1687,7 +1683,7 @@ public class RetrofitService {
      */
     public static Observable<SearchInfo> getSearch(String productName, int pager) {
         HashMap<String,Object> map  =new HashMap();
-        map.put("productName",productName);
+        map.put("proName",productName);
         return  sServiceSecond.getSearch(map,pager)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -1701,7 +1697,26 @@ public class RetrofitService {
      */
     public static Observable<SearchInfo> getSearchByCode(String productName, int pager) {
         HashMap<String,Object> map  =new HashMap();
-        map.put("firstCateId",productName);
+        if (!TextUtils.isEmpty(productName)){
+            map.put("firstCateId",productName);
+        }
+        return  sServiceSecond.getSearch(map,pager)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 买手采购列表
+     * @return
+     */
+    public static Observable<SearchInfo> getBuyerSearchByCode(String productName,int userId, int pager) {
+        HashMap<String,Object> map  =new HashMap();
+        if (!TextUtils.isEmpty(productName)){
+            map.put("firstCateId",productName);
+        }
+        map.put("userId",userId);
         return  sServiceSecond.getSearch(map,pager)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -1961,6 +1976,32 @@ public class RetrofitService {
     }
 
     /**
+     * 立即沟通
+     * @return
+     */
+    public static Observable<RightNowInfo> getRightNow(int proid, int userid, int type) {
+        HashMap<String,Object> map  =new HashMap();
+        map.put("proid",proid);
+        map.put("userid",userid);
+        map.put("type",type);
+        return  sServiceSecond.getRightNow(map)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(new Func1<RightNowInfo, Boolean>() {
+                    @Override
+                    public Boolean call(RightNowInfo chatInfo) {
+                        if (chatInfo.ret.equals(States.STATES_RESULT_OK)){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }
+                });
+    }
+
+    /**
      *交换名片，微信
      */
     public static Observable<ResponseInfo> changed(int formUserId,int toUserId,String type,String state) {
@@ -2069,6 +2110,19 @@ public class RetrofitService {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+
+    /**
+     * 聊天列表
+     * @return
+     */
+    public static Observable<ChatListInfo> getChatList() {
+        return  sServiceSecond.getChatList(MyApp.sUserId)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     /**
      * 消息通知
      * @return
@@ -2093,21 +2147,533 @@ public class RetrofitService {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    /**
+     * 我的喜欢
+     * @return
+     */
+    public static Observable<LikeInfo> getLikeGoods(String userId, int pager) {
+        return  sServiceSecond.getLikeGoods(userId,pager)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 我的关注
+     * @return
+     */
+    public static Observable<AttentionKoInfo> getAttentions(String userId, int pager) {
+        return  sServiceSecond.getAttentions(userId,pager)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 取消关注
+     * @return
+     */
+    public static Observable<ResponseInfo> notFollow(int userId, int followUserId) {
+        HashMap<String,Object> map  =new HashMap();
+        map.put("userId",userId);
+        map.put("followUserId",followUserId);
+        return  sServiceSecond.notFollow(map)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(_flatMap());
+    }
+
+
+    /**
+     * 消息列表
+     * @return
+     */
+    public static Observable<MsgInfo> getMsgs(String userId,int pager) {
+        return  sServiceSecond.getMsgs(userId,pager)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 设为已读
+     * @return
+     */
+    public static Observable<ResponseInfo> setRead(String ids) {
+        return  sServiceSecond.setRead(ids)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(_flatMap());
+    }
+
+    /**
+     * 设为已读
+     * @return
+     */
+    public static Observable<ResponseInfo> deleteMsg(String ids) {
+        return  sServiceSecond.deleteMsg(ids)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(_flatMap());
+    }
+
+    /**
+     * 我的反馈列表
+     * @return
+     */
+    public static Observable<MySuggestionInfo> getSuggestions(int userId,int pager) {
+        HashMap<String,Object> map  =new HashMap();
+        map.put("userId",userId);
+        return  sServiceSecond.getSuggestions(map,pager)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
 
 
+    /**
+     * 城市经理列表
+     * @return
+     */
+    public static Observable<CityManagerInfo> getCityManagers(String userName, int pager) {
+        HashMap<String,Object> map  =new HashMap();
+        map.put("userName",userName);
+        return  sServiceSecond.getCityManagers(map,pager)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 选择城市经理
+     * @return
+     */
+    public static Observable<ResponseInfo> selectCityManager(String userId,int referUserid) {
+        HashMap<String,Object> map  =new HashMap();
+        map.put("referUserid",referUserid);
+        return  sServiceSecond.selectCityManager(map,userId)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(_flatMap());
+    }
+
+    /**
+     * 发布采购
+     * @return
+     */
+    public static Observable<PublishPurchaseInfo> publishPurchase(String prodName, String prodClass, int prodNumber, double prodPrice, double prodHighPrice, int sampleProdNumer, String unit, String intro, List<String> pics, List<PurchaseDetailInfo.StProductParasBean> paramString, int prodid) {
+        //List<String> pics,List paramString,int prodid
+        HashMap<String,Object> map  =new HashMap();
+
+        if (RetrofitService.isDebug){
+            map.put("mobile","18611874490");
+        }else {
+            map.put("mobile",MyApp.sPhone);
+        }
+        //采购产品名称
+        map.put("prodName",prodName);
+        //所属品类
+        map.put("prodClass",prodClass);
+        //采购产品数量
+        map.put("prodNumber",prodNumber);
+        //价格上限
+        map.put("prodHighPrice",prodHighPrice);
+        //价格下限
+        map.put("prodPrice",prodPrice);
+        //样品数量
+        map.put("sampleProdNumer",sampleProdNumer);
+        //单位
+        map.put("unit",unit);
+        //采购补充说明
+        map.put("intro",intro);
+
+        if (prodid!=-1){
+            //编辑时,删除多余的图片
+            while (pics.size()<3){
+                pics.add("delImg");
+            }
+        }
+        //采购补充说明
+//        if (pics.size()>0){
+//            for (int i = 0; i < pics.size(); i++) {
+//                map.put("prodImage"+(i+1),pics.get(i));
+//            }
+//        }
+        if (pics.size()>0){
+            map.put("imgs",pics.toString().replace(",","&&").replace("[","").replace("]","").replace(" ",""));
+        }
+        //采购补充说明
+        if (paramString.size()>0){
+            map.put("paramString",new Gson().toJson(paramString));
+        }
+
+        if (prodid!=-1){
+            //有这个就是更新
+            map.put("prodid",prodid);
+        }
+        Logger.e(map.toString());
+        return  sServiceSecond.publishPurchase(map)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 我的采购列表
+     * @return
+     */
+    public static Observable<MyPurchaseInfo> getMyPurchases(String dateType,String stateType,int pager) {
+        HashMap<String,Object> map  =new HashMap();
+        if (isDebug){
+            MyApp.sPhone = "18611874490";
+        }
+        if (!TextUtils.isEmpty(dateType)){
+            if (!dateType.equals("-1")){
+                map.put("dateType",dateType);
+            }
+        }
+        if (!TextUtils.isEmpty(stateType)){
+            if (!stateType.equals("-1")){
+                map.put("stateType",stateType);
+            }
+        }
+        map.put("mobile",MyApp.sPhone);
+        return  sServiceSecond.getMyPurchases(map,pager)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
 
 
+    /**
+     * 采购详情
+     * @return
+     */
+    public static Observable<PurchaseDetailInfo> getPurchaseDetail(int prodId) {
+        HashMap<String,Object> map  =new HashMap();
+        if (isDebug){
+            MyApp.sPhone = "18611874490";
+        }
+        map.put("mobile",MyApp.sPhone);
+        if (isDebug){
+            prodId = 743;
+        }
+        map.put("prodId",prodId);
+        return  sServiceSecond.getPurchaseDetail(map)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 删除采购
+     * @return
+     */
+    public static Observable<ResponseInfo> deletePurchase(int productId) {
+        return  sServiceSecond.deletePurchase(productId)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(_flatMap());
+    }
 
 
+    /**
+     * 报价详情
+     * @return
+     */
+    public static Observable<QuoteInfo> getQuote(String offerId) {
+        return  sServiceSecond.getQuote(offerId)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 对报价感兴趣
+     * @return
+     */
+    public static Observable<ResponseInfo> setIntent(String offerId) {
+        return  sServiceSecond.setIntent(offerId)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(_flatMap());
+    }
+
+    /**
+     * 报价详情
+     * @return
+     */
+    public static Observable<ResponseInfo> loginPC(String userId,String token) {
+        HashMap<String,Object> map  =new HashMap();
+        map.put("userId",userId);
+        map.put("sysType","iambuyerKorea");
+        map.put("token",token);
+        return  sService.loginPC(map)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(_flatMap());
+    }
+
+    /**
+     * 订单列表
+     * @return
+     */
+    public static Observable<OrderInfo> getOrders(String orderState,int pager) {
+        if (TextUtils.isEmpty(orderState)){
+            return  sServiceSecond.getOrders(MyApp.sUserId,pager)
+                    .subscribeOn(Schedulers.io())
+                    .unsubscribeOn(Schedulers.io())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread());
+        }else {
+            return  sServiceSecond.getOrders(MyApp.sUserId,pager,orderState)
+                    .subscribeOn(Schedulers.io())
+                    .unsubscribeOn(Schedulers.io())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread());
+        }
+    }
 
 
+    /**
+     * 订单详情
+     * @return
+     */
+    public static Observable<OrderDetailInfo> getOrderDetail(String orderNo) {
+        HashMap<String,Object> map  =new HashMap();
+        map.put("orderNo",orderNo);
+        return  sServiceSecond.getOrderDetail(map)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
 
+    /**
+     * 确认进货
+     * @return
+     */
+    public static Observable<ResponseInfo> submitStock(int proId, int goodsId, int orderCount, BigDecimal orderUnitpri, BigDecimal orderPrice, int orderSimcount, BigDecimal orderSimunitpri, BigDecimal orderSimprice, String orderContent, BigDecimal moneyMap) {
+        HashMap<String,Object> map  =new HashMap();
+        map.put("proId",proId);
+        map.put("userId",MyApp.sUserId);
+        map.put("goodsId",goodsId);
+        map.put("orderCount",orderCount);
+        map.put("orderUnitpri",orderUnitpri);
+        map.put("orderPrice",orderPrice);
+        map.put("orderSimcount",orderSimcount);
+        map.put("orderSimunitpri",orderSimunitpri);
+        map.put("orderSimprice",orderSimprice);
+        map.put("orderContent",orderContent);
+        HashMap<String ,BigDecimal> money = new HashMap<>();
+        money.put("money",moneyMap);
+        map.put("stProductOrderAccount",money);
+        return  sServiceSecond.submitStock(map)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(_flatMap());
+    }
+
+    /**
+     * 关注产品
+     * @return
+     */
+    public static Observable<ResponseInfo> attentionGood(int productUserId, int productId) {
+        HashMap<String,Object> map  =new HashMap();
+        map.put("userId",MyApp.sUserId);
+        map.put("productUserId",productUserId);
+        map.put("productId",productId);
+        return  sServiceSecond.attentionGood(map)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
 
+    /**
+     * 取消关注产品
+     * @return
+     */
+    public static Observable<ResponseInfo> noAttentionGood(int productId) {
+        HashMap<String,Object> map  =new HashMap();
+        map.put("userId",MyApp.sUserId);
+        map.put("productId",productId);
+        return  sServiceSecond.noAttentionGood(map)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(_flatMap());
+    }
 
+
+    /**
+     * 确认收货
+     * @return
+     */
+    public static Observable<ResponseInfo> sureOrder(String offerId) {
+        return  sServiceSecond.sureOrder(offerId)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(_flatMap());
+    }
+
+    /**
+     * 取消订单
+     * @return
+     */
+    public static Observable<ResponseInfo> cancelOrder(String offerId) {
+        return  sServiceSecond.cancelOrder(offerId)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(_flatMap());
+    }
+
+    /**
+     * 沟通过的商品
+     * @return
+     */
+    public static Observable<ChatGoodInfo> getChatGood(int pager) {
+        return  sServiceSecond.getChatGood(MyApp.sUserId,pager)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    /**
+     * 关注买手
+     * @return
+     */
+    public static Observable<ResponseInfo> attentionBuyer(int followUserId) {
+        HashMap<String,Object> map  =new HashMap();
+        map.put("userId",new Integer(MyApp.sUserId));
+        map.put("followUserId",followUserId);
+        return  sServiceSecond.attentionBuyer(map)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(_flatMap());
+    }
+
+
+    /**
+     * 取消关注买手
+     * @return
+     */
+    public static Observable<ResponseInfo> noAttentionBuyer(int followUserId) {
+        HashMap<String,Object> map  =new HashMap();
+        map.put("userId",new Integer(MyApp.sUserId));
+        map.put("followUserId",followUserId);
+        return  sServiceSecond.noAttentionBuyer(map)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(_flatMap());
+    }
+
+
+    /**
+     * 买手信息
+     * @param id
+     * @return
+     */
+    public static Observable<InitInfo> getBuyerInfo(String id,String thisUserId) {
+        return sServiceSecond.getInitStates(id,thisUserId)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(new Func1<InitInfo, Boolean>() {
+                    @Override
+                    public Boolean call(InitInfo initInfo) {
+                        if (initInfo.ret.equals(States.STATES_RESULT_OK)){
+                            return true;
+                        }else{
+                            ToastUtil.showShort(MyApp.getAppContext(),initInfo.msg);
+                            return false;
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 发现
+     * @return
+     */
+    public static Observable<FindInfo> findGood(String productName,int pager) {
+        HashMap<String,Object> map  =new HashMap();
+        if (!TextUtils.isEmpty(productName)){
+            map.put("firstCateId",productName);
+        }
+        return  sServiceSecond.findGood(map,pager)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 买手信息
+     * @return
+     */
+    public static Observable<ChatMsgInfo> getChatMsg(String userId) {
+        return sServiceThird.getChatMsg(userId)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 买手信息
+     * @return
+     */
+    public static Observable<ResponseInfo> deleteSuggestions(String ids) {
+        String id = ids.replace(" ","");
+        return sServiceSecond.deleteSuggestions(id)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(_flatMap());
+    }
 
 
 }

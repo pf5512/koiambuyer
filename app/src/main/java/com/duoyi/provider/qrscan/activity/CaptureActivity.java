@@ -31,6 +31,13 @@ import com.duoyi.provider.qrscan.view.ViewfinderView;
 import com.duoyi.qrdecode.BarcodeFormat;
 import com.duoyi.qrdecode.DecodeEntry;
 import com.hc360.koiambuyer.R;
+import com.hc360.koiambuyer.api.MyObserver;
+import com.hc360.koiambuyer.api.RetrofitService;
+import com.hc360.koiambuyer.api.bean.ResponseInfo;
+import com.hc360.koiambuyer.myinterface.DialogClickListener;
+import com.hc360.koiambuyer.utils.DialogHelper;
+import com.hc360.koiambuyer.utils.ToastUtil;
+import com.hc360.koiambuyer.view.MyApp;
 
 import java.io.IOException;
 
@@ -174,18 +181,36 @@ public class CaptureActivity extends Activity implements Callback {
     public void handleDecode(String result) {
         // inactivityTimer.onActivity();
 //		playBeepSoundAndVibrate();
-        Toast.makeText(CaptureActivity.this, "" + result,
-                Toast.LENGTH_SHORT).show();
-        String resultString = result;
+//        Toast.makeText(CaptureActivity.this, "" + result,
+//                Toast.LENGTH_SHORT).show();
+        final String resultString = result;
         if (resultString.equals("")) {
             Toast.makeText(CaptureActivity.this, "Scan failed!",
                     Toast.LENGTH_SHORT).show();
         } else {
-            Intent resultIntent = new Intent(CaptureActivity.this, ResultActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("result", resultString);
-            resultIntent.putExtras(bundle);
-            this.startActivity(resultIntent);
+//            Intent resultIntent = new Intent(CaptureActivity.this, ResultActivity.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putString("result", resultString);
+//            resultIntent.putExtras(bundle);
+//            this.startActivity(resultIntent);
+            DialogHelper.showCustomNoTitleDialog(this, getResources().getString(R.string.sure_login), null, null, new DialogClickListener() {
+                @Override
+                public void positiveClick() {
+                    RetrofitService.loginPC(MyApp.sUserId,resultString)
+                            .subscribe(new MyObserver<ResponseInfo>() {
+                                @Override
+                                public void onNext(ResponseInfo responseInfo) {
+                                    ToastUtil.showShort(CaptureActivity.this,getResources().getString(R.string.please_login));
+                                    finish();
+                                }
+                            });
+                }
+
+                @Override
+                public void negativeClick() {
+
+                }
+            });
         }
     }
 

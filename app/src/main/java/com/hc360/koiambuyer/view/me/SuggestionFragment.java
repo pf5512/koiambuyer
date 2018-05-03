@@ -1,12 +1,9 @@
 package com.hc360.koiambuyer.view.me;
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,9 +20,11 @@ import android.widget.Toast;
 
 import com.hc360.koiambuyer.R;
 import com.hc360.koiambuyer.adapter.LLAdapter;
+import com.hc360.koiambuyer.adapter.SuggestionTagAdapter;
 import com.hc360.koiambuyer.adapter.ViewPagerAdapter;
 import com.hc360.koiambuyer.api.bean.PostPicInfo;
 import com.hc360.koiambuyer.engine.CustomToast;
+import com.hc360.koiambuyer.engine.PhoneTextWatcher;
 import com.hc360.koiambuyer.model.Constant;
 import com.hc360.koiambuyer.myinterface.DialogPositiveClickListener;
 import com.hc360.koiambuyer.myinterface.PhotoDialogClickListener;
@@ -35,17 +34,23 @@ import com.hc360.koiambuyer.myinterface.iview.ISuggestionView;
 import com.hc360.koiambuyer.presenter.SuggestionPresenter;
 import com.hc360.koiambuyer.utils.DialogHelper;
 import com.hc360.koiambuyer.utils.EtHelper;
-import com.hc360.koiambuyer.utils.PhotoUtils;
 import com.hc360.koiambuyer.utils.PicNumUtils;
 import com.hc360.koiambuyer.utils.PopUtils;
 import com.hc360.koiambuyer.utils.ToastUtil;
+import com.hc360.koiambuyer.view.ContainerActivity;
 import com.hc360.koiambuyer.view.ContainerFooterActivity;
 import com.hc360.koiambuyer.view.MyApp;
 import com.hc360.koiambuyer.view.base.BaseFragment;
 import com.hc360.koiambuyer.widget.PhotoDialog;
 import com.hc360.koiambuyer.widget.SingleTextView;
 import com.hc360.koiambuyer.widget.photoview.EasePhotoView;
+import com.hc360.koiambuyer.widget.photoview.PhotoViewAttacher;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
 import com.orhanobut.logger.Logger;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -86,8 +91,14 @@ public class SuggestionFragment extends BaseFragment<ISuggestionPresenter> imple
     SingleTextView mStv;
     @BindView(R.id.iv_add_pic)
     ImageView mIvAddPic;
-    @BindView(R.id.fl)
-    FrameLayout mFl;
+    @BindView(R.id.tfl)
+    TagFlowLayout mTfl;
+    @BindView(R.id.et_phone)
+    EditText mEtPhone;
+    @BindView(R.id.fl_add)
+    FrameLayout mFlAdd;
+    @BindView(R.id.tv_msg)
+    TextView mTvMsg;
     private List<Bitmap> pics;
     private LLAdapter llAdapter;
     private PhotoDialog mDialog;
@@ -100,7 +111,9 @@ public class SuggestionFragment extends BaseFragment<ISuggestionPresenter> imple
     private boolean isPopShow = false;
     private PopupWindow mPopupWindow;
     private CustomToast mCustomToast;
-
+    private List<String> mTypeList;
+    private SuggestionTagAdapter mTagAdapter;
+    public int mSelectPosition = -1;
 
     @Override
     protected int attachLayoutRes() {
@@ -110,6 +123,21 @@ public class SuggestionFragment extends BaseFragment<ISuggestionPresenter> imple
     @Override
     protected void initInjector() {
         mPresenter = new SuggestionPresenter(this);
+        mTypeList = new ArrayList<>();
+        mTypeList.add(getString(R.string.suggestion_1));
+        mTypeList.add(getString(R.string.suggestion_2));
+        mTypeList.add(getString(R.string.suggestion_3));
+        mTagAdapter = new SuggestionTagAdapter(mTypeList, this);
+        mTfl.setAdapter(mTagAdapter);
+
+        mTfl.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                mSelectPosition = position;
+                mTagAdapter.notifyDataChanged();
+                return true;
+            }
+        });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRv.setLayoutManager(linearLayoutManager);
@@ -119,6 +147,7 @@ public class SuggestionFragment extends BaseFragment<ISuggestionPresenter> imple
         mImgs = new ArrayList<>();
         mHttpImgs = new ArrayList<>();
         mCustomToast = new CustomToast(mContext);
+        mEtPhone.addTextChangedListener(new PhoneTextWatcher(mEtPhone));
     }
 
     @Override
@@ -134,24 +163,25 @@ public class SuggestionFragment extends BaseFragment<ISuggestionPresenter> imple
 
     }
 
-    @OnClick({R.id.iv_add_pic, R.id.stv})
+    @OnClick({R.id.fl_add, R.id.stv})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_add_pic:
-                mDialog.show();
-                break;
             case R.id.stv:
                 //提交
                 String trim = mEt.getText().toString().trim();
-                if (TextUtils.isEmpty(trim)) {
+                if (mSelectPosition == -1) {
+                    ToastUtil.showShort(mContext, getStr(R.string.have_no_suggestion_type));
+                } else if (TextUtils.isEmpty(trim)) {
                     ToastUtil.showShort(mContext, getStr(R.string.have_no_suggestion));
-                    return;
+                } else {
+                    mPresenter.submit(MyApp.sUserId, trim, mEtPhone.getText().toString().trim(), mSelectPosition + "", mImgs);
                 }
-                mPresenter.submit(MyApp.sUserId, trim, mImgs);
+                break;
+            case R.id.fl_add:
+                mDialog.show();
                 break;
         }
     }
-
 
 
     @Override
@@ -165,7 +195,7 @@ public class SuggestionFragment extends BaseFragment<ISuggestionPresenter> imple
             ToastUtil.showShort(mContext, getStr(R.string.sorry_only_add) + PIC_MAX_NUM + getStr(R.string.pic_num));
             return;
         }
-        mPresenter.postPic(file, changePosition,bitmap);
+        mPresenter.postPic(file, changePosition, bitmap);
         if (mCustomToast != null) {
             mCustomToast.alwaysShow(getStr(R.string.updating));
         }
@@ -194,13 +224,13 @@ public class SuggestionFragment extends BaseFragment<ISuggestionPresenter> imple
                         R.layout.pop_viewpager_item_ease, null);
                 EasePhotoView pv = (EasePhotoView) item.findViewById(R.id.pv);
                 pv.setImageBitmap(bitmap);
-                pv.setOnPhotoTapListener(new com.hc360.koiambuyer.widget.photoview.PhotoViewAttacher.OnPhotoTapListener() {
+                pv.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
                     @Override
                     public void onPhotoTap(View view, float x, float y) {
                         mPopupWindow.dismiss();
                     }
                 });
-                pv.setOnViewTapListener(new com.hc360.koiambuyer.widget.photoview.PhotoViewAttacher.OnViewTapListener() {
+                pv.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
                     @Override
                     public void onViewTap(View view, float x, float y) {
                         mPopupWindow.dismiss();
@@ -218,6 +248,17 @@ public class SuggestionFragment extends BaseFragment<ISuggestionPresenter> imple
         llAdapter.notifyDataSetChanged();
         PicNumUtils.setPicNum(mTvRv, llAdapter.getData().size(), PIC_MAX_NUM);
         changePosition = -1;
+        onPicChange();
+    }
+
+    private void onPicChange() {
+        if (llAdapter.getData().size() >= PIC_MAX_NUM) {
+            mFlAdd.setVisibility(View.GONE);
+            mTvMsg.setTextColor(getResources().getColor(R.color.buyerColor));
+        } else {
+            mFlAdd.setVisibility(View.VISIBLE);
+            mTvMsg.setTextColor(getResources().getColor(R.color.HintColor));
+        }
     }
 
     @Override
@@ -225,6 +266,9 @@ public class SuggestionFragment extends BaseFragment<ISuggestionPresenter> imple
         DialogHelper.showCustomNoCancelDialog(mContext, null, getStr(R.string.suggestion_have_submit), null, new DialogPositiveClickListener() {
             @Override
             public void positiveClick() {
+                Intent openMySuggestion = new Intent(mContext, ContainerActivity.class);
+                openMySuggestion.putExtra(Constant.TYPE, Constant.MY_SUGGESTION);
+                getActivity().startActivity(openMySuggestion);
                 getActivity().finish();
             }
         });
@@ -235,13 +279,14 @@ public class SuggestionFragment extends BaseFragment<ISuggestionPresenter> imple
         mImgs.remove(position);
         mHttpImgs.remove(position);
         PicNumUtils.setPicNum(mTvRv, mImgs.size(), PIC_MAX_NUM);
+        onPicChange();
     }
 
     @Override
     public void showPics(int position) {
         isPopShow = true;
         ContainerFooterActivity activity = (ContainerFooterActivity) getActivity();
-        if (llAdapter.getData().size() == mHttpImgs.size()){
+        if (llAdapter.getData().size() == mHttpImgs.size()) {
             List<Object> list = PopUtils.showMultiNoTitlePicsEase(mContext, activity.mHead, mHttpImgs, position, new PicPopListener() {
                 @Override
                 public void deletePic(int currPosition) {
@@ -259,16 +304,14 @@ public class SuggestionFragment extends BaseFragment<ISuggestionPresenter> imple
                 @Override
                 public void onPopDismiss() {
                     isPopShow = false;
-                    mFl.setBackgroundColor(getResources().getColor(R.color.BgColor));
                 }
             });
             mPopViewPager = (ViewPager) list.get(0);
             mPopupWindow = (PopupWindow) list.get(1);
-            mFl.setBackgroundColor(Color.parseColor("#000000"));
 
-        }else{
-            ToastUtil.showShort(mContext,getStr(R.string.pic_updating));
-            Logger.e(llAdapter.getData().size()+"==="+mHttpImgs.size());
+        } else {
+            ToastUtil.showShort(mContext, getStr(R.string.pic_updating));
+            Logger.e(llAdapter.getData().size() + "===" + mHttpImgs.size());
         }
     }
 
@@ -294,7 +337,17 @@ public class SuggestionFragment extends BaseFragment<ISuggestionPresenter> imple
     public void openPhoto() {
         if (EasyPermissions.hasPermissions(mContext, perms)) {
             ContainerFooterActivity activity = (ContainerFooterActivity) getActivity();
-            PhotoUtils.openPic(activity, Constant.OPEN_PHOTO);
+//            PhotoUtils.openPic(activity, Constant.OPEN_PHOTO);
+            PictureSelector.create(activity)
+                    .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                    .imageSpanCount(4)// 每行显示个数 int
+                    .selectionMode(PictureConfig.SINGLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
+                    .isCamera(true)// 是否显示拍照按钮 true or false
+                    .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
+                    .sizeMultiplier(0.5f)// glide 加载图片大小 0~1之间 如设置 .glideOverride()无效
+                    .enableCrop(false)// 是否裁剪 true or false
+                    .compress(true)// 是否压缩 true or false
+                    .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
             mDialog.dismiss();
         } else {
             EasyPermissions.requestPermissions(this, getStr(R.string.camera_permission),
@@ -305,11 +358,15 @@ public class SuggestionFragment extends BaseFragment<ISuggestionPresenter> imple
     private void canOpenCamera() {
         if (hasSdcard()) {
             ContainerFooterActivity activity = (ContainerFooterActivity) getActivity();
-            activity.imageUri = Uri.fromFile(activity.fileUri);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                //通过FileProvider创建一个content类型的Uri
-                activity.imageUri = FileProvider.getUriForFile(mContext, "com.hc360.iambuyer.fileprovider", activity.fileUri);
-            PhotoUtils.takePicture(activity, activity.imageUri, Constant.OPEN_CAMERA);
+//            activity.imageUri = Uri.fromFile(activity.fileUri);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+//                //通过FileProvider创建一个content类型的Uri
+//                activity.imageUri = FileProvider.getUriForFile(mContext, "com.hc360.koiambuyer.fileprovider", activity.fileUri);
+//            PhotoUtils.takePicture(activity, activity.imageUri, Constant.OPEN_CAMERA);
+            PictureSelector.create(activity)
+                    .openCamera(PictureMimeType.ofImage())
+                    .compress(true)
+                    .forResult(PictureConfig.CHOOSE_REQUEST);
         } else {
             Toast.makeText(mContext, getStr(R.string.have_no_sd), Toast.LENGTH_SHORT).show();
         }
